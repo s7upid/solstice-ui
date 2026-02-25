@@ -7,6 +7,12 @@ export default tseslint.config(
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
+    files: ["scripts/**/*.mjs", "scripts/**/*.js"],
+    languageOptions: {
+      globals: { process: "readonly" },
+    },
+  },
+  {
     files: ["src/**/*.{ts,tsx}", "test/**/*.{ts,tsx}", "e2e/**/*.{ts,tsx}", "*.config.ts"],
     plugins: { "react-hooks": reactHooks },
     rules: {
