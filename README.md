@@ -1,6 +1,6 @@
 # Solstice UI
 
-[![CI](https://github.com/your-username/solstice-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/your-username/solstice-ui/actions/workflows/ci.yml) [![Unit tests](https://img.shields.io/badge/unit%20tests-17%25-red?style=flat-square&logo=vitest)](https://github.com/your-username/solstice-ui/actions) [![E2E](https://img.shields.io/badge/e2e-Playwright-blue?style=flat-square&logo=playwright)](https://github.com/your-username/solstice-ui/actions) [![npm](https://img.shields.io/npm/v/solstice-ui.svg)](https://www.npmjs.com/package/solstice-ui) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![CI](https://github.com/your-username/solstice-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/your-username/solstice-ui/actions/workflows/ci.yml) [![Unit tests](https://img.shields.io/badge/unit%20tests-98%25-brightgreen?style=flat-square&logo=vitest)](https://github.com/your-username/solstice-ui/actions) [![E2E](https://img.shields.io/badge/e2e-Playwright-blue?style=flat-square&logo=playwright)](https://github.com/your-username/solstice-ui/actions) [![npm](https://img.shields.io/npm/v/solstice-ui.svg)](https://www.npmjs.com/package/solstice-ui) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Solstice UI** — React component library for **dark and light mode**, built with TypeScript, Tailwind CSS, and CSS Modules. Accessible, themable, and ready for any app or design system.
 
@@ -69,10 +69,10 @@ Tailwind CSS v4 (or v3 with `darkMode: 'class'`) is required for dark mode styli
 | Category     | Components                                                                 |
 |-------------|-----------------------------------------------------------------------------|
 | **Core**    | Button, Input, Card, Badge, Dropdown, Form, Alert, Progress, Checkbox     |
-| **Layout**  | PageHeader, List, TabNavigation, ImageCard, StackedImageCardDeck           |
+| **Layout**  | PageHeader, List, TabNavigation, StackedCardsDeck                          |
 | **Feedback**| LoadingSpinner, EmptyState, Toast, ErrorBoundary, ConfirmationDialog        |
 | **Overlays**| ModalPortal, Dialog, ConfirmationDialog                                   |
-| **Actions** | DangerZone, Pagination, SearchInput, ToggleButton                          |
+| **Actions** | DangerZone, Pagination, SearchInput, Toggle                               |
 | **Forms**   | Input, Checkbox, DateTimePicker, Form                                      |
 | **Theme**   | ThemeToggle, ThemeProvider, useThemeContext                                |
 

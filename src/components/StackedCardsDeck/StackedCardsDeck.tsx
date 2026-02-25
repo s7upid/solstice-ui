@@ -48,9 +48,13 @@ const StackedCardsDeck: React.FC<StackedCardsDeckProps> = ({
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           if (!el.isConnected) return;
+          if (items.length <= 1) {
+            setBottomPadding(0);
+            return;
+          }
           const { paddingTop, paddingBottom } = getComputedStyle(el);
           const containerPaddingY =
-            parseFloat(paddingTop) + parseFloat(paddingBottom);
+            (parseFloat(paddingTop) || 0) + (parseFloat(paddingBottom) || 0);
           const viewportHeight = el.clientHeight;
           const scrollToLast = (items.length - 1) * (cardHeight + spacing);
           const desiredScrollHeight = viewportHeight + scrollToLast;
@@ -64,10 +68,13 @@ const StackedCardsDeck: React.FC<StackedCardsDeckProps> = ({
             0
           );
           const desiredStackHeight = desiredScrollHeight - containerPaddingY;
-          let padding = Math.max(
-            0,
+          const rawPadding = Number.isFinite(
             desiredStackHeight - measuredContentHeight
-          );
+          )
+            ? desiredStackHeight - measuredContentHeight
+            : 0;
+          const maxPadding = Math.max(containerPaddingY, 80);
+          const padding = Math.max(0, Math.min(rawPadding, maxPadding));
           setBottomPadding(padding);
 
           // After React applies padding, trim if scroll height still exceeds desired
@@ -90,7 +97,18 @@ const StackedCardsDeck: React.FC<StackedCardsDeckProps> = ({
     return () => ro.disconnect();
   }, [items.length, cardHeight, spacing]);
 
-  if (!items.length) return null;
+  if (!items.length) {
+    return (
+      <div className={cn(styles.wrapper, className)}>
+        <div
+          ref={scrollRef}
+          className={styles.scrollContainer}
+          style={{ height: 0 }}
+          aria-hidden
+        />
+      </div>
+    );
+  }
 
   return (
     <div className={cn(styles.wrapper, className)}>

@@ -36,7 +36,7 @@ export type {
   ToggleSwitchModeProps,
 } from "./components/Toggle/Toggle";
 export { default as StackedCardsDeck } from "./components/StackedCardsDeck/StackedCardsDeck";
-export type { StackedCardItem, StackedCardsDeckProps } from "./components/StackedCardsDeck/StackedCardsDeck";
+export type { QueueCardItem, StackedCardsDeckProps } from "./components/StackedCardsDeck/StackedCardsDeck";
 export { default as DateTimePicker } from "./components/DateTimePicker/DateTimePicker";
 export type { DateTimePickerProps, DateTimePickerMode } from "./components/DateTimePicker/DateTimePicker";
 export { default as Checkbox } from "./components/Checkbox/Checkbox";

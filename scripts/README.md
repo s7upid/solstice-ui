@@ -6,6 +6,8 @@ Convenience scripts to run common tasks from the repo root (e.g. when double-cli
 |--------|-----------|-------------|
 | `start-storybook.bat` | Windows | Starts Storybook at http://localhost:6006. Run from repo root or double-click; edits to components or `.stories` files hot-reload. |
 | `start-storybook.command` | macOS | Same as above. Double-click in Finder or run `./scripts/start-storybook.command` (make executable with `chmod +x scripts/start-storybook.command` if needed). |
+| `clean.bat` | Windows | Removes build artifacts (coverage, dist, storybook-static, playwright-report, test-results, coverage-report.json) and **node_modules**. Run from repo root or double-click. |
+| `clean.command` | macOS | Same as above. Run `./scripts/clean.command` (make executable with `chmod +x scripts/clean.command` if needed). |
 | `generate-tests-report.bat` | Windows | Runs unit test coverage, extracts results, and updates README badges. Same as: `npm run test:coverage` then `node test-coverage/extract-results.js` then `node test-coverage/update-readme-badges.js`. |
 | `generate-tests-report.command` | macOS | Same as above. Double-click in Finder or run `./scripts/generate-tests-report.command` (make executable with `chmod +x scripts/generate-tests-report.command` if needed). |
 

@@ -11,9 +11,14 @@ const meta: Meta<typeof StackedCardsDeck> = {
     docs: {
       description: {
         component:
-          "Scroll-driven animated queue of cards inspired by modern motion UIs. Cards shrink, move, fade and rotate as you scroll.",
+          "Scroll-driven animated queue of cards inspired by modern motion UIs. Cards shrink, move, fade and rotate as you scroll. Props: **items**, **containerHeight** (vh), **cardHeight**, **spacing**, **className**.",
       },
     },
+  },
+  argTypes: {
+    containerHeight: { control: { type: "number", min: 40, max: 100 } },
+    cardHeight: { control: { type: "number", min: 200, max: 400 } },
+    spacing: { control: { type: "number", min: 60, max: 200 } },
   },
   decorators: [
     (Story) => (
@@ -78,20 +83,10 @@ export const Default: Story = {
   },
 };
 
-export const SubtleMotion: Story = {
-  args: {
-    items: sampleItems,
-    scaleStep: 0.03,
-    fadeStep: 0.08,
-    rotateStep: 1,
-    gap: 140,
-  },
-};
-
 export const CompactSpacing: Story = {
   args: {
     items: sampleItems,
-    gap: 90,
+    spacing: 90,
     cardHeight: 260,
   },
 };

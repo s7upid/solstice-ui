@@ -30,11 +30,14 @@ describe("List", () => {
   });
 
   it("uses index as key when keyExtractor not provided and item has no id", () => {
-    const items = [{ name: "a" }, { name: "b" }];
+    const items: { id?: number | string; name: string }[] = [
+      { name: "a" },
+      { name: "b" },
+    ];
     render(
       <List
         items={items}
-        renderItem={(item: { name: string }) => <span>{item.name}</span>}
+        renderItem={(item) => <span>{item.name}</span>}
       />
     );
     expect(screen.getByText("a")).toBeInTheDocument();
