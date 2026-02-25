@@ -34,7 +34,8 @@ function updateBadges() {
     `[![CI](https://github.com/${REPO_SLUG}/actions/workflows/ci.yml/badge.svg)](https://github.com/${REPO_SLUG}/actions/workflows/ci.yml)`,
     `[![Unit tests](https://img.shields.io/badge/unit%20tests-${report.unit?.coverage ?? "?"}%25-${report.unit?.badgeColor ?? "lightgrey"}?style=flat-square&logo=vitest)](https://github.com/${REPO_SLUG}/actions)`,
     `[![E2E](https://img.shields.io/badge/e2e-Playwright-blue?style=flat-square&logo=playwright)](https://github.com/${REPO_SLUG}/actions)`,
-    `[![npm](https://img.shields.io/npm/v/solstice-ui.svg)](https://www.npmjs.com/package/solstice-ui)`,
+    // Use static badge until package is published; then use: [![npm](https://img.shields.io/npm/v/solstice-ui.svg)](https://www.npmjs.com/package/solstice-ui)
+    `[![npm](https://img.shields.io/badge/npm-unpublished-lightgrey?style=flat-square)](https://www.npmjs.com/package/solstice-ui)`,
     `[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)`,
   ];
 
