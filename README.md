@@ -1,6 +1,6 @@
 # Solstice UI
 
-[![CI](https://github.com/your-username/solstice-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/your-username/solstice-ui/actions/workflows/ci.yml) [![Unit tests](https://img.shields.io/badge/unit%20tests-98%25-brightgreen?style=flat-square&logo=vitest)](https://github.com/your-username/solstice-ui/actions) [![E2E](https://img.shields.io/badge/e2e-Playwright-blue?style=flat-square&logo=playwright)](https://github.com/your-username/solstice-ui/actions) [![npm](https://img.shields.io/badge/npm-unpublished-lightgrey?style=flat-square)](https://www.npmjs.com/package/solstice-ui) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![CI](https://github.com/s7upid/solstice-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/s7upid/solstice-ui/actions/workflows/ci.yml) [![Unit tests](https://img.shields.io/badge/unit%20tests-98%25-brightgreen?style=flat-square&logo=vitest)](https://github.com/s7upid/solstice-ui/actions) [![E2E](https://img.shields.io/badge/e2e-Playwright-blue?style=flat-square&logo=playwright)](https://github.com/s7upid/solstice-ui/actions) [![npm](https://img.shields.io/badge/npm-unpublished-lightgrey?style=flat-square)](https://www.npmjs.com/package/solstice-ui) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Solstice UI** — React component library for **dark and light mode**, built with TypeScript, Tailwind CSS, and CSS Modules. Accessible, themable, and ready for any app or design system.
 
@@ -83,6 +83,8 @@ All components support dark mode when the root element has the `.dark` class. Br
 ## Documentation
 
 - **Storybook:** Run `npm run storybook` (or `scripts/start-storybook.bat` on Windows, `scripts/start-storybook.command` on macOS). Open http://localhost:6006 — edits to components or `.stories` files hot-reload. Storybook is also built and deployed to **GitHub Pages** on pushes to `main` (see `.github/workflows/docs.yml`). You can run `npm run build-storybook` locally to output a static build to `storybook-static/` if you want to host it elsewhere. See [Contributing](#contributing).
+
+  **GitHub Pages setup:** In the repo **Settings → Pages**, set **Source** to **GitHub Actions** (not "Deploy from a branch"). This repo uses the workflow in `.github/workflows/docs.yml` to build and deploy Storybook. Using "Deploy from a branch" with `/docs` will trigger GitHub’s Jekyll build and fail, since this project does not use Jekyll.
 
 ---
 
