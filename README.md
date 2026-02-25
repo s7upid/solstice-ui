@@ -1,8 +1,10 @@
 # Solstice UI
 
-[![CI](https://github.com/s7upid/solstice-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/s7upid/solstice-ui/actions/workflows/ci.yml) [![Unit tests](https://img.shields.io/badge/unit%20tests-98%25-brightgreen?style=flat-square&logo=vitest)](https://github.com/s7upid/solstice-ui/actions) [![E2E](https://img.shields.io/badge/e2e-100%25-brightgreen?style=flat-square&logo=playwright)](https://github.com/s7upid/solstice-ui/actions) [![npm](https://img.shields.io/badge/npm-unpublished-lightgrey?style=flat-square)](https://www.npmjs.com/package/solstice-ui) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Docs](https://img.shields.io/badge/docs-Storybook-ff4785?style=flat-square&logo=storybook)](https://s7upid.github.io/solstice-ui/) [![CI](https://github.com/s7upid/solstice-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/s7upid/solstice-ui/actions/workflows/ci.yml) [![Unit tests](https://img.shields.io/badge/unit%20tests-98%25-brightgreen?style=flat-square&logo=vitest)](https://github.com/s7upid/solstice-ui/actions) [![E2E](https://img.shields.io/badge/e2e-100%25-brightgreen?style=flat-square&logo=playwright)](https://github.com/s7upid/solstice-ui/actions) [![npm](https://img.shields.io/badge/npm-unpublished-lightgrey?style=flat-square)](https://www.npmjs.com/package/solstice-ui) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Solstice UI** — React component library for **dark and light mode**, built with TypeScript, Tailwind CSS, and CSS Modules. Accessible, themable, and ready for any app or design system.
+
+**📖 [Live documentation (Storybook)](https://s7upid.github.io/solstice-ui/)** — browse components and examples online.
 
 ---
 
@@ -76,13 +78,14 @@ Tailwind CSS v4 (or v3 with `darkMode: 'class'`) is required for dark mode styli
 | **Forms**   | Input, Checkbox, DateTimePicker, Form                                      |
 | **Theme**   | ThemeToggle, ThemeProvider, useThemeContext                                |
 
-All components support dark mode when the root element has the `.dark` class. Browse **Storybook** (see [Documentation](#documentation)) for live examples and props.
+All components support dark mode when the root element has the `.dark` class. Browse **[Storybook](https://s7upid.github.io/solstice-ui/)** for live examples and props.
 
 ---
 
 ## Documentation
 
-- **Storybook:** Run `npm run storybook` (or `scripts/start-storybook.bat` on Windows, `scripts/start-storybook.command` on macOS). Open http://localhost:6006 — edits to components or `.stories` files hot-reload. Storybook is also built and deployed to **GitHub Pages** on pushes to `main` (see `.github/workflows/docs.yml`). You can run `npm run build-storybook` locally to output a static build to `storybook-static/` if you want to host it elsewhere. See [Contributing](#contributing).
+- **Live Storybook:** [https://s7upid.github.io/solstice-ui/](https://s7upid.github.io/solstice-ui/) — component docs and examples (published via GitHub Pages).
+- **Local Storybook:** Run `npm run storybook` (or `scripts/start-storybook.bat` on Windows, `scripts/start-storybook.command` on macOS). Open http://localhost:6006 — edits to components or `.stories` files hot-reload. Storybook is also built and deployed to **GitHub Pages** on pushes to `main` (see `.github/workflows/docs.yml`). You can run `npm run build-storybook` locally to output a static build to `storybook-static/` if you want to host it elsewhere. See [Contributing](#contributing).
 
   **GitHub Pages setup:** To publish Storybook to GitHub Pages, configure the repo to use GitHub Actions as the source:
 

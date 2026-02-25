@@ -9,7 +9,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
   timeout: 60000,
-  workers: 1,
+  workers: process.env.CI ? 1 : 2,
   reporter:
     process.env.E2E_JSON_REPORT === "1"
       ? [
