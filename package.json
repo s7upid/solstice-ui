@@ -25,6 +25,7 @@
     "test:coverage": "vitest run --coverage",
     "test:ci": "vitest run --coverage",
     "test:e2e": "playwright test",
+    "test:e2e:all": "node scripts/run-e2e-all-browsers.mjs",
     "test:e2e:ui": "playwright test --ui",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -96,11 +97,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/solstice-ui.git"
+    "url": "https://github.com/s7upid/solstice-ui.git"
   },
-  "homepage": "https://github.com/your-username/solstice-ui#readme",
+  "homepage": "https://github.com/s7upid/solstice-ui#readme",
   "bugs": {
-    "url": "https://github.com/your-username/solstice-ui/issues"
+    "url": "https://github.com/s7upid/solstice-ui/issues"
   },
   "engines": {
     "node": ">=18"

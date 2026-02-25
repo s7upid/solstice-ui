@@ -28,5 +28,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CI (lint, typecheck, test, build, e2e) and release workflows for GitHub Actions.
 - GitHub Pages deployment for Storybook docs.
 
-[Unreleased]: https://github.com/your-username/solstice-ui/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/your-username/solstice-ui/releases/tag/v1.0.0
+[Unreleased]: https://github.com/s7upid/solstice-ui/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/s7upid/solstice-ui/releases/tag/v1.0.0

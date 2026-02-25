@@ -1,20 +1,15 @@
-import { test, expect } from "@playwright/test";
+import { test } from "@playwright/test";
+import { gotoStory, expect } from "./helpers";
 
-test.describe("Button stories", () => {
-  test("Primary button is visible and clickable", async ({ page }) => {
-    await page.goto("/?path=/story/components-button--primary");
-    const story = page.locator("#storybook-root");
-    await expect(story).toBeVisible();
-    const button = story.getByRole("button", { name: /primary button/i }).first();
-    await expect(button).toBeVisible();
-    await button.click();
+// Button: smoke + state only (clickability covered by unit tests)
+test.describe("Button", () => {
+  test("Primary story renders and button is visible", async ({ page }) => {
+    const root = await gotoStory(page, "components-button--primary");
+    await expect(root.getByRole("button", { name: /primary button/i }).first()).toBeVisible();
   });
 
-  test("Button with loading state is disabled", async ({ page }) => {
-    await page.goto("/?path=/story/components-button--loading");
-    const story = page.locator("#storybook-root");
-    await expect(story).toBeVisible();
-    const button = story.getByRole("button").first();
-    await expect(button).toBeDisabled();
+  test("Loading story shows disabled button", async ({ page }) => {
+    const root = await gotoStory(page, "components-button--loading");
+    await expect(root.getByRole("button").first()).toBeDisabled();
   });
 });

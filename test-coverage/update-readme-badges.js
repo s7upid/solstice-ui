@@ -14,8 +14,8 @@ const ROOT = path.join(__dirname, "..");
 const REPORT_PATH = path.join(ROOT, "coverage-report.json");
 const README_PATH = path.join(ROOT, "README.md");
 
-// Repo slug for shields (replace with your GitHub org/repo)
-const REPO_SLUG = "your-username/solstice-ui";
+// Repo slug for badges (change if you fork the repo)
+const REPO_SLUG = "s7upid/solstice-ui";
 
 function updateBadges() {
   console.log("📝 Updating README badges...\n");
@@ -30,10 +30,15 @@ function updateBadges() {
   let content = fs.readFileSync(README_PATH, "utf8");
   content = content.replace(/\r\n/g, "\n").replace(/^\uFEFF/, "");
 
+  const unitBadge = `[![Unit tests](https://img.shields.io/badge/unit%20tests-${report.unit?.coverage ?? "?"}%25-${report.unit?.badgeColor ?? "lightgrey"}?style=flat-square&logo=vitest)](https://github.com/${REPO_SLUG}/actions)`;
+  const e2eBadge = report.e2e
+    ? `[![E2E](https://img.shields.io/badge/e2e-${report.e2e.coverage}%25-${report.e2e.badgeColor}?style=flat-square&logo=playwright)](https://github.com/${REPO_SLUG}/actions)`
+    : `[![E2E](https://img.shields.io/badge/e2e-Playwright-blue?style=flat-square&logo=playwright)](https://github.com/${REPO_SLUG}/actions)`;
+
   const badges = [
     `[![CI](https://github.com/${REPO_SLUG}/actions/workflows/ci.yml/badge.svg)](https://github.com/${REPO_SLUG}/actions/workflows/ci.yml)`,
-    `[![Unit tests](https://img.shields.io/badge/unit%20tests-${report.unit?.coverage ?? "?"}%25-${report.unit?.badgeColor ?? "lightgrey"}?style=flat-square&logo=vitest)](https://github.com/${REPO_SLUG}/actions)`,
-    `[![E2E](https://img.shields.io/badge/e2e-Playwright-blue?style=flat-square&logo=playwright)](https://github.com/${REPO_SLUG}/actions)`,
+    unitBadge,
+    e2eBadge,
     // Use static badge until package is published; then use: [![npm](https://img.shields.io/npm/v/solstice-ui.svg)](https://www.npmjs.com/package/solstice-ui)
     `[![npm](https://img.shields.io/badge/npm-unpublished-lightgrey?style=flat-square)](https://www.npmjs.com/package/solstice-ui)`,
     `[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)`,

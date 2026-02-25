@@ -7,7 +7,7 @@ Thank you for considering contributing to Solstice UI.
 1. **Fork and clone the repo**
 
    ```bash
-   git clone https://github.com/your-username/solstice-ui.git
+   git clone https://github.com/s7upid/solstice-ui.git
    cd solstice-ui
    ```
 

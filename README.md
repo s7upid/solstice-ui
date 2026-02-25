@@ -1,6 +1,6 @@
 # Solstice UI
 
-[![CI](https://github.com/s7upid/solstice-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/s7upid/solstice-ui/actions/workflows/ci.yml) [![Unit tests](https://img.shields.io/badge/unit%20tests-98%25-brightgreen?style=flat-square&logo=vitest)](https://github.com/s7upid/solstice-ui/actions) [![E2E](https://img.shields.io/badge/e2e-Playwright-blue?style=flat-square&logo=playwright)](https://github.com/s7upid/solstice-ui/actions) [![npm](https://img.shields.io/badge/npm-unpublished-lightgrey?style=flat-square)](https://www.npmjs.com/package/solstice-ui) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![CI](https://github.com/s7upid/solstice-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/s7upid/solstice-ui/actions/workflows/ci.yml) [![Unit tests](https://img.shields.io/badge/unit%20tests-98%25-brightgreen?style=flat-square&logo=vitest)](https://github.com/s7upid/solstice-ui/actions) [![E2E](https://img.shields.io/badge/e2e-100%25-brightgreen?style=flat-square&logo=playwright)](https://github.com/s7upid/solstice-ui/actions) [![npm](https://img.shields.io/badge/npm-unpublished-lightgrey?style=flat-square)](https://www.npmjs.com/package/solstice-ui) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Solstice UI** — React component library for **dark and light mode**, built with TypeScript, Tailwind CSS, and CSS Modules. Accessible, themable, and ready for any app or design system.
 
@@ -84,13 +84,13 @@ All components support dark mode when the root element has the `.dark` class. Br
 
 - **Storybook:** Run `npm run storybook` (or `scripts/start-storybook.bat` on Windows, `scripts/start-storybook.command` on macOS). Open http://localhost:6006 — edits to components or `.stories` files hot-reload. Storybook is also built and deployed to **GitHub Pages** on pushes to `main` (see `.github/workflows/docs.yml`). You can run `npm run build-storybook` locally to output a static build to `storybook-static/` if you want to host it elsewhere. See [Contributing](#contributing).
 
-  **GitHub Pages setup:** In the repo **Settings → Pages**, set **Source** to **GitHub Actions** (not "Deploy from a branch"). This repo uses the workflow in `.github/workflows/docs.yml` to build and deploy Storybook. Using "Deploy from a branch" with `/docs` will trigger GitHub’s Jekyll build and fail — so switch Source to **GitHub Actions** to fix the pipeline:
+  **GitHub Pages setup:** To publish Storybook to GitHub Pages, configure the repo to use GitHub Actions as the source:
 
-  1. **Settings** → **Pages**
-  2. Under **Build and deployment**, open the **Source** dropdown (currently "Deploy from a branch").
-  3. Select **GitHub Actions**, then **Save**.
+  1. Open the repo on GitHub → **Settings** → **Pages**.
+  2. Under **Build and deployment**, set **Source** to **GitHub Actions**.
+  3. Click **Save**.
 
-  Only the **Deploy Docs (Storybook)** workflow will then deploy; the Jekyll build will no longer run.
+  The workflow in `.github/workflows/docs.yml` will build and deploy Storybook on pushes to `main`. The **Deploy Docs (Storybook)** workflow runs when you use this source.
 
 ---
 
@@ -104,7 +104,8 @@ All components support dark mode when the root element has the `.dark` class. Br
 | `npm run test:watch`    | Unit tests in watch mode      |
 | `npm run test:coverage` | Unit tests with coverage      |
 | `npm run test:ci`       | Unit tests + coverage (CI)    |
-| `npm run test:e2e`      | E2E tests (Playwright)        |
+| `npm run test:e2e`      | E2E tests (Chromium only, fast) |
+| `npm run test:e2e:all`  | E2E tests (all browsers)       |
 | `npm run lint`          | ESLint                         |
 | `npm run typecheck`     | TypeScript check               |
 | `npm run storybook`     | Start Storybook                |
