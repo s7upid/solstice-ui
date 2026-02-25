@@ -1,4 +1,4 @@
-import React, { useState, useCallback, createContext, useContext, memo } from "react";
+import React, { useState, useCallback, useMemo, createContext, useContext, memo } from "react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "../../utils/cn";
 import styles from "./Accordion.module.css";
@@ -51,9 +51,10 @@ const Accordion: React.FC<AccordionProps> = ({
     () => new Set(defaultExpanded)
   );
   const isControlled = controlledExpanded !== undefined;
-  const expandedSet = isControlled
-    ? new Set(controlledExpanded)
-    : internalExpanded;
+  const expandedSet = useMemo(
+    () => (isControlled ? new Set(controlledExpanded ?? []) : internalExpanded),
+    [isControlled, controlledExpanded, internalExpanded]
+  );
   const idsRef = React.useRef<string[]>([]);
 
   const register = useCallback((id: string) => {

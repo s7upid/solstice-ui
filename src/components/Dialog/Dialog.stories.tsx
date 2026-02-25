@@ -69,18 +69,20 @@ export const Sizes: Story = {
   ),
 };
 
+function WithoutTitleDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Open (no title)</Button>
+      <Dialog isOpen={open} onClose={() => setOpen(false)}>
+        <p>Content only, with close button in header.</p>
+      </Dialog>
+    </>
+  );
+}
+
 export const WithoutTitle: Story = {
-  render: () => {
-    const [open, setOpen] = useState(false);
-    return (
-      <>
-        <Button onClick={() => setOpen(true)}>Open (no title)</Button>
-        <Dialog isOpen={open} onClose={() => setOpen(false)}>
-          <p>Content only, with close button in header.</p>
-        </Dialog>
-      </>
-    );
-  },
+  render: () => <WithoutTitleDemo />,
 };
 
 export const LongContent: Story = {

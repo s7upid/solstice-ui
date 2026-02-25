@@ -1,5 +1,5 @@
 import React, { useRef, memo, useState, useEffect } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
 import { LucideIcon } from "lucide-react";
 import { cn } from "../../utils/cn";
 import Card from "../Card/Card";
@@ -14,6 +14,76 @@ export interface QueueCardItem {
   actionIcon?: LucideIcon;
   onAction?: () => void;
 }
+
+interface StackedCardProps {
+  item: QueueCardItem;
+  index: number;
+  itemsLength: number;
+  scrollYProgress: MotionValue<number>;
+  cardHeight: number;
+  spacing: number;
+}
+
+const StackedCard: React.FC<StackedCardProps> = ({
+  item,
+  index,
+  itemsLength,
+  scrollYProgress,
+  cardHeight,
+  spacing,
+}) => {
+  const start = index / itemsLength;
+  const end = (index + 1) / itemsLength;
+
+  const scale = useTransform(
+    scrollYProgress,
+    [start - 0.1, start, end],
+    [0.98, 1, 0.96]
+  );
+  const opacity = useTransform(scrollYProgress, [start, end], [1, 0.85]);
+  const rotate = useTransform(
+    scrollYProgress,
+    [start, end],
+    [0, -1.5 - index * 0.3]
+  );
+  const y = useTransform(scrollYProgress, [start, end], [0, -12]);
+  const shadow = useTransform(
+    scrollYProgress,
+    [start - 0.1, start, end],
+    [
+      "0 8px 20px rgba(0,0,0,0.12)",
+      "0 20px 40px rgba(0,0,0,0.18)",
+      "0 8px 20px rgba(0,0,0,0.12)",
+    ]
+  );
+
+  return (
+    <motion.div
+      className={styles.cardWrapper}
+      style={{
+        height: cardHeight,
+        marginBottom: spacing,
+        scale,
+        opacity,
+        rotate,
+        y,
+        boxShadow: shadow,
+        zIndex: index + 1,
+      }}
+    >
+      <Card
+        title={item.title}
+        description={item.description}
+        imageSrc={item.imageSrc}
+        imageAlt={item.imageAlt ?? ""}
+        actionLabel={item.actionLabel}
+        actionIcon={item.actionIcon}
+        onAction={item.onAction}
+        className={styles.card}
+      />
+    </motion.div>
+  );
+};
 
 export interface StackedCardsDeckProps {
   items: QueueCardItem[];
@@ -122,77 +192,17 @@ const StackedCardsDeck: React.FC<StackedCardsDeckProps> = ({
           className={styles.stack}
           style={{ paddingBottom: bottomPadding }}
         >
-          {items.map((item, index) => {
-  const start = index / items.length;
-  const end = (index + 1) / items.length;
-
-  // Active card slightly scales up
-  const scale = useTransform(
-    scrollYProgress,
-    [start - 0.1, start, end],
-    [0.98, 1, 0.96]
-  );
-
-  // Fade depth
-  const opacity = useTransform(
-    scrollYProgress,
-    [start, end],
-    [1, 0.85]
-  );
-
-  // Progressive rotation (deeper cards rotate more)
-  const rotate = useTransform(
-    scrollYProgress,
-    [start, end],
-    [0, -1.5 - index * 0.3]
-  );
-
-  // Slight lift for previous cards
-  const y = useTransform(
-    scrollYProgress,
-    [start, end],
-    [0, -12]
-  );
-
-  // Subtle shadow intensity
-  const shadow = useTransform(
-    scrollYProgress,
-    [start - 0.1, start, end],
-    [
-      "0 8px 20px rgba(0,0,0,0.12)",
-      "0 20px 40px rgba(0,0,0,0.18)",
-      "0 8px 20px rgba(0,0,0,0.12)",
-    ]
-  );
-
-  return (
-    <motion.div
-      key={index}
-      className={styles.cardWrapper}
-      style={{
-        height: cardHeight,
-        marginBottom: spacing,
-        scale,
-        opacity,
-        rotate,
-        y,
-        boxShadow: shadow,
-        zIndex: index + 1,
-      }}
-    >
-      <Card
-        title={item.title}
-        description={item.description}
-        imageSrc={item.imageSrc}
-        imageAlt={item.imageAlt ?? ""}
-        actionLabel={item.actionLabel}
-        actionIcon={item.actionIcon}
-        onAction={item.onAction}
-        className={styles.card}
-      />
-    </motion.div>
-  );
-})}
+          {items.map((item, index) => (
+            <StackedCard
+              key={index}
+              item={item}
+              index={index}
+              itemsLength={items.length}
+              scrollYProgress={scrollYProgress}
+              cardHeight={cardHeight}
+              spacing={spacing}
+            />
+          ))}
         </div>
       </div>
     </div>

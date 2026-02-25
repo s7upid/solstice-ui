@@ -82,56 +82,62 @@ export const Default: Story = {
   render: () => <TabNavigationWrapper />,
 };
 
+function PillsDemo() {
+  const [active, setActive] = useState("home");
+  return (
+    <TabNavigation
+      tabs={tabs}
+      activeTab={active}
+      onTabChange={setActive}
+      variant="pills"
+      contentByTabId={contentByTabId}
+    />
+  );
+}
+
 export const Pills: Story = {
-  render: () => {
-    const [active, setActive] = useState("home");
-    return (
-      <TabNavigation
-        tabs={tabs}
-        activeTab={active}
-        onTabChange={setActive}
-        variant="pills"
-        contentByTabId={contentByTabId}
-      />
-    );
-  },
+  render: () => <PillsDemo />,
 };
+
+function UnderlineDemo() {
+  const [active, setActive] = useState("home");
+  return (
+    <TabNavigation
+      tabs={tabs}
+      activeTab={active}
+      onTabChange={setActive}
+      variant="underline"
+      contentByTabId={contentByTabId}
+    />
+  );
+}
 
 export const Underline: Story = {
-  render: () => {
-    const [active, setActive] = useState("home");
-    return (
-      <TabNavigation
-        tabs={tabs}
-        activeTab={active}
-        onTabChange={setActive}
-        variant="underline"
-        contentByTabId={contentByTabId}
-      />
-    );
-  },
+  render: () => <UnderlineDemo />,
 };
 
+function WithBadgeDemo() {
+  const [active, setActive] = useState("home");
+  const tabsWithBadge = [...tabs, { id: "alerts", label: "Alerts", badge: "3" }];
+  const contentWithAlerts = {
+    ...contentByTabId,
+    alerts: (
+      <div>
+        <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">Alerts</h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400">You have 3 unread alerts.</p>
+      </div>
+    ),
+  };
+  return (
+    <TabNavigation
+      tabs={tabsWithBadge}
+      activeTab={active}
+      onTabChange={setActive}
+      contentByTabId={contentWithAlerts}
+    />
+  );
+}
+
 export const WithBadge: Story = {
-  render: () => {
-    const [active, setActive] = useState("home");
-    const tabsWithBadge = [...tabs, { id: "alerts", label: "Alerts", badge: "3" }];
-    const contentWithAlerts = {
-      ...contentByTabId,
-      alerts: (
-        <div>
-          <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">Alerts</h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400">You have 3 unread alerts.</p>
-        </div>
-      ),
-    };
-    return (
-      <TabNavigation
-        tabs={tabsWithBadge}
-        activeTab={active}
-        onTabChange={setActive}
-        contentByTabId={contentWithAlerts}
-      />
-    );
-  },
+  render: () => <WithBadgeDemo />,
 };
