@@ -1,0 +1,26 @@
+@reference "tailwindcss";
+
+.zone {
+  @apply w-full bg-red-50 border border-red-200 rounded-lg p-4;
+}
+:global(.dark) .zone {
+  @apply bg-red-900/20 border-red-800;
+}
+
+.content {
+  @apply flex items-center justify-between flex-wrap gap-4;
+}
+
+.title {
+  @apply text-sm font-medium text-red-800;
+}
+:global(.dark) .title {
+  @apply text-red-200;
+}
+
+.text {
+  @apply text-sm text-red-600;
+}
+:global(.dark) .text {
+  @apply text-red-300;
+}

@@ -1,0 +1,153 @@
+@reference "tailwindcss";
+
+/* ----- Button variant ----- */
+.buttonBase {
+  @apply w-full inline-flex items-center justify-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white disabled:opacity-50 disabled:cursor-not-allowed;
+}
+:global(.dark) .buttonBase {
+  @apply focus:ring-offset-gray-900;
+}
+
+.sizeSm {
+  @apply px-3 py-1.5 text-sm gap-1.5;
+}
+.sizeMd {
+  @apply px-4 py-2 text-sm gap-2;
+}
+.sizeLg {
+  @apply px-6 py-3 text-base gap-2;
+}
+
+.primary {
+  @apply bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-gray-500;
+}
+.primary.pressed {
+  @apply bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500;
+}
+
+.secondary {
+  @apply bg-gray-100 text-gray-700 hover:bg-gray-200 focus:ring-gray-500;
+}
+.secondary.pressed {
+  @apply bg-gray-700 text-white hover:bg-gray-600 focus:ring-gray-500;
+}
+
+.outline {
+  @apply border-2 border-gray-300 bg-transparent text-gray-700 hover:bg-gray-100 focus:ring-gray-500;
+}
+.outline.pressed {
+  @apply border-blue-600 bg-blue-50 text-blue-700 hover:bg-blue-100 focus:ring-blue-500;
+}
+
+.ghost {
+  @apply bg-transparent text-gray-600 hover:bg-gray-100 focus:ring-gray-500;
+}
+.ghost.pressed {
+  @apply bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-500;
+}
+
+.iconLeft {
+  @apply shrink-0;
+}
+.iconRight {
+  @apply shrink-0;
+}
+.iconSm {
+  @apply w-4 h-4;
+}
+.iconMd {
+  @apply w-5 h-5;
+}
+.iconLg {
+  @apply w-6 h-6;
+}
+.buttonLabel {
+  @apply truncate;
+}
+
+:global(.dark) .primary {
+  @apply bg-gray-600 text-gray-200 hover:bg-gray-500;
+}
+:global(.dark) .primary.pressed {
+  @apply bg-blue-600 text-white hover:bg-blue-700;
+}
+:global(.dark) .secondary {
+  @apply bg-gray-700 text-gray-200 hover:bg-gray-600;
+}
+:global(.dark) .secondary.pressed {
+  @apply bg-gray-600 text-white hover:bg-gray-500;
+}
+:global(.dark) .outline {
+  @apply border-gray-600 text-gray-300 hover:bg-gray-700;
+}
+:global(.dark) .outline.pressed {
+  @apply border-blue-500 bg-blue-900/30 text-blue-300;
+}
+:global(.dark) .ghost {
+  @apply text-gray-400 hover:bg-gray-700;
+}
+:global(.dark) .ghost.pressed {
+  @apply bg-gray-600 text-white;
+}
+
+/* ----- Switch variant ----- */
+.switchWrapper {
+  @apply w-full inline-flex flex-col gap-2;
+}
+
+.track {
+  @apply relative w-12 h-6 rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-white cursor-pointer;
+}
+:global(.dark) .track {
+  @apply focus:ring-offset-gray-900;
+}
+.trackOff {
+  @apply bg-gray-200;
+}
+:global(.dark) .trackOff {
+  @apply bg-gray-600;
+}
+.trackIndeterminate {
+  @apply bg-amber-500/80;
+}
+:global(.dark) .trackIndeterminate {
+  @apply bg-amber-500/70;
+}
+.trackOn {
+  @apply bg-blue-600;
+}
+:global(.dark) .trackOn {
+  @apply bg-blue-500;
+}
+.trackDisabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+.thumb {
+  @apply absolute top-1 w-4 h-4 rounded-full bg-white shadow transition-all duration-200;
+}
+.thumbOff {
+  @apply left-1;
+}
+.thumbIndeterminate {
+  @apply left-1/2 -translate-x-1/2;
+}
+.thumbOn {
+  @apply left-7;
+}
+
+.switchLabels {
+  @apply flex justify-between text-xs text-gray-500 gap-2;
+}
+:global(.dark) .switchLabels {
+  @apply text-gray-400;
+}
+.switchLabel {
+  @apply transition-colors;
+}
+.switchLabelActive {
+  @apply text-gray-900 font-medium;
+}
+:global(.dark) .switchLabelActive {
+  @apply text-white;
+}

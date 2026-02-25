@@ -1,0 +1,51 @@
+@reference "tailwindcss";
+
+.base {
+  @apply w-full inline-flex items-center px-2.5 py-0.5 text-xs font-medium;
+}
+
+.pill {
+  @apply rounded-full;
+}
+
+.default {
+  @apply bg-gray-100 text-gray-800;
+}
+:global(.dark) .default {
+  @apply bg-gray-700 text-gray-300;
+}
+
+.success {
+  @apply bg-green-100 text-green-800;
+}
+:global(.dark) .success {
+  @apply bg-green-900/20 text-green-400;
+}
+
+.warning {
+  @apply bg-yellow-100 text-yellow-800;
+}
+:global(.dark) .warning {
+  @apply bg-yellow-900/20 text-yellow-400;
+}
+
+.error {
+  @apply bg-red-100 text-red-800;
+}
+:global(.dark) .error {
+  @apply bg-red-900/20 text-red-400;
+}
+
+.info {
+  @apply bg-blue-100 text-blue-800;
+}
+:global(.dark) .info {
+  @apply bg-blue-900/20 text-blue-400;
+}
+
+.neutral {
+  @apply bg-gray-200 text-gray-700;
+}
+:global(.dark) .neutral {
+  @apply bg-gray-600 text-gray-300;
+}

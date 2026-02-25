@@ -1,0 +1,44 @@
+.wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.scrollContainer {
+  width: 100%;
+  overflow-y: auto;
+  padding: 40px 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 🚫 NO FLEX HERE */
+.stack {
+  position: relative;
+  width: 100%;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+/* 🔥 Sticky MUST NOT be inside flex */
+.cardWrapper {
+  position: sticky;
+  top: 0;
+
+  width: 100%;
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+
+  border-radius: 20px;
+  transform-origin: top center;
+
+  box-shadow:
+    0 10px 30px -10px rgba(0, 0, 0, 0.15),
+    0 8px 20px -8px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  border-radius: inherit;
+}

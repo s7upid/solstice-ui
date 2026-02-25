@@ -1,0 +1,68 @@
+@reference "tailwindcss";
+
+.wrapper {
+  @apply w-full flex items-center gap-3;
+  min-width: 0;
+}
+
+.track {
+  @apply flex-1 rounded-full bg-gray-200 overflow-hidden;
+  min-height: 6px;
+  min-width: 60px;
+}
+:global(.dark) .track {
+  @apply bg-gray-700;
+}
+
+.bar {
+  @apply h-full rounded-full transition-all duration-300 ease-out flex-shrink-0;
+  min-height: inherit;
+}
+
+.default {
+  @apply bg-blue-600;
+}
+:global(.dark) .default {
+  @apply bg-blue-500;
+}
+
+.success {
+  @apply bg-green-600;
+}
+:global(.dark) .success {
+  @apply bg-green-500;
+}
+
+.warning {
+  @apply bg-yellow-500;
+}
+:global(.dark) .warning {
+  @apply bg-yellow-400;
+}
+
+.error {
+  @apply bg-red-600;
+}
+:global(.dark) .error {
+  @apply bg-red-500;
+}
+
+.sizeSm {
+  height: 6px;
+  min-height: 6px;
+}
+.sizeMd {
+  height: 10px;
+  min-height: 10px;
+}
+.sizeLg {
+  height: 16px;
+  min-height: 16px;
+}
+
+.label {
+  @apply text-sm font-medium text-gray-700 min-w-[2.5rem] text-right;
+}
+:global(.dark) .label {
+  @apply text-gray-300;
+}

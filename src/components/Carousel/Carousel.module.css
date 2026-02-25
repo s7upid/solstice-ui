@@ -1,0 +1,54 @@
+@reference "tailwindcss";
+
+.carousel {
+  @apply relative w-full overflow-hidden;
+  min-height: 0;
+  height: 100%;
+}
+
+.viewport {
+  @apply relative w-full overflow-hidden;
+  height: 100%;
+  min-height: 0;
+}
+
+.slide {
+  @apply absolute inset-0 w-full opacity-0 pointer-events-none transition-opacity duration-300;
+  min-height: 0;
+}
+.slideActive {
+  @apply relative opacity-100 pointer-events-auto;
+  min-height: 0;
+}
+
+.arrow {
+  @apply absolute top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/90 border border-gray-200 shadow-md flex items-center justify-center text-gray-700 hover:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-white disabled:opacity-50;
+}
+:global(.dark) .arrow {
+  @apply bg-gray-800/90 border-gray-600 text-gray-200 hover:bg-gray-800 focus:ring-offset-gray-900;
+}
+.arrowLeft {
+  @apply left-2;
+}
+.arrowRight {
+  @apply right-2;
+}
+.arrowIcon {
+  @apply w-5 h-5;
+}
+
+.dots {
+  @apply flex justify-center gap-2 mt-4;
+}
+.dot {
+  @apply w-2.5 h-2.5 rounded-full border-2 border-gray-400 bg-transparent hover:border-gray-500 hover:bg-gray-400/30 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-white;
+}
+:global(.dark) .dot {
+  @apply border-gray-500 hover:border-gray-400 focus:ring-offset-gray-900;
+}
+.dotActive {
+  @apply border-blue-500 bg-blue-500;
+}
+:global(.dark) .dotActive {
+  @apply border-blue-400 bg-blue-400;
+}

@@ -1,0 +1,5 @@
+@reference "tailwindcss";
+
+.spacing {
+  @apply w-full space-y-8;
+}

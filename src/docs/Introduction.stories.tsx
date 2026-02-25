@@ -1,0 +1,103 @@
+import type { Meta, StoryObj } from "@storybook/react";
+
+const ComponentOverview = () => (
+  <div style={{ maxWidth: 720, lineHeight: 1.6 }}>
+    <h1>Solstice UI</h1>
+    <p>
+      React component library for <strong>dark and light mode</strong>, built
+      with TypeScript, Tailwind CSS, and CSS Modules. Accessible, themable, and
+      tree-shakeable.
+    </p>
+
+    <h2>Component overview</h2>
+    <p>Use the <strong>Components</strong> section in the sidebar to explore each component and its variants.</p>
+
+    <h3>Core</h3>
+    <ul>
+      <li><strong>Button</strong> — Primary, secondary, danger, ghost, success, outline; sizes and icons</li>
+      <li><strong>Input</strong> — Text field with label, error, optional icon</li>
+      <li><strong>Card</strong> — Content card with header, details, stats, actions</li>
+      <li><strong>Badge</strong> — Status and label badges</li>
+      <li><strong>Dropdown</strong> — Select-style dropdown</li>
+      <li><strong>Form</strong> — Form layout and validation</li>
+      <li><strong>Alert</strong> — Inline alerts (info, success, warning, error)</li>
+      <li><strong>Progress</strong> — Progress bar with optional label</li>
+      <li><strong>Checkbox</strong> — Three-state (unchecked, checked, indeterminate)</li>
+      <li><strong>Toggle</strong> — Button-style (pressed/unpressed) or switch-style (off / indeterminate / on)</li>
+      <li><strong>Carousel</strong> — Slideshow with arrows, dots, optional auto-play</li>
+    </ul>
+
+    <h3>Layout</h3>
+    <ul>
+      <li><strong>PageHeader</strong> — Page title and actions</li>
+      <li><strong>List</strong> — Structured list</li>
+      <li><strong>TabNavigation</strong> — Tabs</li>
+      <li><strong>Card</strong> — Content card; use <code>imageSrc</code> for image layout with action</li>
+      <li><strong>StackedCardsDeck</strong> — Vertical scroll deck of cards (one visible, scroll to next)</li>
+    </ul>
+
+    <h3>Feedback</h3>
+    <ul>
+      <li><strong>LoadingSpinner</strong>, <strong>EmptyState</strong>, <strong>Toast</strong>, <strong>ErrorBoundary</strong>, <strong>ConfirmationDialog</strong></li>
+    </ul>
+
+    <h3>Overlays</h3>
+    <ul>
+      <li><strong>ModalPortal</strong> — Portal for modals</li>
+      <li><strong>Dialog</strong> — Generic modal (title, content, footer)</li>
+      <li><strong>ConfirmationDialog</strong> — Confirm/cancel dialogs</li>
+    </ul>
+
+    <h3>Actions</h3>
+    <ul>
+      <li><strong>DangerZone</strong>, <strong>Pagination</strong>, <strong>SearchInput</strong>, <strong>Toggle</strong></li>
+    </ul>
+
+    <h3>Forms</h3>
+    <ul>
+      <li><strong>Input</strong>, <strong>Checkbox</strong>, <strong>DateTimePicker</strong>, <strong>Form</strong></li>
+    </ul>
+
+    <h3>Theme</h3>
+    <ul>
+      <li><strong>ThemeToggle</strong>, <strong>ThemeProvider</strong>, <strong>useThemeContext</strong></li>
+    </ul>
+
+    <h2>Quick start</h2>
+    <pre className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg overflow-auto text-sm text-gray-800 dark:text-gray-200">
+{`npm install solstice-ui react react-dom lucide-react`}
+    </pre>
+    <pre className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg overflow-auto text-sm text-gray-800 dark:text-gray-200">
+{`import "solstice-ui/styles";
+import { ThemeProvider, Button, Input } from "solstice-ui";
+
+<ThemeProvider defaultTheme="light" storageKey="app-theme">
+  <Button variant="primary">Save</Button>
+  <Input label="Email" placeholder="you@example.com" />
+</ThemeProvider>`}
+    </pre>
+    <p>Use Tailwind <code>darkMode: 'class'</code> and toggle the <code>.dark</code> class on the root when in dark mode.</p>
+  </div>
+);
+
+const meta: Meta<typeof ComponentOverview> = {
+  title: "Documentation/Introduction",
+  component: ComponentOverview,
+  parameters: {
+    layout: "centered",
+    docs: {
+      description: {
+        component:
+          "Solstice UI — React component library for dark and light mode. Browse the Components section for each component and its stories.",
+      },
+    },
+  },
+};
+
+export default meta;
+
+type Story = StoryObj<typeof ComponentOverview>;
+
+export const Overview: Story = {
+  render: () => <ComponentOverview />,
+};

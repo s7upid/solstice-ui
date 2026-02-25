@@ -1,0 +1,107 @@
+@reference "tailwindcss";
+
+/* Container: fixed height so open/close doesn't change size (height set via inline style); fixed width, no grow */
+.accordion {
+  @apply flex flex-col w-full min-w-0 max-w-full rounded-lg border border-gray-200 overflow-hidden;
+  background-color: #f8f6f1;
+}
+
+:global(.dark) .accordion {
+  @apply border-gray-600;
+  background-color: rgb(38 38 38);
+}
+
+/* Each item: bordered section; don't grow width. When fixed height, expanded item fills space */
+.item {
+  @apply flex flex-col min-w-0 border-b border-gray-200 last:border-b-0 flex-shrink-0;
+}
+
+.accordion[data-fixed-height="true"] .item[data-expanded="true"] {
+  flex: 1;
+  min-height: 0;
+}
+
+:global(.dark) .item {
+  @apply border-gray-600;
+}
+
+.heading {
+  @apply m-0;
+}
+
+/* Trigger: generous padding, clear typography */
+.trigger {
+  @apply w-full flex items-center justify-between gap-3 text-left font-medium
+         bg-transparent border-0 cursor-pointer
+         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset
+         rounded-none;
+  padding: 14px 16px;
+  color: #1c1917;
+  font-size: 1rem;
+}
+
+:global(.dark) .trigger {
+  @apply focus:ring-blue-400;
+  color: #fafaf9;
+}
+
+.trigger:hover:not(:disabled) {
+  @apply bg-black/5;
+}
+
+:global(.dark) .trigger:hover:not(:disabled) {
+  @apply bg-white/10;
+}
+
+.trigger:disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+.triggerText {
+  @apply flex-1 min-w-0 break-words;
+}
+
+/* Arrow down icon on the right; rotates to up when expanded */
+.icon {
+  @apply w-5 h-5 flex-shrink-0 transition-transform duration-200;
+  color: #44403c;
+}
+
+.iconExpanded {
+  transform: rotate(180deg);
+}
+
+:global(.dark) .icon {
+  color: #d6d3d1;
+}
+
+/* Panel and content: when fixed height, open panel fills space and scrolls; otherwise natural height */
+.panel {
+  @apply overflow-hidden transition-[height] duration-200 ease-out;
+  border-top: 1px solid rgb(231 229 223);
+}
+
+.accordion[data-fixed-height="true"] .item[data-expanded="true"] .panel {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+:global(.dark) .panel {
+  border-top-color: rgb(64 64 64);
+}
+
+.panelOpen {
+  /* open state for animation */
+}
+
+.panelInner {
+  @apply text-sm leading-relaxed min-w-0 break-words;
+  padding: 0 16px 16px 16px;
+  padding-top: 4px;
+  color: #57534e;
+}
+
+:global(.dark) .panelInner {
+  color: #a8a29e;
+}

@@ -1,0 +1,112 @@
+{
+  "name": "solstice-ui",
+  "version": "1.0.0",
+  "description": "React UI component library with dark/light mode — accessible, themable, and ready for any app",
+  "type": "module",
+  "main": "./dist/solstice-ui.umd.cjs",
+  "module": "./dist/solstice-ui.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/solstice-ui.js",
+      "require": "./dist/solstice-ui.umd.cjs"
+    },
+    "./styles": "./dist/style.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:ci": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "typecheck": "tsc --noEmit",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "coverage:report": "node test-coverage/extract-results.js",
+    "coverage:badges": "node test-coverage/update-readme-badges.js",
+    "clean": "rimraf coverage dist storybook-static playwright-report test-results coverage-report.json"
+  },
+  "peerDependencies": {
+    "lucide-react": "^0.460.0 || ^0.575.0",
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.34.3",
+    "tailwind-merge": "^3.5.0"
+  },
+  "sideEffects": [
+    "*.css"
+  ],
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.58.2",
+    "@storybook/addon-docs": "^10.2.12",
+    "@storybook/react": "^10.2.12",
+    "@storybook/react-vite": "^10.2.12",
+    "@tailwindcss/postcss": "^4.2.1",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.4",
+    "@vitest/coverage-v8": "^4.0.18",
+    "eslint": "^10.0.2",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-storybook": "^10.2.12",
+    "jsdom": "^28.1.0",
+    "lucide-react": "^0.575.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "rimraf": "^6.1.3",
+    "storybook": "^10.2.12",
+    "tailwindcss": "^4.2.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.56.1",
+    "vite": "^7.3.1",
+    "vite-plugin-dts": "^4.5.4",
+    "vitest": "^4.0.18"
+  },
+  "overrides": {
+    "minimatch": "^10.2.1",
+    "ajv": ">=8.18.0"
+  },
+  "keywords": [
+    "react",
+    "components",
+    "ui",
+    "design-system",
+    "tailwind",
+    "dark-mode",
+    "accessible",
+    "solstice"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/solstice-ui.git"
+  },
+  "homepage": "https://github.com/your-username/solstice-ui#readme",
+  "bugs": {
+    "url": "https://github.com/your-username/solstice-ui/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
