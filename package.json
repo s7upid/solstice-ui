@@ -49,7 +49,6 @@
     "*.css"
   ],
   "devDependencies": {
-    "ajv": "^8.12.0",
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.58.2",
     "@storybook/addon-docs": "^10.2.12",
@@ -81,8 +80,7 @@
     "vitest": "^4.0.18"
   },
   "overrides": {
-    "minimatch": "^10.2.1",
-    "ajv": "^8.12.0"
+    "minimatch": "^10.2.1"
   },
   "keywords": [
     "react",

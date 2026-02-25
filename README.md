@@ -84,7 +84,13 @@ All components support dark mode when the root element has the `.dark` class. Br
 
 - **Storybook:** Run `npm run storybook` (or `scripts/start-storybook.bat` on Windows, `scripts/start-storybook.command` on macOS). Open http://localhost:6006 — edits to components or `.stories` files hot-reload. Storybook is also built and deployed to **GitHub Pages** on pushes to `main` (see `.github/workflows/docs.yml`). You can run `npm run build-storybook` locally to output a static build to `storybook-static/` if you want to host it elsewhere. See [Contributing](#contributing).
 
-  **GitHub Pages setup:** In the repo **Settings → Pages**, set **Source** to **GitHub Actions** (not "Deploy from a branch"). This repo uses the workflow in `.github/workflows/docs.yml` to build and deploy Storybook. Using "Deploy from a branch" with `/docs` will trigger GitHub’s Jekyll build and fail, since this project does not use Jekyll.
+  **GitHub Pages setup:** In the repo **Settings → Pages**, set **Source** to **GitHub Actions** (not "Deploy from a branch"). This repo uses the workflow in `.github/workflows/docs.yml` to build and deploy Storybook. Using "Deploy from a branch" with `/docs` will trigger GitHub’s Jekyll build and fail — so switch Source to **GitHub Actions** to fix the pipeline:
+
+  1. **Settings** → **Pages**
+  2. Under **Build and deployment**, open the **Source** dropdown (currently "Deploy from a branch").
+  3. Select **GitHub Actions**, then **Save**.
+
+  Only the **Deploy Docs (Storybook)** workflow will then deploy; the Jekyll build will no longer run.
 
 ---
 
