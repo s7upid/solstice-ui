@@ -71,7 +71,7 @@ Tailwind CSS v4 (or v3 with `darkMode: 'class'`) is required for dark mode styli
 | Category     | Components                                                                 |
 |-------------|-----------------------------------------------------------------------------|
 | **Core**    | Button, Input, Card, Badge, Dropdown, Form, Alert, Progress, Checkbox     |
-| **Layout**  | PageHeader, List, TabNavigation, StackedCardsDeck                          |
+| **Layout**  | PageHeader, GridPage, ListPage, List, TabNavigation, StackedCardsDeck      |
 | **Feedback**| LoadingSpinner, EmptyState, Toast, ErrorBoundary, ConfirmationDialog        |
 | **Overlays**| ModalPortal, Dialog, ConfirmationDialog                                   |
 | **Actions** | DangerZone, Pagination, SearchInput, Toggle                               |

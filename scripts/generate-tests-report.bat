@@ -40,8 +40,10 @@ call npx playwright install
 echo.
 echo [4/6] Running e2e tests (Playwright)...
 set E2E_JSON_REPORT=1
+set E2E_USE_MAX_WORKERS=1
 call npm run test:e2e
 set E2E_JSON_REPORT=
+set E2E_USE_MAX_WORKERS=
 if errorlevel 1 (
     echo [ERROR] E2E tests failed.
     pause

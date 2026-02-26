@@ -25,6 +25,10 @@ export type { TabItem, TabNavigationProps } from "./components/TabNavigation/Tab
 export { default as List } from "./components/List/List";
 export { default as PageHeader } from "./components/PageHeader/PageHeader";
 export type { PageHeaderProps } from "./components/PageHeader/PageHeader";
+export { default as GridPage } from "./components/GridPage/GridPage";
+export type { GridPageProps } from "./components/GridPage/GridPage";
+export { default as ListPage } from "./components/ListPage/ListPage";
+export type { ListPageProps } from "./components/ListPage/ListPage";
 export { default as Alert } from "./components/Alert/Alert";
 export { default as Progress } from "./components/Progress/Progress";
 export { default as Dialog } from "./components/Dialog/Dialog";

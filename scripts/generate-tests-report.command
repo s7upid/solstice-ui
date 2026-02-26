@@ -29,7 +29,7 @@ npx playwright install
 echo
 
 echo "[4/6] Running e2e tests (Playwright)..."
-E2E_JSON_REPORT=1 npm run test:e2e || { echo "[ERROR] E2E tests failed."; exit 1; }
+E2E_JSON_REPORT=1 E2E_USE_MAX_WORKERS=1 npm run test:e2e || { echo "[ERROR] E2E tests failed."; exit 1; }
 echo
 
 echo "[5/6] Extracting coverage results..."

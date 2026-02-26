@@ -47,7 +47,7 @@ The **generate-tests-report** scripts run unit tests with coverage and e2e tests
 - **unit**: Vitest line coverage percentage (from `coverage/coverage-summary.json`).
 - **e2e**: Playwright test pass percentage (from `test-coverage/e2e-results.json`, written when `E2E_JSON_REPORT=1`).
 
-README badges are updated to show **Unit tests: X%** and **E2E: X%** (pass rate). The scripts set `E2E_JSON_REPORT=1` when running e2e so the JSON results file is produced.
+README badges are updated to show **Unit tests: X%** and **E2E: X%** (pass rate). The **generate-tests-report** scripts set `E2E_JSON_REPORT=1` and `E2E_USE_MAX_WORKERS=1` when running e2e so the JSON results file is produced and Playwright uses max workers for faster runs.
 
 ## Badge placeholders
 

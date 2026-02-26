@@ -7,6 +7,7 @@ const DEFAULT_TIMEOUT = 35000;
 /**
  * Navigate to a Storybook story (iframe) and return the story root.
  * Waits for the root to be ready: has children or is visible (has size).
+ * With static Storybook, uses networkidle so story chunks load before we check the root.
  */
 export async function gotoStory(
   page: Page,
@@ -14,7 +15,11 @@ export async function gotoStory(
   options?: { timeout?: number }
 ) {
   const timeout = options?.timeout ?? DEFAULT_TIMEOUT;
-  await page.goto(`${IFRAME_BASE}?id=${storyId}&viewMode=story`, { waitUntil: "load" });
+  const useStatic = process.env.E2E_USE_STATIC === "1";
+  await page.goto(`${IFRAME_BASE}?id=${storyId}&viewMode=story`, {
+    waitUntil: useStatic ? "networkidle" : "load",
+    timeout,
+  });
   const root = page.locator("#storybook-root, #root").first();
   await expect(root).toBeAttached({ timeout });
   await page.waitForFunction(

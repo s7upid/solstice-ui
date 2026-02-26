@@ -4,8 +4,17 @@ import { defineConfig, devices } from "@playwright/test";
 // Use pre-built Storybook (faster): set E2E_USE_STATIC=1 and run build-storybook first.
 const useStaticStorybook = process.env.E2E_USE_STATIC === "1";
 
-// In CI (GitHub, GitLab, etc.) use all available CPUs for max parallel workers; locally use 2.
-const workers = process.env.CI ? os.cpus().length : 2;
+// When E2E_USE_MAX_WORKERS=1 (e.g. test report script): use all CPUs.
+// Static Storybook: otherwise use 1 worker to avoid timeouts.
+// Dev Storybook: CI = all CPUs, local = 2.
+const workers =
+  process.env.E2E_USE_MAX_WORKERS === "1"
+    ? os.cpus().length
+    : useStaticStorybook
+      ? 1
+      : process.env.CI
+        ? os.cpus().length
+        : 2;
 
 export default defineConfig({
   testDir: "./e2e",

@@ -58,7 +58,10 @@ Thank you for considering contributing to Solstice UI.
 2. Add a `ComponentName.stories.tsx` for Storybook.
 3. Export the component from `src/index.ts`.
 4. Add unit tests in `ComponentName.test.tsx`.
-5. Ensure styles support dark mode via `:global(.dark)` where needed.
+5. Add e2e tests in `e2e/component-name.spec.ts` (use `gotoStory(page, "components-componentname--story-name")`). See existing specs (e.g. `e2e/button.spec.ts`, `e2e/grid-page.spec.ts`) for the pattern.
+6. Update **README.md** (Components table) and **Documentation/Introduction** in Storybook (`src/docs/Introduction.stories.tsx`) so the new component is listed.
+7. Ensure styles support dark mode via `:global(.dark)` where needed.
+8. Add an entry to **CHANGELOG.md** under [Unreleased] when the change is notable.
 
 ## Code style
 
