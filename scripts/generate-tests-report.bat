@@ -22,6 +22,7 @@ echo [1/6] Running lint...
 call npm run lint
 if errorlevel 1 (
     echo [ERROR] Lint failed. Fix lint errors and run again.
+    pause
     exit /b 1
 )
 echo.
@@ -43,6 +44,7 @@ call npm run test:e2e
 set E2E_JSON_REPORT=
 if errorlevel 1 (
     echo [ERROR] E2E tests failed.
+    pause
     exit /b 1
 )
 echo.
@@ -51,6 +53,7 @@ echo [5/6] Extracting coverage results...
 call node test-coverage\extract-results.js
 if errorlevel 1 (
     echo [ERROR] extract-results.js failed. Ensure coverage/ exists from test:coverage.
+    pause
     exit /b 1
 )
 echo.
@@ -59,6 +62,7 @@ echo [6/6] Updating README badges...
 call node test-coverage\update-readme-badges.js
 if errorlevel 1 (
     echo [ERROR] update-readme-badges.js failed.
+    pause
     exit /b 1
 )
 
@@ -67,4 +71,6 @@ echo ==========================================
 echo Done. README.md badges updated.
 echo Commit README.md and optionally coverage-report.json.
 echo ==========================================
+echo.
+pause
 exit /b 0
