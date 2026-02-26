@@ -17,7 +17,6 @@ test.describe("GridPage", () => {
   test("Loading story shows spinner (no grid list)", async ({ page }) => {
     const root = await gotoStory(page, "components-gridpage--loading");
     await expect(root.getByRole("heading", { name: /projects/i })).toBeVisible();
-    const list = root.locator('[role="list"]');
-    await expect(list).not.toBeVisible();
+    await expect(root.locator('[role="list"]')).not.toBeVisible();
   });
 });

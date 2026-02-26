@@ -22,6 +22,7 @@ export async function gotoStory(
   });
   const root = page.locator("#storybook-root, #root").first();
   await expect(root).toBeAttached({ timeout });
+  // Wait for story root to be ready: has children or has visible size.
   await page.waitForFunction(
     () => {
       const el = document.querySelector("#storybook-root") ?? document.querySelector("#root");

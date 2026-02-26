@@ -49,8 +49,8 @@ function updateBadges() {
 
   const badgesLine = badges.join(" ");
 
-  // Replace only the badge line that sits right after the # title. Do not remove
-  // any other lines in the file (e.g. user-added badges elsewhere) to avoid deleting custom content.
+  // Replace only the badge line that sits right after the # title. Consume the
+  // newlines after the badge line too so we don't add extra blank lines on each run.
   const titleMatch = content.match(/^(# [^\n]+)\n\n/);
   if (titleMatch) {
     const afterTitle = content.slice(titleMatch[0].length);
@@ -58,8 +58,10 @@ function updateBadges() {
     const nextLine = nextLineEnd >= 0 ? afterTitle.slice(0, nextLineEnd) : afterTitle;
     const nextIsBadge = nextLine.trim().startsWith("[![");
     if (nextIsBadge) {
+      const restAfterBadge = nextLineEnd >= 0 ? afterTitle.slice(nextLineEnd) : "";
+      const trailingNewlines = restAfterBadge.match(/^\n*/)?.[0] ?? "";
       content = content.replace(
-        titleMatch[0] + nextLine,
+        titleMatch[0] + nextLine + trailingNewlines,
         titleMatch[1] + "\n\n" + badgesLine + "\n\n"
       );
     } else {
