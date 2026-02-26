@@ -7,7 +7,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig(async ({ command }) => {
   const plugins = [react()];
-  if (command === "build") {
+  // Only load dts for the library build (npm run build), not when Storybook loads this config.
+  if (command === "build" && process.env.VITE_LIB_BUILD === "1") {
     const { default: dts } = await import("vite-plugin-dts");
     plugins.push(
       dts({
