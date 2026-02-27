@@ -3,6 +3,8 @@ import { expect, type Page } from "@playwright/test";
 const IFRAME_BASE = "/iframe.html";
 
 const DEFAULT_TIMEOUT = 35000;
+// Static Storybook in CI: chunks can load slowly; use longer timeout so root gets content.
+const STATIC_CI_TIMEOUT = 60000;
 
 /**
  * Navigate to a Storybook story (iframe) and return the story root.
@@ -14,8 +16,10 @@ export async function gotoStory(
   storyId: string,
   options?: { timeout?: number }
 ) {
-  const timeout = options?.timeout ?? DEFAULT_TIMEOUT;
   const useStatic = process.env.E2E_USE_STATIC === "1";
+  const isCI = process.env.CI === "true" || process.env.CI === "1";
+  const timeout =
+    options?.timeout ?? (useStatic && isCI ? STATIC_CI_TIMEOUT : DEFAULT_TIMEOUT);
   await page.goto(`${IFRAME_BASE}?id=${storyId}&viewMode=story`, {
     waitUntil: useStatic ? "networkidle" : "load",
     timeout,

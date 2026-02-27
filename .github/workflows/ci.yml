@@ -86,7 +86,8 @@ jobs:
   e2e:
     name: E2E (Playwright)
     runs-on: ubuntu-latest
-    needs: [lint, test]
+    needs: [build]
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
 
@@ -108,13 +109,10 @@ jobs:
       - name: Install Playwright browsers (Chromium only)
         run: npx playwright install chromium --with-deps
 
-      - name: Build Storybook (static)
-        run: npm run build-storybook
-
       - name: Run E2E tests
         run: npm run test:e2e
         env:
-          E2E_USE_STATIC: "1"
+          E2E_BASE_URL: https://s7upid.github.io/solstice-ui
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4

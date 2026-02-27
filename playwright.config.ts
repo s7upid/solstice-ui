@@ -2,7 +2,9 @@ import os from "os";
 import { defineConfig, devices } from "@playwright/test";
 
 // Use pre-built Storybook (faster): set E2E_USE_STATIC=1 and run build-storybook first.
+// Use deployed Storybook: set E2E_BASE_URL (e.g. https://s7upid.github.io/solstice-ui) and skip webServer.
 const useStaticStorybook = process.env.E2E_USE_STATIC === "1";
+const deployedBaseUrl = process.env.E2E_BASE_URL;
 
 // When E2E_USE_MAX_WORKERS=1 (e.g. test report script): use all CPUs.
 // Static Storybook: otherwise use 1 worker to avoid timeouts.
@@ -33,7 +35,7 @@ export default defineConfig({
         ? [["github"], ["html", { open: "never" }]]
         : "list",
   use: {
-    baseURL: "http://localhost:6006",
+    baseURL: deployedBaseUrl || "http://localhost:6006",
     trace: "on-first-retry",
     actionTimeout: 35000,
   },
@@ -45,19 +47,22 @@ export default defineConfig({
           { name: "webkit", use: { ...devices["Desktop Safari"] } },
         ]
       : [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
-  webServer: useStaticStorybook
-    ? {
-        command: "npx serve storybook-static -p 6006",
-        url: "http://localhost:6006",
-        reuseExistingServer: false,
-        timeout: 15000,
-      }
-    : {
-        command: "npm run storybook",
-        url: "http://localhost:6006",
-        reuseExistingServer: !process.env.CI,
-        timeout: 120000,
-      },
+  webServer:
+    deployedBaseUrl
+      ? undefined
+      : useStaticStorybook
+        ? {
+            command: "npx serve storybook-static -p 6006",
+            url: "http://localhost:6006",
+            reuseExistingServer: false,
+            timeout: 60000,
+          }
+        : {
+            command: "npm run storybook",
+            url: "http://localhost:6006",
+            reuseExistingServer: !process.env.CI,
+            timeout: 120000,
+          },
   expect: {
     timeout: 10000,
   },
