@@ -53,6 +53,31 @@ const slideContent = (num: number, color: string) => (
   </div>
 );
 
+const luxurySlides = [
+  { num: 1, bg: "linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)", title: "Editorial" },
+  { num: 2, bg: "linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%)", title: "Collection" },
+  { num: 3, bg: "linear-gradient(135deg, #3d3d3d 0%, #2a2a2a 100%)", title: "Showcase" },
+];
+
+const luxurySlideContent = (slide: (typeof luxurySlides)[0]) => (
+  <div
+    key={slide.num}
+    style={{
+      padding: 56,
+      background: slide.bg,
+      borderRadius: 12,
+      minHeight: 200,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    }}
+  >
+    <h3 style={{ margin: 0, fontSize: 22, fontWeight: 300, letterSpacing: "0.2em", color: "rgba(255,255,255,0.95)", textTransform: "uppercase" }}>
+      {slide.title}
+    </h3>
+  </div>
+);
+
 export const Default: Story = {
   args: {
     children: [
@@ -61,6 +86,13 @@ export const Default: Story = {
       slideContent(3, "#7c3aed"),
     ],
     ariaLabel: "Content carousel",
+  },
+};
+
+export const Luxury: Story = {
+  args: {
+    children: luxurySlides.map((s) => luxurySlideContent(s)),
+    ariaLabel: "Editorial carousel",
   },
 };
 

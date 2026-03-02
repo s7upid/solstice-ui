@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import ListPage from "./ListPage";
 
@@ -87,5 +87,43 @@ describe("ListPage", () => {
       />
     );
     expect(container.querySelector(".my-list-page")).toBeInTheDocument();
+  });
+
+  it("renders Pagination when totalPages and onPageChange are provided", () => {
+    const onPageChange = vi.fn();
+    render(
+      <ListPage<Item>
+        items={items}
+        renderItem={(item) => <span>{item.name}</span>}
+        totalPages={3}
+        currentPage={1}
+        onPageChange={onPageChange}
+      />
+    );
+    expect(screen.getByRole("navigation", { name: /pagination/i })).toBeInTheDocument();
+    expect(screen.getByText(/of 3 pages/i)).toBeInTheDocument();
+  });
+
+  it("does not render Pagination when totalPages is not provided", () => {
+    render(
+      <ListPage<Item>
+        items={items}
+        renderItem={(item) => <span>{item.name}</span>}
+        onPageChange={() => {}}
+      />
+    );
+    expect(screen.queryByRole("navigation", { name: /pagination/i })).not.toBeInTheDocument();
+  });
+
+  it("does not render Pagination when onPageChange is not provided", () => {
+    render(
+      <ListPage<Item>
+        items={items}
+        renderItem={(item) => <span>{item.name}</span>}
+        totalPages={3}
+        currentPage={1}
+      />
+    );
+    expect(screen.queryByRole("navigation", { name: /pagination/i })).not.toBeInTheDocument();
   });
 });

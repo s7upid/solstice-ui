@@ -1,15 +1,27 @@
 import React, { useEffect } from "react";
-import { X } from "lucide-react";
+import { LucideIcon, X } from "lucide-react";
 import { cn } from "../../utils/cn";
 import ModalPortal from "../ModalPortal/ModalPortal";
+import Button from "../Button/Button";
 import styles from "./Dialog.module.css";
+
+export interface DialogFooterAction {
+  label: string;
+  onClick: () => void;
+  icon?: LucideIcon;
+  variant?: "primary" | "secondary" | "danger" | "ghost" | "success" | "outline";
+  loading?: boolean;
+}
 
 export interface DialogProps {
   isOpen: boolean;
   onClose: () => void;
   title?: string;
   children: React.ReactNode;
+  /** Custom footer content. When provided, used instead of footerActions. */
   footer?: React.ReactNode;
+  /** Optional actions rendered as buttons with optional icons (left of label). */
+  footerActions?: DialogFooterAction[];
   className?: string;
   /** Max width: sm, md, lg, full */
   size?: "sm" | "md" | "lg" | "full";
@@ -27,6 +39,7 @@ const Dialog: React.FC<DialogProps> = ({
   title,
   children,
   footer,
+  footerActions,
   className,
   size = "md",
   closeOnBackdropClick = true,
@@ -85,7 +98,23 @@ const Dialog: React.FC<DialogProps> = ({
             </button>
           </div>
           <div className={styles.content}>{children}</div>
-          {footer != null && <div className={styles.footer}>{footer}</div>}
+          {(footer != null || (footerActions != null && footerActions.length > 0)) && (
+            <div className={styles.footer}>
+              {footer ??
+                footerActions?.map((action, i) => (
+                  <Button
+                    key={i}
+                    variant={action.variant ?? "primary"}
+                    onClick={action.onClick}
+                    icon={action.icon}
+                    loading={action.loading}
+                    threeD={threeD}
+                  >
+                    {action.label}
+                  </Button>
+                ))}
+            </div>
+          )}
         </div>
       </div>
     </ModalPortal>

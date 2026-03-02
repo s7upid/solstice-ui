@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
+import { XCircle, Trash2, Save, Info } from "lucide-react";
 import Dialog from "./Dialog";
 import Button from "../Button/Button";
 
@@ -10,7 +11,7 @@ const meta: Meta<typeof Dialog> = {
   parameters: {
     docs: {
       description: {
-        component: "Modal dialog with title, content, optional footer. Sizes: sm, md, lg, full. Close via button, backdrop click, or Escape.",
+        component: "Modal dialog with title, content, optional footer or footerActions (buttons with optional icons). Sizes: sm, md, lg, full. Close via button, backdrop click, or Escape.",
       },
     },
   },
@@ -25,8 +26,9 @@ type Story = StoryObj<typeof Dialog>;
 
 const DialogWithButton = ({
   children,
+  useFooterActions,
   ...props
-}: Partial<Story["args"]> & { children?: React.ReactNode }) => {
+}: Partial<Story["args"]> & { children?: React.ReactNode; useFooterActions?: boolean }) => {
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -36,12 +38,24 @@ const DialogWithButton = ({
         onClose={() => setOpen(false)}
         title="Dialog title"
         footer={
-          <>
-            <Button variant="ghost" onClick={() => setOpen(false)}>
-              Cancel
-            </Button>
-            <Button onClick={() => setOpen(false)}>Confirm</Button>
-          </>
+          useFooterActions
+            ? undefined
+            : (
+                <>
+                  <Button variant="ghost" onClick={() => setOpen(false)}>
+                    Cancel
+                  </Button>
+                  <Button onClick={() => setOpen(false)}>Confirm</Button>
+                </>
+              )
+        }
+        footerActions={
+          useFooterActions
+            ? [
+                { label: "Cancel", onClick: () => setOpen(false), variant: "ghost" as const, icon: XCircle },
+                { label: "Confirm", onClick: () => setOpen(false), icon: Trash2 },
+              ]
+            : undefined
         }
         {...props}
       >
@@ -93,4 +107,64 @@ export const LongContent: Story = {
       ))}
     </DialogWithButton>
   ),
+};
+
+export const WithFooterActionsAndIcons: Story = {
+  render: () => (
+    <DialogWithButton useFooterActions title="Confirm action">
+      <p>Are you sure you want to proceed? This action cannot be undone.</p>
+    </DialogWithButton>
+  ),
+};
+
+function ConfirmationVariantsDemo() {
+  const [open, setOpen] = useState<"danger" | "warning" | "info" | null>(null);
+  return (
+    <>
+      <div className="flex flex-wrap gap-2">
+        <Button variant="danger" onClick={() => setOpen("danger")}>
+          Danger
+        </Button>
+        <Button variant="outline" onClick={() => setOpen("warning")}>
+          Warning
+        </Button>
+        <Button variant="secondary" onClick={() => setOpen("info")}>
+          Info
+        </Button>
+      </div>
+      <Dialog
+        isOpen={open !== null}
+        onClose={() => setOpen(null)}
+        title={open === "danger" ? "Delete item?" : open === "warning" ? "Unsaved changes" : "Information"}
+        footerActions={
+          open === "danger"
+            ? [
+                { label: "Cancel", onClick: () => setOpen(null), variant: "ghost", icon: XCircle },
+                { label: "Delete", onClick: () => setOpen(null), variant: "danger", icon: Trash2 },
+              ]
+            : open === "warning"
+              ? [
+                  { label: "Discard", onClick: () => setOpen(null), variant: "ghost", icon: XCircle },
+                  { label: "Save", onClick: () => setOpen(null), icon: Save },
+                ]
+              : [
+                  { label: "Cancel", onClick: () => setOpen(null), variant: "ghost", icon: XCircle },
+                  { label: "Continue", onClick: () => setOpen(null), icon: Info },
+                ]
+        }
+      >
+        <p>
+          {open === "danger"
+            ? "This action cannot be undone. The item will be permanently removed."
+            : open === "warning"
+              ? "You have unsaved changes. Do you want to save before leaving?"
+              : "This will update your preferences. You can change them later."}
+        </p>
+      </Dialog>
+    </>
+  );
+}
+
+export const ConfirmationVariants: Story = {
+  render: () => <ConfirmationVariantsDemo />,
 };

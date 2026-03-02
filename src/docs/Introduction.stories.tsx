@@ -30,23 +30,23 @@ const ComponentOverview = () => (
     <h3>Layout</h3>
     <ul>
       <li><strong>PageHeader</strong> — Page title and actions</li>
-      <li><strong>GridPage</strong> — Page with optional PageHeader and a responsive card grid (renderCard, loading, empty state, 1–4 columns)</li>
-      <li><strong>ListPage</strong> — Page with optional PageHeader and a list (renderItem, loading, empty state)</li>
+      <li><strong>GridPage</strong> — Page with optional PageHeader, content between header and grid, responsive card grid (renderCard, loading, empty state, 1–4 columns), optional pagination</li>
+      <li><strong>ListPage</strong> — Page with optional PageHeader and a list (renderItem, loading, empty state), optional pagination</li>
       <li><strong>List</strong> — Structured list</li>
+      <li><strong>Grid</strong> — Responsive card grid (items, renderCard, 1–4 columns)</li>
       <li><strong>TabNavigation</strong> — Tabs</li>
       <li><strong>StackedCardsDeck</strong> — Scroll-driven stack of cards; cards animate (scale, fade, rotate) as you scroll</li>
     </ul>
 
     <h3>Feedback</h3>
     <ul>
-      <li><strong>LoadingSpinner</strong>, <strong>EmptyState</strong>, <strong>Toast</strong>, <strong>ErrorBoundary</strong>, <strong>ConfirmationDialog</strong></li>
+      <li><strong>LoadingSpinner</strong>, <strong>EmptyState</strong>, <strong>Toast</strong>, <strong>ErrorBoundary</strong></li>
     </ul>
 
     <h3>Overlays</h3>
     <ul>
       <li><strong>ModalPortal</strong> — Portal for modals</li>
-      <li><strong>Dialog</strong> — Generic modal (title, content, footer)</li>
-      <li><strong>ConfirmationDialog</strong> — Confirm/cancel dialogs</li>
+      <li><strong>Dialog</strong> — Modal with title, content, optional footer or footer actions (with icons)</li>
     </ul>
 
     <h3>Actions</h3>

@@ -86,6 +86,38 @@ describe("Dialog", () => {
     expect(screen.getByRole("button", { name: /ok/i })).toBeInTheDocument();
   });
 
+  it("renders footerActions as buttons with labels", () => {
+    render(
+      <Dialog
+        isOpen
+        onClose={() => {}}
+        footerActions={[
+          { label: "Cancel", onClick: () => {} },
+          { label: "Confirm", onClick: () => {} },
+        ]}
+      >
+        x
+      </Dialog>
+    );
+    expect(screen.getByRole("button", { name: /cancel/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /confirm/i })).toBeInTheDocument();
+  });
+
+  it("uses footer when both footer and footerActions are provided", () => {
+    render(
+      <Dialog
+        isOpen
+        onClose={() => {}}
+        footer={<button>Custom footer</button>}
+        footerActions={[{ label: "Action", onClick: () => {} }]}
+      >
+        x
+      </Dialog>
+    );
+    expect(screen.getByRole("button", { name: /custom footer/i })).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /action/i })).not.toBeInTheDocument();
+  });
+
   it.each(["sm", "md", "lg", "full"] as const)("renders size %s", (size) => {
     render(
       <Dialog isOpen onClose={() => {}} size={size} title="T">

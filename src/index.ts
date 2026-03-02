@@ -5,7 +5,6 @@ export { default as Input } from "./components/Input/Input";
 export { default as Card } from "./components/Card/Card";
 export { default as Badge } from "./components/Badge/Badge";
 export { default as ModalPortal } from "./components/ModalPortal/ModalPortal";
-export { default as ConfirmationDialog } from "./components/ConfirmationDialog/ConfirmationDialog";
 export { default as Dropdown } from "./components/Dropdown/Dropdown";
 export type { SelectOption } from "./components/Dropdown/Dropdown";
 export { default as Pagination } from "./components/Pagination/Pagination";
@@ -25,6 +24,8 @@ export type { TabItem, TabNavigationProps } from "./components/TabNavigation/Tab
 export { default as List } from "./components/List/List";
 export { default as PageHeader } from "./components/PageHeader/PageHeader";
 export type { PageHeaderProps } from "./components/PageHeader/PageHeader";
+export { default as Grid } from "./components/Grid/Grid";
+export type { GridProps } from "./components/Grid/Grid";
 export { default as GridPage } from "./components/GridPage/GridPage";
 export type { GridPageProps } from "./components/GridPage/GridPage";
 export { default as ListPage } from "./components/ListPage/ListPage";

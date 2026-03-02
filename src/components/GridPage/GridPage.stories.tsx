@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { useState } from "react";
 import { LayoutGrid, Plus } from "lucide-react";
 import GridPage from "./GridPage";
 import Card from "../Card/Card";
@@ -21,7 +22,7 @@ const meta: Meta<typeof GridPage> = {
     docs: {
       description: {
         component:
-          "Generic page layout with optional PageHeader and a responsive grid. Use **renderCard** to render each item (e.g. with Card). Supports loading, empty state, and 1–4 columns. Reusable from any project.",
+          "Generic page layout with optional PageHeader, optional content between header and grid (contentBetweenHeaderAndGrid), and a responsive grid (uses Grid). Use **renderCard** to render each item (e.g. with Card). Supports loading, empty state, 1–4 columns, and optional pagination (totalPages, currentPage, onPageChange).",
       },
     },
   },
@@ -96,4 +97,43 @@ export const Loading: Story = {
       )}
     />
   ),
+};
+
+const allProjects: Project[] = [
+  ...projects,
+  { id: "4", title: "Project Delta", description: "API gateway.", status: "Active" },
+  { id: "5", title: "Project Epsilon", description: "Data pipeline.", status: "Planned" },
+  { id: "6", title: "Project Zeta", description: "Monitoring.", status: "In progress" },
+];
+
+function GridPageWithPagination() {
+  const [page, setPage] = useState(1);
+  const totalPages = 3;
+  const pageSize = 2;
+  const start = (page - 1) * pageSize;
+  const pageItems = allProjects.slice(start, start + pageSize);
+  return (
+    <GridPage<Project>
+      title="Projects"
+      description="Browse with pagination"
+      icon={LayoutGrid}
+      items={pageItems}
+      columns={2}
+      keyExtractor={(item) => item.id}
+      renderCard={(item) => (
+        <Card
+          title={item.title}
+          description={item.description}
+          status={item.status}
+        />
+      )}
+      totalPages={totalPages}
+      currentPage={page}
+      onPageChange={setPage}
+    />
+  );
+}
+
+export const WithPagination: Story = {
+  render: () => <GridPageWithPagination />,
 };

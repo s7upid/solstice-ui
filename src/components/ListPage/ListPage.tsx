@@ -5,6 +5,7 @@ import PageHeader from "../PageHeader/PageHeader";
 import List from "../List/List";
 import EmptyState from "../EmptyState/EmptyState";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import Pagination from "../Pagination/Pagination";
 import styles from "./ListPage.module.css";
 
 type BaseListItem = { id?: number | string };
@@ -35,6 +36,18 @@ export interface ListPageProps<T extends BaseListItem> {
   /** When true, adds 3D-style shadow to header and list. */
   threeD?: boolean;
   className?: string;
+  /** Pagination: total number of pages. When set with onPageChange, renders Pagination below the list. */
+  totalPages?: number;
+  /** Current page (1-based). Used with totalPages and onPageChange. */
+  currentPage?: number;
+  /** Called when user changes page. Used with totalPages and currentPage. */
+  onPageChange?: (page: number) => void;
+  /** Page size for Pagination selector (optional). */
+  pageSize?: number;
+  /** Called when page size changes (optional). */
+  onPageSizeChange?: (size: number) => void;
+  /** Page size options (optional). */
+  pageSizeOptions?: number[];
 }
 
 function ListPage<T extends BaseListItem>({
@@ -51,7 +64,16 @@ function ListPage<T extends BaseListItem>({
   listClassName = "",
   threeD = false,
   className = "",
+  totalPages,
+  currentPage = 1,
+  onPageChange,
+  pageSize,
+  onPageSizeChange,
+  pageSizeOptions,
 }: ListPageProps<T>) {
+  const showPagination =
+    totalPages != null && totalPages > 0 && onPageChange != null;
+
   return (
     <div className={cn(styles.content, className)}>
       {(title || actions) && (
@@ -74,13 +96,26 @@ function ListPage<T extends BaseListItem>({
           threeD={threeD}
         />
       ) : (
-        <List<T>
-          items={items}
-          renderItem={renderItem}
-          listClassName={listClassName}
-          keyExtractor={keyExtractor}
-          threeD={threeD}
-        />
+        <>
+          <List<T>
+            items={items}
+            renderItem={renderItem}
+            listClassName={listClassName}
+            keyExtractor={keyExtractor}
+            threeD={threeD}
+          />
+          {showPagination && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={onPageChange}
+              pageSize={pageSize}
+              onPageSizeChange={onPageSizeChange}
+              pageSizeOptions={pageSizeOptions}
+              threeD={threeD}
+            />
+          )}
+        </>
       )}
     </div>
   );

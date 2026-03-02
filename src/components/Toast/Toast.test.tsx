@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import Toast from "./Toast";
 
 describe("Toast", () => {
@@ -16,7 +16,9 @@ describe("Toast", () => {
       { id: "2", type: "error" as const, title: "Failed", message: "Details" },
     ];
     render(<Toast toasts={toasts} onRemove={() => {}} />);
-    vi.advanceTimersByTime(20);
+    act(() => {
+      vi.advanceTimersByTime(20);
+    });
     expect(screen.getByText("Done")).toBeInTheDocument();
     expect(screen.getByText("Failed")).toBeInTheDocument();
     expect(screen.getByText("Details")).toBeInTheDocument();
@@ -30,10 +32,14 @@ describe("Toast", () => {
         onRemove={onRemove}
       />
     );
-    vi.advanceTimersByTime(20);
+    act(() => {
+      vi.advanceTimersByTime(20);
+    });
     const dismissBtn = screen.getByRole("button", { name: /dismiss/i });
     fireEvent.click(dismissBtn);
-    vi.advanceTimersByTime(350);
+    act(() => {
+      vi.advanceTimersByTime(350);
+    });
     expect(onRemove).toHaveBeenCalledWith("1");
   });
 
@@ -43,7 +49,9 @@ describe("Toast", () => {
       render(
         <Toast toasts={[{ id: "1", type, title: "T" }]} onRemove={() => {}} />
       );
-      vi.advanceTimersByTime(20);
+      act(() => {
+        vi.advanceTimersByTime(20);
+      });
       expect(screen.getByText("T")).toBeInTheDocument();
     }
   );
@@ -57,10 +65,14 @@ describe("Toast", () => {
         dismissDelay={1000}
       />
     );
-    vi.advanceTimersByTime(20);
+    act(() => {
+      vi.advanceTimersByTime(20);
+    });
     expect(screen.getByText("T")).toBeInTheDocument();
-    vi.advanceTimersByTime(1000);
-    vi.advanceTimersByTime(350);
+    act(() => {
+      vi.advanceTimersByTime(1000);
+      vi.advanceTimersByTime(350);
+    });
     expect(onRemove).toHaveBeenCalledWith("1");
   });
 
@@ -72,9 +84,11 @@ describe("Toast", () => {
         onRemove={onRemove}
       />
     );
-    vi.advanceTimersByTime(20);
-    vi.advanceTimersByTime(2000);
-    vi.advanceTimersByTime(350);
+    act(() => {
+      vi.advanceTimersByTime(20);
+      vi.advanceTimersByTime(2000);
+      vi.advanceTimersByTime(350);
+    });
     expect(onRemove).toHaveBeenCalledWith("1");
   });
 
@@ -85,7 +99,9 @@ describe("Toast", () => {
         onRemove={() => {}}
       />
     );
-    vi.advanceTimersByTime(20);
+    act(() => {
+      vi.advanceTimersByTime(20);
+    });
     expect(screen.getByText("T")).toBeInTheDocument();
   });
 
@@ -98,7 +114,9 @@ describe("Toast", () => {
         onRemove={() => {}}
       />
     );
-    vi.advanceTimersByTime(20);
+    act(() => {
+      vi.advanceTimersByTime(20);
+    });
     const moreBtn = screen.queryByRole("button", { name: /show more/i });
     if (moreBtn) {
       fireEvent.click(moreBtn);

@@ -2,8 +2,10 @@ import React from "react";
 import { LucideIcon } from "lucide-react";
 import { cn } from "../../utils/cn";
 import PageHeader from "../PageHeader/PageHeader";
+import Grid from "../Grid/Grid";
 import EmptyState from "../EmptyState/EmptyState";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import Pagination from "../Pagination/Pagination";
 import styles from "./GridPage.module.css";
 
 export interface GridPageProps<T> {
@@ -15,6 +17,8 @@ export interface GridPageProps<T> {
   icon?: LucideIcon;
   /** Actions (e.g. buttons) to render in the page header. */
   actions?: React.ReactNode;
+  /** Content to render between the header and the grid (e.g. filters, toolbar). */
+  contentBetweenHeaderAndGrid?: React.ReactNode;
   /** Data items to render as cards. */
   items: T[];
   /** Render each item as a card (or any node). Use Card component from the library. */
@@ -34,6 +38,18 @@ export interface GridPageProps<T> {
   className?: string;
   /** Optional grid container class. */
   gridClassName?: string;
+  /** Pagination: total number of pages. When set with onPageChange, renders Pagination below the grid. */
+  totalPages?: number;
+  /** Current page (1-based). Used with totalPages and onPageChange. */
+  currentPage?: number;
+  /** Called when user changes page. Used with totalPages and currentPage. */
+  onPageChange?: (page: number) => void;
+  /** Page size for Pagination selector (optional). */
+  pageSize?: number;
+  /** Called when page size changes (optional). */
+  onPageSizeChange?: (size: number) => void;
+  /** Page size options (optional). */
+  pageSizeOptions?: number[];
 }
 
 function GridPage<T>({
@@ -41,6 +57,7 @@ function GridPage<T>({
   description,
   icon,
   actions,
+  contentBetweenHeaderAndGrid,
   items,
   renderCard,
   columns = 3,
@@ -51,15 +68,15 @@ function GridPage<T>({
   threeD = false,
   className = "",
   gridClassName = "",
+  totalPages,
+  currentPage = 1,
+  onPageChange,
+  pageSize,
+  onPageSizeChange,
+  pageSizeOptions,
 }: GridPageProps<T>) {
-  const gridColsClass =
-    columns === 1
-      ? styles.gridCols1
-      : columns === 2
-        ? styles.gridCols2
-        : columns === 4
-          ? styles.gridCols4
-          : styles.gridCols3;
+  const showPagination =
+    totalPages != null && totalPages > 0 && onPageChange != null;
 
   return (
     <div className={cn(styles.content, className)}>
@@ -72,6 +89,7 @@ function GridPage<T>({
           threeD={threeD}
         />
       )}
+      {contentBetweenHeaderAndGrid != null && contentBetweenHeaderAndGrid}
       {loading ? (
         <div className="flex justify-center py-12">
           <LoadingSpinner />
@@ -83,19 +101,27 @@ function GridPage<T>({
           threeD={threeD}
         />
       ) : (
-        <div
-          className={cn(styles.grid, gridColsClass, gridClassName)}
-          role="list"
-        >
-          {items.map((item, index) => (
-            <div
-              key={keyExtractor ? keyExtractor(item, index) : index}
-              role="listitem"
-            >
-              {renderCard(item)}
-            </div>
-          ))}
-        </div>
+        <>
+          <Grid<T>
+            items={items}
+            renderCard={renderCard}
+            columns={columns}
+            keyExtractor={keyExtractor}
+            gridClassName={gridClassName}
+            threeD={threeD}
+          />
+          {showPagination && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={onPageChange}
+              pageSize={pageSize}
+              onPageSizeChange={onPageSizeChange}
+              pageSizeOptions={pageSizeOptions}
+              threeD={threeD}
+            />
+          )}
+        </>
       )}
     </div>
   );

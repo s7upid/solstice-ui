@@ -25,6 +25,7 @@
     "test:coverage": "vitest run --coverage",
     "test:ci": "vitest run --coverage",
     "test:e2e": "playwright test",
+    "test:e2e:sequential": "cross-env E2E_SEQUENTIAL=1 playwright test",
     "test:e2e:all": "node scripts/run-e2e-all-browsers.mjs",
     "test:e2e:ui": "playwright test --ui",
     "lint": "eslint .",

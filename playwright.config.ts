@@ -7,20 +7,24 @@ const useStaticStorybook = process.env.E2E_USE_STATIC === "1";
 const deployedBaseUrl = process.env.E2E_BASE_URL;
 
 // When E2E_USE_MAX_WORKERS=1 (e.g. test report script): use all CPUs.
+// When E2E_SEQUENTIAL=1: use 1 worker so tests run in order and list reporter shows clear completion.
 // Static Storybook: otherwise use 1 worker to avoid timeouts.
 // Dev Storybook: CI = all CPUs, local = 2.
 const workers =
-  process.env.E2E_USE_MAX_WORKERS === "1"
-    ? os.cpus().length
-    : useStaticStorybook
-      ? 1
-      : process.env.CI
-        ? os.cpus().length
-        : 2;
+  process.env.E2E_SEQUENTIAL === "1"
+    ? 1
+    : process.env.E2E_USE_MAX_WORKERS === "1"
+      ? os.cpus().length
+      : useStaticStorybook
+        ? 1
+        : process.env.CI
+          ? os.cpus().length
+          : 2;
 
 export default defineConfig({
   testDir: "./e2e",
-  fullyParallel: true,
+  // With 1 worker, run in order; with multiple workers, still wait for all to finish (list reporter shows completion order).
+  fullyParallel: workers > 1,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
   timeout: 60000,

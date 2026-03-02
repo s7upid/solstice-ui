@@ -9,12 +9,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **GridPage** — Layout component: optional PageHeader plus responsive card grid. Props: title, description, icon, actions, items, renderCard, columns (1–4), loading, empty state (emptyTitle, emptyDescription), keyExtractor, threeD, className, gridClassName. Stories: WithCards, TwoColumns, Empty, Loading. Unit and e2e tests added.
-- **ListPage** — Layout component: optional PageHeader plus list. Props: title, description, icon, actions, items, renderItem, loading, empty state, keyExtractor, listClassName, threeD, className. Stories: WithSimpleList, WithCardsInList, Empty, Loading. Unit and e2e tests added.
-- **Docs:** GridPage and ListPage added to README Components table (Layout) and to Storybook Documentation/Introduction.
+- **Grid** — Standalone grid component: items, renderCard, columns (1–4), keyExtractor, gridClassName, threeD. Stories: Default, TwoColumns. Unit tests added.
+- **GridPage** — Layout component: optional PageHeader plus responsive card grid (uses Grid). Props: title, description, icon, actions, contentBetweenHeaderAndGrid, items, renderCard, columns (1–4), loading, empty state, keyExtractor, threeD, className, gridClassName, pagination (totalPages, currentPage, onPageChange, pageSize, onPageSizeChange, pageSizeOptions). Stories: WithCards, TwoColumns, Empty, Loading. Unit and e2e tests added.
+- **ListPage** — Layout component: optional PageHeader plus list. Props: title, description, icon, actions, items, renderItem, loading, empty state, keyExtractor, listClassName, threeD, className, pagination (totalPages, currentPage, onPageChange, pageSize, onPageSizeChange, pageSizeOptions). Stories: WithSimpleList, WithCardsInList, Empty, Loading. Unit and e2e tests added.
+- **Dialog** — Optional footerActions (array of { label, onClick, icon?, variant?, loading? }) for buttons with icons; footer takes precedence when both footer and footerActions are provided. Stories: WithFooterActionsAndIcons, ConfirmationVariants.
+- **Docs:** Grid, GridPage, ListPage, Dialog (footer actions) in README and Storybook Introduction; Layout section lists Grid and pagination for GridPage/ListPage.
+
+### Removed
+
+- **ConfirmationDialog** — Removed; use Dialog with footerActions (and optional icons) for confirmation flows. E2E confirmation-dialog.spec.ts now targets Dialog ConfirmationVariants story.
 
 ### Changed
 
+- **TabNavigation** — Light mode: inactive tab text gray-600 → gray-700, active tab text blue-700 → blue-800 for better contrast.
+- **Toast (Storybook)** — Default story shows sample toasts (no add buttons); layout fullscreen and decorator min-height for visibility; stories renamed (e.g. SuccessOnly → Success).
 - **Test report scripts:** `generate-tests-report.bat` and `generate-tests-report.command` now run Playwright e2e with **max workers** (`E2E_USE_MAX_WORKERS=1`) for faster report generation.
 - **Playwright config:** Worker count: when `E2E_USE_MAX_WORKERS=1` use all CPUs; when using static Storybook (`E2E_USE_STATIC=1`) use 1 worker to avoid timeouts; otherwise CI uses all CPUs, local uses 2. Static Storybook e2e uses `waitUntil: "networkidle"` for story load.
 

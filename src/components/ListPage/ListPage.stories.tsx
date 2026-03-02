@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { useState } from "react";
 import { List as ListIcon, Plus } from "lucide-react";
 import ListPage from "./ListPage";
 import Card from "../Card/Card";
@@ -29,7 +30,7 @@ const meta: Meta<typeof ListPage> = {
     docs: {
       description: {
         component:
-          "Generic page layout with optional PageHeader and a list. Use **renderItem** to render each row (e.g. with List, Card, or custom row). Supports loading and empty state. Reusable from any project.",
+          "Generic page layout with optional PageHeader and a list. Use **renderItem** to render each row (e.g. with List, Card, or custom row). Supports loading, empty state, and optional pagination (totalPages, currentPage, onPageChange).",
       },
     },
   },
@@ -94,4 +95,38 @@ export const Loading: Story = {
       renderItem={(item) => <div>{item.name}</div>}
     />
   ),
+};
+
+const paginatedItems: Item[] = [
+  { id: "1", name: "Item one" },
+  { id: "2", name: "Item two" },
+  { id: "3", name: "Item three" },
+];
+
+function ListPageWithPagination() {
+  const [page, setPage] = useState(1);
+  const totalPages = 4;
+  const pageItems = paginatedItems.map((item, i) => ({
+    ...item,
+    name: `Page ${page} – Item ${i + 1}`,
+  }));
+  return (
+    <ListPage<Item>
+      title="Paginated list"
+      description="Navigate between pages"
+      items={pageItems}
+      renderItem={(item) => (
+        <div className="p-3 border border-gray-200 dark:border-gray-700 rounded-lg">
+          {item.name}
+        </div>
+      )}
+      totalPages={totalPages}
+      currentPage={page}
+      onPageChange={setPage}
+    />
+  );
+}
+
+export const WithPagination: Story = {
+  render: () => <ListPageWithPagination />,
 };

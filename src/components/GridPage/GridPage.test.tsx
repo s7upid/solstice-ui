@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import GridPage from "./GridPage";
 
@@ -89,5 +89,44 @@ describe("GridPage", () => {
       />
     );
     expect(container.querySelector(".my-grid-page")).toBeInTheDocument();
+  });
+
+  it("renders contentBetweenHeaderAndGrid when provided", () => {
+    render(
+      <GridPage<Item>
+        title="Projects"
+        contentBetweenHeaderAndGrid={<p data-testid="between">Filters here</p>}
+        items={items}
+        renderCard={(item) => <span>{item.name}</span>}
+      />
+    );
+    expect(screen.getByTestId("between")).toBeInTheDocument();
+    expect(screen.getByText("Filters here")).toBeInTheDocument();
+  });
+
+  it("renders Pagination when totalPages and onPageChange are provided", () => {
+    const onPageChange = vi.fn();
+    render(
+      <GridPage<Item>
+        items={items}
+        renderCard={(item) => <span>{item.name}</span>}
+        totalPages={4}
+        currentPage={1}
+        onPageChange={onPageChange}
+      />
+    );
+    expect(screen.getByRole("navigation", { name: /pagination/i })).toBeInTheDocument();
+    expect(screen.getByText(/of 4 pages/i)).toBeInTheDocument();
+  });
+
+  it("does not render Pagination when totalPages is not provided", () => {
+    render(
+      <GridPage<Item>
+        items={items}
+        renderCard={(item) => <span>{item.name}</span>}
+        onPageChange={() => {}}
+      />
+    );
+    expect(screen.queryByRole("navigation", { name: /pagination/i })).not.toBeInTheDocument();
   });
 });

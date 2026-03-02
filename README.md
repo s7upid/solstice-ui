@@ -71,9 +71,9 @@ Tailwind CSS v4 (or v3 with `darkMode: 'class'`) is required for dark mode styli
 | Category     | Components                                                                 |
 |-------------|-----------------------------------------------------------------------------|
 | **Core**    | Button, Input, Card, Badge, Dropdown, Form, Alert, Progress, Checkbox     |
-| **Layout**  | PageHeader, GridPage, ListPage, List, TabNavigation, StackedCardsDeck      |
-| **Feedback**| LoadingSpinner, EmptyState, Toast, ErrorBoundary, ConfirmationDialog        |
-| **Overlays**| ModalPortal, Dialog, ConfirmationDialog                                   |
+| **Layout**  | PageHeader, Grid, GridPage, ListPage, List, TabNavigation, StackedCardsDeck |
+| **Feedback**| LoadingSpinner, EmptyState, Toast, ErrorBoundary                           |
+| **Overlays**| ModalPortal, Dialog                                                        |
 | **Actions** | DangerZone, Pagination, SearchInput, Toggle                               |
 | **Forms**   | Input, Checkbox, DateTimePicker, Form                                      |
 | **Theme**   | ThemeToggle, ThemeProvider, useThemeContext                                |
@@ -107,8 +107,9 @@ All components support dark mode when the root element has the `.dark` class. Br
 | `npm run test:watch`    | Unit tests in watch mode      |
 | `npm run test:coverage` | Unit tests with coverage      |
 | `npm run test:ci`       | Unit tests + coverage (CI)    |
-| `npm run test:e2e`      | E2E tests (Chromium only, fast) |
-| `npm run test:e2e:all`  | E2E tests (all browsers)       |
+| `npm run test:e2e`             | E2E tests (Chromium only, fast) |
+| `npm run test:e2e:sequential` | E2E tests one-by-one (clearer list output) |
+| `npm run test:e2e:all`        | E2E tests (all browsers)       |
 | `npm run lint`          | ESLint                         |
 | `npm run typecheck`     | TypeScript check               |
 | `npm run storybook`     | Start Storybook                |
