@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 import { cn } from "../../utils/cn";
 import styles from "./Badge.module.css";
 
@@ -50,4 +50,4 @@ const Badge: React.FC<BadgeProps> = ({
   );
 };
 
-export default memo(Badge);
+export default Badge;

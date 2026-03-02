@@ -1,6 +1,12 @@
-import React, { useMemo, memo } from "react";
+import React from "react";
 import { cn } from "../../utils/cn";
 import styles from "./LoadingSpinner.module.css";
+
+const SIZE_CLASSES = {
+  sm: styles.sizeSm,
+  md: styles.sizeMd,
+  lg: styles.sizeLg,
+} as const;
 
 export interface LoadingSpinnerProps {
   size?: "sm" | "md" | "lg";
@@ -17,30 +23,18 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   text,
   showMessage = true,
   threeD = false,
-}) => {
-  const sizeClass = useMemo(
-    () =>
-      ({
-        sm: styles.sizeSm,
-        md: styles.sizeMd,
-        lg: styles.sizeLg,
-      }[size]),
-    [size]
-  );
-
-  return (
+}) => (
+  <div
+    className={cn(styles.container, threeD && "solstice-ui-3d", className)}
+    role="status"
+    aria-label={text || "Loading"}
+  >
     <div
-      className={cn(styles.container, threeD && "solstice-ui-3d", className)}
-      role="status"
-      aria-label={text || "Loading"}
-    >
-      <div
-        className={cn(styles.spinnerBase, sizeClass)}
-        aria-hidden="true"
-      />
-      {text && showMessage && <p className={styles.text}>{text}</p>}
-    </div>
-  );
-};
+      className={cn(styles.spinnerBase, SIZE_CLASSES[size])}
+      aria-hidden="true"
+    />
+    {text && showMessage && <p className={styles.text}>{text}</p>}
+  </div>
+);
 
-export default memo(LoadingSpinner);
+export default LoadingSpinner;

@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, memo } from "react";
+import React, { useState, memo } from "react";
 import { LucideIcon } from "lucide-react";
 import { cn } from "../../utils/cn";
 import styles from "./Toggle.module.css";
@@ -98,10 +98,10 @@ const ToggleSwitch: React.FC<ToggleSwitchModeProps> = ({
   className,
   "aria-label": ariaLabel = "Toggle state",
 }) => {
-  const handleClick = useCallback(() => {
+  const handleClick = () => {
     if (disabled) return;
     onStateChange?.(getNextState(state, triState));
-  }, [disabled, state, triState, onStateChange]);
+  };
 
   const position =
     state === "off" ? "off" : state === "on" ? "on" : "indeterminate";
@@ -206,26 +206,20 @@ const ToggleButton: React.FC<ToggleButtonModeProps> = ({
   const DisplayIcon = pressed && IconPressed ? IconPressed : Icon;
   const iconSizeClass = ICON_SIZE_CLASSES[size];
 
-  const buttonClassName = useMemo(
-    () =>
-      cn(
-        styles.buttonBase,
-        BUTTON_VARIANT_CLASSES[buttonVariant],
-        SIZE_CLASSES[size],
-        pressed && styles.pressed,
-        threeD && "solstice-ui-3d",
-        className
-      ),
-    [buttonVariant, size, pressed, threeD, className]
-  );
-
   return (
     <button
       type="button"
       role="switch"
       aria-checked={pressed}
       disabled={disabled}
-      className={buttonClassName}
+      className={cn(
+        styles.buttonBase,
+        BUTTON_VARIANT_CLASSES[buttonVariant],
+        SIZE_CLASSES[size],
+        pressed && styles.pressed,
+        threeD && "solstice-ui-3d",
+        className
+      )}
       onClick={handleClick}
       {...rest}
     >

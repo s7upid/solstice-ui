@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useMemo, memo } from "react";
+import React, { useState, memo } from "react";
 import { ChevronLeft, ChevronRight, ChevronUp } from "lucide-react";
 import { cn } from "../../utils/cn";
 import styles from "./Pagination.module.css";
@@ -25,20 +25,13 @@ const Pagination: React.FC<PaginationProps> = ({
   pageSizeOptions = [10, 25, 50, 100],
   threeD = false,
 }) => {
-  const clampPage = useCallback(
-    (value: number) => {
-      if (Number.isNaN(value)) return currentPage;
-      return Math.min(Math.max(1, Math.trunc(value)), totalPages);
-    },
-    [currentPage, totalPages]
-  );
+  const clampPage = (value: number) => {
+    if (Number.isNaN(value)) return currentPage;
+    return Math.min(Math.max(1, Math.trunc(value)), totalPages);
+  };
 
   const [open, setOpen] = useState(false);
-
-  const pages = useMemo(
-    () => Array.from({ length: totalPages }, (_, i) => i + 1),
-    [totalPages]
-  );
+  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   if (totalPages === 0) return null;
 

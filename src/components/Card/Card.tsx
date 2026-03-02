@@ -1,4 +1,4 @@
-import React, { useState, useMemo, memo } from "react";
+import React, { useState, memo } from "react";
 import { LucideIcon, Compass } from "lucide-react";
 import { cn } from "../../utils/cn";
 import styles from "./Card.module.css";
@@ -175,16 +175,12 @@ const Card: React.FC<CardProps> = ({
   children,
 }) => {
   const [imageFailed, setImageFailed] = useState(false);
-  const layoutClass = useMemo(
-    () =>
-      ({
-        default: styles.header,
-        vertical: styles.verticalHeader,
-        horizontal: styles.horizontalHeader,
-      }[layout]),
-    [layout]
-  );
-
+  const layoutClass =
+    layout === "vertical"
+      ? styles.verticalHeader
+      : layout === "horizontal"
+        ? styles.horizontalHeader
+        : styles.header;
   const isImageLayout = Boolean(imageSrc);
 
   if (isImageLayout) {

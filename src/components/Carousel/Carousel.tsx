@@ -4,24 +4,21 @@ import { cn } from "../../utils/cn";
 import styles from "./Carousel.module.css";
 
 export interface CarouselProps {
-  /** Slide content (each child is one slide) */
   children: React.ReactNode;
-  /** Controlled active index. If undefined, uses internal state. */
   activeIndex?: number;
-  /** Called when the active index changes (e.g. user clicks next/prev or a dot) */
   onActiveIndexChange?: (index: number) => void;
-  /** Show previous/next arrow buttons (default true) */
   showArrows?: boolean;
-  /** Show dot indicators (default true) */
+  /** "experimentation" = arrows on hover; "glide" = pill button; "visible" = always-on arrow */
+  arrowVariant?: "experimentation" | "glide" | "visible";
   showDots?: boolean;
-  /** Auto-advance to next slide (default false) */
   autoPlay?: boolean;
-  /** Auto-play interval in ms (default 5000) */
   interval?: number;
-  /** Optional aria label for the carousel region */
   ariaLabel?: string;
-  /** When true, adds a 3D-style shadow (bottom and right). */
   threeD?: boolean;
+  /** "single" = one slide; "peek" = prev/next visible, center active */
+  layout?: "single" | "peek";
+  /** When layout="peek", center slide width as fraction (0–1). Default 0.55 */
+  peekSlideWidth?: number;
   className?: string;
 }
 
@@ -30,11 +27,14 @@ const Carousel: React.FC<CarouselProps> = ({
   activeIndex: controlledIndex,
   onActiveIndexChange,
   showArrows = true,
+  arrowVariant = "experimentation",
   showDots = true,
   autoPlay = false,
   interval = 5000,
   ariaLabel = "Carousel",
   threeD = false,
+  layout = "single",
+  peekSlideWidth = 0.55,
   className,
 }) => {
   const slides = useMemo(
@@ -73,50 +73,103 @@ const Carousel: React.FC<CarouselProps> = ({
 
   if (slides.length === 0) return null;
 
+  const isPeek = layout === "peek";
+
   return (
     <div
-      className={cn(styles.carousel, threeD && "solstice-ui-3d", className)}
+      className={cn(
+        styles.carousel,
+        threeD && "solstice-ui-3d",
+        isPeek && styles.carouselPeek,
+        className
+      )}
       role="region"
       aria-roledescription="carousel"
       aria-label={ariaLabel}
     >
-      <div className={styles.viewport}>
-        {slides.map((slide, i) => (
-          <div
-            key={i}
-            className={cn(
-              styles.slide,
-              i === activeIndex && styles.slideActive
-            )}
-            role="group"
-            aria-roledescription="slide"
-            aria-hidden={i !== activeIndex}
-          >
-            {slide}
+      <div
+        className={styles.viewport}
+        style={
+          isPeek
+            ? {
+                ["--peek-active" as string]: activeIndex,
+                ["--peek-width-pct" as string]: Math.round(peekSlideWidth * 100),
+              }
+            : undefined
+        }
+      >
+        {isPeek ? (
+          <div className={styles.track}>
+            {slides.map((slide, i) => (
+              <div
+                key={i}
+                className={cn(
+                  styles.slidePeek,
+                  i === activeIndex && styles.slidePeekActive
+                )}
+                role="group"
+                aria-roledescription="slide"
+              >
+                {slide}
+              </div>
+            ))}
           </div>
-        ))}
+        ) : (
+          slides.map((slide, i) => (
+            <div
+              key={i}
+              className={cn(styles.slide, i === activeIndex && styles.slideActive)}
+              role="group"
+              aria-roledescription="slide"
+              aria-hidden={i !== activeIndex}
+            >
+              {slide}
+            </div>
+          ))
+        )}
+        {showArrows && slides.length > 1 && (
+          <>
+            <button
+              type="button"
+              className={cn(
+                styles.arrowZone,
+                styles.arrowZoneLeft,
+                arrowVariant === "glide" && styles.arrowZonePill,
+                arrowVariant === "visible" && styles.arrowZoneVisible
+              )}
+              onClick={goPrev}
+              aria-label="Previous slide"
+            >
+              {arrowVariant === "glide" ? (
+                <span className={styles.arrowPillCircle}>
+                  <ChevronLeft className={styles.arrowPillIcon} aria-hidden />
+                </span>
+              ) : (
+                <ChevronLeft className={styles.arrowIcon} aria-hidden />
+              )}
+            </button>
+            <button
+              type="button"
+              className={cn(
+                styles.arrowZone,
+                styles.arrowZoneRight,
+                arrowVariant === "glide" && styles.arrowZonePill,
+                arrowVariant === "visible" && styles.arrowZoneVisible
+              )}
+              onClick={goNext}
+              aria-label="Next slide"
+            >
+              {arrowVariant === "glide" ? (
+                <span className={styles.arrowPillCircle}>
+                  <ChevronRight className={styles.arrowPillIcon} aria-hidden />
+                </span>
+              ) : (
+                <ChevronRight className={styles.arrowIcon} aria-hidden />
+              )}
+            </button>
+          </>
+        )}
       </div>
-
-      {showArrows && slides.length > 1 && (
-        <>
-          <button
-            type="button"
-            className={cn(styles.arrow, styles.arrowLeft)}
-            onClick={goPrev}
-            aria-label="Previous slide"
-          >
-            <ChevronLeft className={styles.arrowIcon} />
-          </button>
-          <button
-            type="button"
-            className={cn(styles.arrow, styles.arrowRight)}
-            onClick={goNext}
-            aria-label="Next slide"
-          >
-            <ChevronRight className={styles.arrowIcon} />
-          </button>
-        </>
-      )}
 
       {showDots && slides.length > 1 && (
         <div className={styles.dots} role="tablist" aria-label="Slide navigation">

@@ -1,4 +1,4 @@
-import React, { useMemo, memo } from "react";
+import React from "react";
 import { LucideIcon } from "lucide-react";
 import { cn } from "../../utils/cn";
 import styles from "./Button.module.css";
@@ -47,16 +47,11 @@ const Button: React.FC<ButtonProps> = ({
   disabled,
   ...props
 }) => {
-  const buttonClassName = useMemo(
-    () => cn(styles.base, VARIANT_CLASSES[variant], SIZE_CLASSES[size], threeD && "solstice-ui-3d", className),
-    [variant, size, threeD, className]
-  );
-
   const iconSizeClass = ICON_SIZE_CLASSES[size];
 
   return (
     <button
-      className={buttonClassName}
+      className={cn(styles.base, VARIANT_CLASSES[variant], SIZE_CLASSES[size], threeD && "solstice-ui-3d", className)}
       disabled={disabled || loading}
       {...props}
     >
@@ -77,4 +72,4 @@ const Button: React.FC<ButtonProps> = ({
   );
 };
 
-export default memo(Button);
+export default Button;

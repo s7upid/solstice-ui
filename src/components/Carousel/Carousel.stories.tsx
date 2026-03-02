@@ -10,7 +10,7 @@ const meta: Meta<typeof Carousel> = {
     docs: {
       description: {
         component:
-          "Slideshow of content. Each child is one slide. Supports **prev/next arrows**, **dot indicators**, **controlled** (`activeIndex` / `onActiveIndexChange`) or uncontrolled use, and optional **auto-play**. Accessible (region, slide roles, aria-labels).",
+          "Slideshow: **layout** single (one slide) or peek (prev/next visible). **arrowVariant**: experimentation (hover), glide (pill), visible. Dots, auto-play, controlled mode.",
       },
     },
     layout: "fullscreen",
@@ -24,9 +24,25 @@ const meta: Meta<typeof Carousel> = {
   ],
   argTypes: {
     showArrows: { control: "boolean" },
+    arrowVariant: { control: "radio", options: ["experimentation", "glide", "visible"] },
     showDots: { control: "boolean" },
     autoPlay: { control: "boolean" },
-    interval: { control: { type: "number", min: 1000 } },
+    interval: { control: { type: "number", min: 1000, max: 15000, step: 500 } },
+    ariaLabel: { control: "text" },
+    threeD: { control: "boolean" },
+    layout: { control: "radio", options: ["single", "peek"] },
+    peekSlideWidth: { control: { type: "number", min: 0.4, max: 0.95, step: 0.05 } },
+  },
+  args: {
+    showArrows: true,
+    arrowVariant: "experimentation",
+    showDots: true,
+    autoPlay: false,
+    interval: 5000,
+    ariaLabel: "Content carousel",
+    threeD: false,
+    layout: "single",
+    peekSlideWidth: 0.55,
   },
 };
 
@@ -118,6 +134,35 @@ export const NoDots: Story = {
   },
 };
 
+export const VisibleArrows: Story = {
+  args: {
+    children: [slideContent(1, "#2563eb"), slideContent(2, "#059669"), slideContent(3, "#7c3aed")],
+    arrowVariant: "visible",
+  },
+};
+
+export const Peek: Story = {
+  args: {
+    children: [
+      slideContent(1, "#2563eb"),
+      slideContent(2, "#059669"),
+      slideContent(3, "#7c3aed"),
+      slideContent(4, "#dc2626"),
+      slideContent(5, "#ca8a04"),
+    ],
+    layout: "peek",
+    peekSlideWidth: 0.55,
+    arrowVariant: "glide",
+  },
+};
+
+export const Glide: Story = {
+  args: {
+    children: [slideContent(1, "#2563eb"), slideContent(2, "#059669"), slideContent(3, "#7c3aed")],
+    arrowVariant: "glide",
+  },
+};
+
 export const AutoPlay: Story = {
   args: {
     children: [
@@ -157,5 +202,12 @@ export const SingleSlide: Story = {
   args: {
     children: [slideContent(1, "#2563eb")],
     ariaLabel: "Single slide",
+  },
+};
+
+export const ThreeD: Story = {
+  args: {
+    children: [slideContent(1, "#2563eb"), slideContent(2, "#059669"), slideContent(3, "#7c3aed")],
+    threeD: true,
   },
 };

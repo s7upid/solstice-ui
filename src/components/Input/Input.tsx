@@ -1,4 +1,4 @@
-import React, { forwardRef, ReactNode, cloneElement } from "react";
+import React, { forwardRef, useId, ReactNode, cloneElement } from "react";
 import { LucideIcon } from "lucide-react";
 import { cn } from "../../utils/cn";
 import styles from "./Input.module.css";
@@ -28,8 +28,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ) => {
-    const inputId =
-      id || `input-${Math.random().toString(36).substring(2, 11)}`;
+    const generatedId = useId();
+    const inputId = id ?? `input-${generatedId.replace(/:/g, "")}`;
 
     const inputClasses = cn(
       styles.field,
@@ -39,20 +39,19 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       className
     );
 
-    const renderIcon = () => {
+    const iconEl = (() => {
       if (!icon) return null;
       if (React.isValidElement(icon)) {
-        const element = icon as React.ReactElement<{ className?: string }>;
-        return cloneElement(element, {
-          className: cn(styles.icon, element.props.className),
+        return cloneElement(icon as React.ReactElement<{ className?: string }>, {
+          className: cn(styles.icon, (icon as React.ReactElement<{ className?: string }>).props.className),
         });
       }
-      if (typeof icon === "function" || (typeof icon === "object" && icon)) {
+      if (typeof icon === "function") {
         const IconComponent = icon as React.ComponentType<{ className?: string }>;
         return <IconComponent className={styles.icon} />;
       }
       return <span className={styles.icon}>?</span>;
-    };
+    })();
 
     return (
       <div className={cn(styles.container, threeD && "solstice-ui-3d")}>
@@ -64,7 +63,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         )}
         <div className={styles.relative}>
           {icon && iconPosition === "left" && (
-            <div className={styles.iconLeftContainer}>{renderIcon()}</div>
+            <div className={styles.iconLeftContainer}>{iconEl}</div>
           )}
           <input
             id={inputId}
@@ -74,7 +73,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             {...props}
           />
           {icon && iconPosition === "right" && (
-            <div className={styles.iconRightContainer}>{renderIcon()}</div>
+            <div className={styles.iconRightContainer}>{iconEl}</div>
           )}
         </div>
         {error && (

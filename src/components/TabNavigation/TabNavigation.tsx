@@ -1,4 +1,4 @@
-import React, { useMemo, memo } from "react";
+import React, { memo } from "react";
 import { LucideIcon } from "lucide-react";
 import { cn } from "../../utils/cn";
 import styles from "./TabNavigation.module.css";
@@ -50,16 +50,11 @@ const TabNavigation: React.FC<TabNavigationProps> = ({
   variant = "default",
   threeD = false,
 }) => {
-  const visibleTabs = useMemo(
-    () =>
-      tabs.filter((tab) => {
-        if (tab.isVisible !== undefined) return tab.isVisible;
-        if (tab.permission) return hasPermission(tab.permission);
-        return true;
-      }),
-    [tabs, hasPermission]
-  );
-
+  const visibleTabs = tabs.filter((tab) => {
+    if (tab.isVisible !== undefined) return tab.isVisible;
+    if (tab.permission) return hasPermission(tab.permission);
+    return true;
+  });
   const variantStyle = VARIANT_CLASSES[variant];
   const sizeClass = SIZE_CLASSES[size];
 
