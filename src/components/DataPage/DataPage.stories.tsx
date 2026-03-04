@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
-import { LayoutGrid, Plus } from "lucide-react";
-import GridPage from "./GridPage";
+import { LayoutGrid, List as ListIcon, Plus } from "lucide-react";
+import DataPage from "./DataPage";
 import Card from "../Card/Card";
 import Button from "../Button/Button";
 
@@ -13,31 +13,29 @@ const projects: Project[] = [
   { id: "3", title: "Project Gamma", description: "Mobile app and API.", status: "Planned" },
 ];
 
-const meta: Meta<typeof GridPage> = {
-  title: "Components/GridPage",
-  component: GridPage,
+const meta: Meta<typeof DataPage> = {
+  title: "Components/DataPage",
+  component: DataPage,
   tags: ["autodocs"],
   parameters: {
     layout: "padded",
     docs: {
       description: {
         component:
-          "Generic page layout with optional PageHeader, optional content between header and grid (contentBetweenHeaderAndGrid), and a responsive grid (uses Grid). Use **renderCard** to render each item (e.g. with Card). Supports loading, empty state, 1–4 columns, and optional pagination (totalPages, currentPage, onPageChange).",
+          "Unified page layout for displaying data as a grid or list. Includes optional PageHeader, loading/empty states, and pagination. Use `layout=\"grid\"` with `renderCard` or `layout=\"list\"` (default) with `renderItem`.",
       },
     },
-  },
-  argTypes: {
-    columns: { control: "select", options: [1, 2, 3, 4] },
   },
 };
 
 export default meta;
 
-type Story = StoryObj<typeof GridPage>;
+type Story = StoryObj<typeof DataPage>;
 
-export const WithCards: Story = {
+export const GridLayout: Story = {
   render: () => (
-    <GridPage<Project>
+    <DataPage<Project>
+      layout="grid"
       title="Projects"
       description="Manage your projects"
       icon={LayoutGrid}
@@ -46,37 +44,33 @@ export const WithCards: Story = {
       columns={3}
       keyExtractor={(item) => item.id}
       renderCard={(item) => (
-        <Card
-          title={item.title}
-          description={item.description}
-          status={item.status}
-        />
+        <Card title={item.title} description={item.description} status={item.status} />
       )}
     />
   ),
 };
 
-export const TwoColumns: Story = {
+export const ListLayout: Story = {
   render: () => (
-    <GridPage<Project>
+    <DataPage<Project>
+      layout="list"
       title="Projects"
+      description="Browse all projects"
+      icon={ListIcon}
+      actions={<Button icon={Plus}>Add</Button>}
       items={projects}
-      columns={2}
       keyExtractor={(item) => item.id}
-      renderCard={(item) => (
-        <Card
-          title={item.title}
-          description={item.description}
-          status={item.status}
-        />
+      renderItem={(item) => (
+        <Card title={item.title} description={item.description} layout="horizontal" />
       )}
     />
   ),
 };
 
-export const Empty: Story = {
+export const GridEmpty: Story = {
   render: () => (
-    <GridPage<Project>
+    <DataPage<Project>
+      layout="grid"
       title="Projects"
       items={[]}
       emptyTitle="No projects yet"
@@ -86,14 +80,40 @@ export const Empty: Story = {
   ),
 };
 
-export const Loading: Story = {
+export const GridLoading: Story = {
   render: () => (
-    <GridPage<Project>
+    <DataPage<Project>
+      layout="grid"
       title="Projects"
       items={projects}
       loading
-      renderCard={(item) => (
-        <Card title={item.title} description={item.description} />
+      renderCard={(item) => <Card title={item.title} description={item.description} />}
+    />
+  ),
+};
+
+export const ListEmpty: Story = {
+  render: () => (
+    <DataPage<Project>
+      layout="list"
+      title="Items"
+      items={[]}
+      emptyTitle="No items"
+      emptyDescription="Add items to get started."
+      renderItem={() => null}
+    />
+  ),
+};
+
+export const ListLoading: Story = {
+  render: () => (
+    <DataPage<Project>
+      layout="list"
+      title="Items"
+      items={projects}
+      loading
+      renderItem={(item) => (
+        <Card title={item.title} description={item.description} layout="horizontal" />
       )}
     />
   ),
@@ -106,14 +126,14 @@ const allProjects: Project[] = [
   { id: "6", title: "Project Zeta", description: "Monitoring.", status: "In progress" },
 ];
 
-function GridPageWithPagination() {
+function GridWithPagination() {
   const [page, setPage] = useState(1);
-  const totalPages = 3;
   const pageSize = 2;
   const start = (page - 1) * pageSize;
   const pageItems = allProjects.slice(start, start + pageSize);
   return (
-    <GridPage<Project>
+    <DataPage<Project>
+      layout="grid"
       title="Projects"
       description="Browse with pagination"
       icon={LayoutGrid}
@@ -121,13 +141,9 @@ function GridPageWithPagination() {
       columns={2}
       keyExtractor={(item) => item.id}
       renderCard={(item) => (
-        <Card
-          title={item.title}
-          description={item.description}
-          status={item.status}
-        />
+        <Card title={item.title} description={item.description} status={item.status} />
       )}
-      totalPages={totalPages}
+      totalPages={3}
       currentPage={page}
       onPageChange={setPage}
     />
@@ -135,5 +151,5 @@ function GridPageWithPagination() {
 }
 
 export const WithPagination: Story = {
-  render: () => <GridPageWithPagination />,
+  render: () => <GridWithPagination />,
 };

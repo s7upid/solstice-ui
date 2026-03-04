@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useCallback, useState, useEffect } from "react";
+import { createContext, useContext, useCallback, useState, useEffect, type ReactNode } from "react";
 
 export type Theme = "light" | "dark";
 
@@ -24,7 +24,7 @@ export function ThemeProvider({
   defaultTheme = "light",
   storageKey = STORAGE_KEY,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   defaultTheme?: Theme;
   storageKey?: string;
 }) {

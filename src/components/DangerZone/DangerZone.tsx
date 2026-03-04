@@ -1,4 +1,3 @@
-import React from "react";
 import Button from "../Button/Button";
 import { Trash2 } from "lucide-react";
 import { cn } from "../../utils/cn";
@@ -12,18 +11,20 @@ export interface DangerZoneProps {
   disabled?: boolean;
   /** When true, adds a 3D-style shadow (bottom and right). */
   threeD?: boolean;
+  className?: string;
 }
 
-const DangerZone: React.FC<DangerZoneProps> = ({
+function DangerZone({
   title,
   description,
   buttonLabel,
   onConfirm,
   disabled = false,
   threeD = false,
-}) => {
+  className,
+}: DangerZoneProps) {
   return (
-    <div className={cn(styles.zone, threeD && "solstice-ui-3d")}>
+    <div className={cn(styles.zone, threeD && "solstice-ui-3d", className)}>
       <div className={styles.content}>
         <div>
           <h4 className={styles.title}>{title}</h4>
@@ -40,6 +41,6 @@ const DangerZone: React.FC<DangerZoneProps> = ({
       </div>
     </div>
   );
-};
+}
 
 export default DangerZone;

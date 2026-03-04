@@ -33,3 +33,5 @@ fi
 
 echo
 echo "Clean finished."
+echo
+read -p "Press Enter to close..."

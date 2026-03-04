@@ -1,10 +1,22 @@
 @reference "tailwindcss";
 
 .base {
-  @apply w-full inline-flex items-center justify-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white disabled:opacity-50 disabled:cursor-not-allowed px-4 py-2 text-sm;
+  @apply w-full inline-flex items-center justify-center font-semibold rounded-xl
+    focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed
+    px-4 py-2 text-sm;
+  transition: all var(--transition-spring);
+  position: relative;
+  overflow: hidden;
 }
-:global(.dark) .base {
-  @apply focus:ring-offset-gray-900;
+.base:not(:disabled):hover {
+  transform: scale(1.025) translateY(-1px);
+}
+.base:not(:disabled):active {
+  transform: scale(0.975);
+  transition-duration: 100ms;
+}
+.base:focus-visible {
+  outline: none;
 }
 
 .loadingSpinner {
@@ -12,32 +24,94 @@
 }
 
 .sizeSm {
-  @apply px-3 py-1.5 text-sm;
+  @apply px-3 py-1.5 text-sm rounded-lg;
 }
 .sizeMd {
-  @apply px-4 py-2 text-sm;
+  @apply px-4 py-2.5 text-sm;
 }
 .sizeLg {
   @apply px-6 py-3 text-base;
 }
 
 .primary {
-  @apply bg-blue-600 hover:bg-blue-700 text-white focus:ring-blue-500;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  @apply text-white;
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35), var(--glass-inset-shadow);
 }
+.primary:not(:disabled):hover {
+  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.45);
+}
+.primary:focus-visible {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.4), 0 4px 14px rgba(59, 130, 246, 0.3);
+}
+
 .secondary {
-  @apply bg-gray-200 hover:bg-gray-300 text-gray-900 focus:ring-gray-500;
+  background: rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  @apply text-gray-800;
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow), var(--glass-inset-shadow);
 }
+.secondary:not(:disabled):hover {
+  background: rgba(0, 0, 0, 0.08);
+  box-shadow: var(--glass-hover-shadow), var(--glass-inset-shadow);
+}
+.secondary:focus-visible {
+  box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.3), var(--glass-shadow);
+}
+
 .danger {
-  @apply bg-red-600 hover:bg-red-700 text-white focus:ring-red-500;
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  @apply text-white;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35), var(--glass-inset-shadow);
 }
+.danger:not(:disabled):hover {
+  background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.45);
+}
+.danger:focus-visible {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.4), 0 4px 14px rgba(239, 68, 68, 0.3);
+}
+
 .success {
-  @apply bg-green-600 hover:bg-green-700 text-white focus:ring-green-500;
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  @apply text-white;
+  box-shadow: 0 4px 14px rgba(34, 197, 94, 0.35), var(--glass-inset-shadow);
 }
+.success:not(:disabled):hover {
+  background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+  box-shadow: 0 6px 20px rgba(34, 197, 94, 0.45);
+}
+.success:focus-visible {
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.4), 0 4px 14px rgba(34, 197, 94, 0.3);
+}
+
 .ghost {
-  @apply text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:ring-gray-500;
+  @apply text-gray-600 bg-transparent;
+  transition: all var(--transition-base);
 }
+.ghost:not(:disabled):hover {
+  background: rgba(0, 0, 0, 0.05);
+  @apply text-gray-900;
+}
+.ghost:focus-visible {
+  box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.2);
+}
+
 .outline {
-  @apply border-2 border-gray-300 bg-transparent text-gray-700 hover:bg-gray-100 focus:ring-gray-500;
+  @apply bg-transparent text-gray-700;
+  border: 1.5px solid rgba(0, 0, 0, 0.12);
+  transition: all var(--transition-base);
+}
+.outline:not(:disabled):hover {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.18);
+}
+.outline:focus-visible {
+  box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.2);
+  border-color: transparent;
 }
 
 .primary,
@@ -63,17 +137,33 @@
 }
 
 :global(.dark) .secondary {
-  @apply bg-gray-700 hover:bg-gray-600 text-gray-100;
+  @apply text-gray-100;
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--glass-border);
+}
+:global(.dark) .secondary:not(:disabled):hover {
+  background: rgba(255, 255, 255, 0.12);
 }
 :global(.dark) .ghost {
-  @apply text-gray-300 hover:text-gray-100 hover:bg-gray-700;
+  @apply text-gray-300;
+}
+:global(.dark) .ghost:not(:disabled):hover {
+  @apply text-gray-100;
+  background: rgba(255, 255, 255, 0.06);
 }
 :global(.dark) .success {
-  @apply bg-green-600 hover:bg-green-700 text-white;
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  @apply text-white;
 }
 :global(.dark) .danger {
-  @apply bg-red-600 hover:bg-red-700 text-white;
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  @apply text-white;
 }
 :global(.dark) .outline {
-  @apply border-gray-600 text-gray-200 hover:bg-gray-700;
+  @apply text-gray-200;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+:global(.dark) .outline:not(:disabled):hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.18);
 }

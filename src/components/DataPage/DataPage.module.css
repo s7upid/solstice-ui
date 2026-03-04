@@ -1,0 +1,11 @@
+@reference "tailwindcss";
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.loadingWrapper {
+  @apply flex justify-center py-12;
+}

@@ -67,7 +67,7 @@ Thank you for considering contributing to Solstice UI.
 
 - TypeScript strict mode.
 - Use existing patterns (e.g. `cn()` for class names, CSS modules).
-- Prefer `React.FC` or explicit function components with typed props.
+- Use plain function components with typed props (no `React.FC`).
 
 ## Pull requests
 

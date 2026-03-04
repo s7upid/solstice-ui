@@ -9,7 +9,7 @@ const meta: Meta<typeof SearchInput> = {
   parameters: {
     docs: {
       description: {
-        component: "Search field with placeholder and optional label. Controlled via value and onChange. Clears on Escape.",
+        component: "Search field with a search icon and placeholder. Controlled via value and onChange.",
       },
     },
   },

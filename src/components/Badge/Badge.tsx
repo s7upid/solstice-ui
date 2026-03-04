@@ -1,4 +1,4 @@
-import React from "react";
+import { type ReactNode } from "react";
 import { cn } from "../../utils/cn";
 import styles from "./Badge.module.css";
 
@@ -12,7 +12,7 @@ export type BadgeVariant =
 
 export interface BadgeProps {
   variant?: BadgeVariant;
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
   pill?: boolean;
   /** When true, adds a 3D-style shadow (bottom and right). */
@@ -28,13 +28,13 @@ const VARIANT_CLASSES: Record<BadgeVariant, string> = {
   neutral: styles.neutral,
 };
 
-const Badge: React.FC<BadgeProps> = ({
+function Badge({
   variant = "default",
   children,
   className,
   pill = true,
   threeD = false,
-}) => {
+}: BadgeProps) {
   return (
     <span
       className={cn(
@@ -48,6 +48,6 @@ const Badge: React.FC<BadgeProps> = ({
       {children}
     </span>
   );
-};
+}
 
 export default Badge;

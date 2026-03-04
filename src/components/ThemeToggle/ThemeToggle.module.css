@@ -1,12 +1,37 @@
 @reference "tailwindcss";
 
 .toggle {
-  @apply w-full flex items-center justify-center w-10 h-10 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500;
+  @apply w-10 h-10 rounded-xl flex items-center justify-center text-gray-600 cursor-pointer;
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-inset-shadow);
+  transition: all var(--transition-spring);
+}
+.toggle:hover {
+  background: rgba(0, 0, 0, 0.08);
+  box-shadow: var(--glass-shadow);
+  transform: scale(1.05);
 }
 :global(.dark) .toggle {
-  @apply bg-gray-700 hover:bg-gray-600 text-gray-300;
+  @apply text-gray-300;
+  background: rgba(255, 255, 255, 0.06);
+}
+:global(.dark) .toggle:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+.toggle:active {
+  transform: scale(0.95);
+  transition-duration: 100ms;
+}
+.toggle:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.3);
 }
 
 .icon {
   @apply h-4 w-4;
+  transition: transform var(--transition-spring);
+}
+.toggle:hover .icon {
+  transform: rotate(15deg);
 }

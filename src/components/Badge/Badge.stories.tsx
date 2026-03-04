@@ -8,7 +8,7 @@ const meta: Meta<typeof Badge> = {
   parameters: {
     docs: {
       description: {
-        component: "Status or label badge with variants (default, success, warning, error, info).",
+        component: "Status or label badge with variants (default, success, warning, error, info, neutral).",
       },
     },
   },

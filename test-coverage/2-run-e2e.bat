@@ -13,4 +13,6 @@ echo ==========================================
 echo.
 
 call npm run test:e2e
+echo.
+pause
 exit /b %errorlevel%

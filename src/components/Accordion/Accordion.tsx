@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo, createContext, useContext, memo } from "react";
+import { useState, useCallback, useMemo, createContext, useContext, memo, type ReactNode, type KeyboardEvent } from "react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "../../utils/cn";
 import styles from "./Accordion.module.css";
@@ -9,7 +9,6 @@ interface AccordionContextValue {
   mode: AccordionMode;
   expanded: Set<string>;
   toggle: (id: string) => void;
-  register: (id: string) => void;
 }
 
 const AccordionContext = createContext<AccordionContextValue | null>(null);
@@ -34,10 +33,10 @@ export interface AccordionProps {
   /** When true, adds a 3D-style shadow (bottom and right). */
   threeD?: boolean;
   className?: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
-const Accordion: React.FC<AccordionProps> = ({
+function Accordion({
   type = "single",
   contentHeight,
   defaultExpanded = [],
@@ -46,7 +45,7 @@ const Accordion: React.FC<AccordionProps> = ({
   threeD = false,
   className,
   children,
-}) => {
+}: AccordionProps) {
   const [internalExpanded, setInternalExpanded] = useState<Set<string>>(
     () => new Set(defaultExpanded)
   );
@@ -55,12 +54,6 @@ const Accordion: React.FC<AccordionProps> = ({
     () => (isControlled ? new Set(controlledExpanded ?? []) : internalExpanded),
     [isControlled, controlledExpanded, internalExpanded]
   );
-  const idsRef = React.useRef<string[]>([]);
-
-  const register = useCallback((id: string) => {
-    idsRef.current.push(id);
-  }, []);
-
   const toggle = useCallback(
     (id: string) => {
       const next = new Set(expandedSet);
@@ -81,7 +74,6 @@ const Accordion: React.FC<AccordionProps> = ({
     mode: type,
     expanded: expandedSet,
     toggle,
-    register,
   };
 
   return (
@@ -101,35 +93,31 @@ const Accordion: React.FC<AccordionProps> = ({
       </div>
     </AccordionContext.Provider>
   );
-};
+}
 
 export interface AccordionItemProps {
   /** Unique id for this item (required for expand/collapse and accessibility). */
   id: string;
   /** Header content (clickable). */
-  header: React.ReactNode;
+  header: ReactNode;
   disabled?: boolean;
   className?: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
-const AccordionItem: React.FC<AccordionItemProps> = ({
+function AccordionItem({
   id,
   header,
   disabled = false,
   className,
   children,
-}) => {
-  const { expanded, toggle, register } = useAccordion();
+}: AccordionItemProps) {
+  const { expanded, toggle } = useAccordion();
   const contentId = `${id}-panel`;
   const headerId = `${id}-header`;
   const isExpanded = expanded.has(id);
 
-  React.useEffect(() => {
-    register(id);
-  }, [id, register]);
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = (e: KeyboardEvent) => {
     if (disabled) return;
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
@@ -173,7 +161,7 @@ const AccordionItem: React.FC<AccordionItemProps> = ({
       </div>
     </div>
   );
-};
+}
 
 const AccordionWithItem = Object.assign(memo(Accordion), {
   Item: memo(AccordionItem),

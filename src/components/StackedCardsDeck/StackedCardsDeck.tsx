@@ -1,4 +1,4 @@
-import React, { useRef, memo, useState, useEffect } from "react";
+import { useRef, memo, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
 import { LucideIcon } from "lucide-react";
 import { cn } from "../../utils/cn";
@@ -24,14 +24,14 @@ interface StackedCardProps {
   spacing: number;
 }
 
-const StackedCard: React.FC<StackedCardProps> = ({
+function StackedCard({
   item,
   index,
   itemsLength,
   scrollYProgress,
   cardHeight,
   spacing,
-}) => {
+}: StackedCardProps) {
   const start = index / itemsLength;
   const end = (index + 1) / itemsLength;
 
@@ -83,7 +83,7 @@ const StackedCard: React.FC<StackedCardProps> = ({
       />
     </motion.div>
   );
-};
+}
 
 export interface StackedCardsDeckProps {
   items: QueueCardItem[];
@@ -93,13 +93,13 @@ export interface StackedCardsDeckProps {
   className?: string;
 }
 
-const StackedCardsDeck: React.FC<StackedCardsDeckProps> = ({
+function StackedCardsDeck({
   items,
   containerHeight = 80,
   cardHeight = 320,
   spacing = 140,
   className,
-}) => {
+}: StackedCardsDeckProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const stackRef = useRef<HTMLDivElement>(null);
   const [bottomPadding, setBottomPadding] = useState(0);
@@ -108,7 +108,6 @@ const StackedCardsDeck: React.FC<StackedCardsDeckProps> = ({
     container: scrollRef,
   });
 
-  // Stop scroll when last card is fully in view: use measured content height, then correct by actual scrollHeight
   useEffect(() => {
     const el = scrollRef.current;
     const stack = stackRef.current;
@@ -147,7 +146,6 @@ const StackedCardsDeck: React.FC<StackedCardsDeckProps> = ({
           const padding = Math.max(0, Math.min(rawPadding, maxPadding));
           setBottomPadding(padding);
 
-          // After React applies padding, trim if scroll height still exceeds desired
           requestAnimationFrame(() => {
             requestAnimationFrame(() => {
               if (!el.isConnected) return;
@@ -207,6 +205,6 @@ const StackedCardsDeck: React.FC<StackedCardsDeckProps> = ({
       </div>
     </div>
   );
-};
+}
 
 export default memo(StackedCardsDeck);

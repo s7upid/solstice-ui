@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from "react";
-import { CheckCircle, X, ChevronDown, ChevronUp } from "lucide-react";
+import { useEffect, useState, useRef } from "react";
+import { CheckCircle, X, ChevronDown, ChevronUp, AlertCircle, AlertTriangle, Info } from "lucide-react";
 import styles from "./Toast.module.css";
 import { cn } from "../../utils/cn";
 
@@ -19,13 +19,13 @@ interface ToastItemComponentProps {
   threeD?: boolean;
 }
 
-const ToastItemComponent: React.FC<ToastItemComponentProps> = ({
+function ToastItemComponent({
   toast,
   onRemove,
   autoDismiss = true,
   dismissDelay,
   threeD = false,
-}) => {
+}: ToastItemComponentProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [isLeaving, setIsLeaving] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -66,33 +66,22 @@ const ToastItemComponent: React.FC<ToastItemComponentProps> = ({
 
   const toggleExpand = () => setIsExpanded(!isExpanded);
 
-  const getIcon = () => {
-    switch (toast.type) {
-      case "success":
-        return <CheckCircle className={styles.icon} />;
-      case "error":
-      case "warning":
-        return <X className={styles.icon} />;
-      case "info":
-      default:
-        return <CheckCircle className={styles.icon} />;
-    }
-  };
+  const ICON_MAP = {
+    success: CheckCircle,
+    error: AlertCircle,
+    warning: AlertTriangle,
+    info: Info,
+  } as const;
 
-  const getVariantClass = () => {
-    switch (toast.type) {
-      case "success":
-        return styles.success;
-      case "error":
-        return styles.error;
-      case "warning":
-        return styles.warning;
-      case "info":
-        return styles.info;
-      default:
-        return "";
-    }
-  };
+  const VARIANT_MAP = {
+    success: styles.success,
+    error: styles.error,
+    warning: styles.warning,
+    info: styles.info,
+  } as const;
+
+  const IconComponent = ICON_MAP[toast.type] ?? Info;
+  const variantClass = VARIANT_MAP[toast.type] ?? "";
 
   return (
     <div
@@ -100,12 +89,14 @@ const ToastItemComponent: React.FC<ToastItemComponentProps> = ({
         styles.toast,
         isVisible && !isLeaving ? styles.enter : styles.exit,
         isExpanded && styles.expanded,
-        getVariantClass(),
+        variantClass,
         threeD && "solstice-ui-3d"
       )}
     >
       <div className={styles.content}>
-        <div className={styles.iconWrapper}>{getIcon()}</div>
+        <div className={styles.iconWrapper}>
+          <IconComponent className={styles.icon} />
+        </div>
         <div className={styles.body}>
           <h4 className={styles.title}>{toast.title}</h4>
           {toast.message && (
@@ -149,7 +140,7 @@ const ToastItemComponent: React.FC<ToastItemComponentProps> = ({
       </div>
     </div>
   );
-};
+}
 
 export interface ToastProps {
   toasts: ToastItem[];
@@ -160,13 +151,13 @@ export interface ToastProps {
   threeD?: boolean;
 }
 
-const Toast: React.FC<ToastProps> = ({
+function Toast({
   toasts,
   onRemove,
   autoDismiss = true,
   dismissDelay,
   threeD = false,
-}) => {
+}: ToastProps) {
   return (
     <div className={styles.container}>
       {toasts.map((toast) => (
@@ -181,6 +172,6 @@ const Toast: React.FC<ToastProps> = ({
       ))}
     </div>
   );
-};
+}
 
 export default Toast;

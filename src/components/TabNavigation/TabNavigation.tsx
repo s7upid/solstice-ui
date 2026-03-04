@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import { memo, type ReactNode } from "react";
 import { LucideIcon } from "lucide-react";
 import { cn } from "../../utils/cn";
 import styles from "./TabNavigation.module.css";
@@ -18,7 +18,7 @@ export interface TabNavigationProps {
   activeTab: string;
   onTabChange: (tabId: string) => void;
   /** Content to show below the tabs, keyed by tab id. When provided, the active tab's content is rendered. */
-  contentByTabId?: Record<string, React.ReactNode>;
+  contentByTabId?: Record<string, ReactNode>;
   hasPermission?: (permission: string) => boolean;
   className?: string;
   size?: "sm" | "md" | "lg";
@@ -39,7 +39,7 @@ const VARIANT_CLASSES = {
   underline: { base: styles.tabUnderline, active: styles.tabUnderlineActive },
 } as const;
 
-const TabNavigation: React.FC<TabNavigationProps> = ({
+function TabNavigation({
   tabs,
   activeTab,
   onTabChange,
@@ -49,7 +49,7 @@ const TabNavigation: React.FC<TabNavigationProps> = ({
   size = "md",
   variant = "default",
   threeD = false,
-}) => {
+}: TabNavigationProps) {
   const visibleTabs = tabs.filter((tab) => {
     if (tab.isVisible !== undefined) return tab.isVisible;
     if (tab.permission) return hasPermission(tab.permission);
@@ -103,6 +103,6 @@ const TabNavigation: React.FC<TabNavigationProps> = ({
       )}
     </div>
   );
-};
+}
 
 export default memo(TabNavigation);

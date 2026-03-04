@@ -5,8 +5,9 @@ const ComponentOverview = () => (
     <h1>Solstice UI</h1>
     <p>
       React component library for <strong>dark and light mode</strong>, built
-      with TypeScript, Tailwind CSS, and CSS Modules. Accessible, themable, and
-      tree-shakeable.
+      with TypeScript, Tailwind CSS, and CSS Modules. Glassmorphism-style
+      surfaces, consistent hover and focus states in both themes. Accessible,
+      themable, and tree-shakeable.
     </p>
 
     <h2>Component overview</h2>
@@ -22,16 +23,14 @@ const ComponentOverview = () => (
       <li><strong>Form</strong> — Form layout and validation</li>
       <li><strong>Alert</strong> — Inline alerts (info, success, warning, error)</li>
       <li><strong>Progress</strong> — Progress bar with optional label</li>
-      <li><strong>Checkbox</strong> — Three-state (unchecked, checked, indeterminate)</li>
-      <li><strong>Toggle</strong> — Button-style (pressed/unpressed) or switch-style (off / indeterminate / on)</li>
+      <li><strong>Toggle</strong> — <strong>Button</strong> (pressed/unpressed), <strong>switch</strong> (off / indeterminate / on), or <strong>checkbox</strong> variant (label, error, description, tri-state)</li>
       <li><strong>Carousel</strong> — Slideshow with arrows, dots, optional auto-play</li>
     </ul>
 
     <h3>Layout</h3>
     <ul>
       <li><strong>PageHeader</strong> — Page title and actions</li>
-      <li><strong>GridPage</strong> — Page with optional PageHeader, content between header and grid, responsive card grid (renderCard, loading, empty state, 1–4 columns), optional pagination</li>
-      <li><strong>ListPage</strong> — Page with optional PageHeader and a list (renderItem, loading, empty state), optional pagination</li>
+      <li><strong>DataPage</strong> — Unified page layout: <code>layout="grid"</code> or <code>layout="list"</code>, optional PageHeader, loading, empty state, pagination</li>
       <li><strong>List</strong> — Structured list</li>
       <li><strong>Grid</strong> — Responsive card grid (items, renderCard, 1–4 columns)</li>
       <li><strong>TabNavigation</strong> — Tabs</li>
@@ -56,7 +55,7 @@ const ComponentOverview = () => (
 
     <h3>Forms</h3>
     <ul>
-      <li><strong>Input</strong>, <strong>Checkbox</strong>, <strong>DateTimePicker</strong>, <strong>Form</strong></li>
+      <li><strong>Input</strong>, <strong>Toggle</strong> (checkbox variant), <strong>DateTimePicker</strong>, <strong>Form</strong></li>
     </ul>
 
     <h3>Theme</h3>

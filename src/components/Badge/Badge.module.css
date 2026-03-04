@@ -1,7 +1,11 @@
 @reference "tailwindcss";
 
 .base {
-  @apply w-full inline-flex items-center px-2.5 py-0.5 text-xs font-medium;
+  @apply w-full inline-flex items-center px-3 py-0.5 text-xs font-semibold;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: var(--glass-inset-shadow);
+  transition: all var(--transition-base);
 }
 
 .pill {
@@ -9,43 +13,67 @@
 }
 
 .default {
-  @apply bg-gray-100 text-gray-800;
+  background: rgba(243, 244, 246, 0.7);
+  border: 1px solid rgba(209, 213, 219, 0.4);
+  @apply text-gray-700;
 }
 :global(.dark) .default {
-  @apply bg-gray-700 text-gray-300;
+  background: rgba(55, 65, 81, 0.5);
+  border-color: rgba(255, 255, 255, 0.08);
+  @apply text-gray-300;
 }
 
 .success {
-  @apply bg-green-100 text-green-800;
+  background: rgba(220, 252, 231, 0.7);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  @apply text-green-700;
 }
 :global(.dark) .success {
-  @apply bg-green-900/20 text-green-400;
+  background: rgba(34, 197, 94, 0.12);
+  border-color: rgba(74, 222, 128, 0.15);
+  @apply text-green-400;
 }
 
 .warning {
-  @apply bg-yellow-100 text-yellow-800;
+  background: rgba(254, 249, 195, 0.7);
+  border: 1px solid rgba(234, 179, 8, 0.25);
+  @apply text-yellow-700;
 }
 :global(.dark) .warning {
-  @apply bg-yellow-900/20 text-yellow-400;
+  background: rgba(234, 179, 8, 0.12);
+  border-color: rgba(250, 204, 21, 0.15);
+  @apply text-yellow-400;
 }
 
 .error {
-  @apply bg-red-100 text-red-800;
+  background: rgba(254, 226, 226, 0.7);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  @apply text-red-700;
 }
 :global(.dark) .error {
-  @apply bg-red-900/20 text-red-400;
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(248, 113, 113, 0.15);
+  @apply text-red-400;
 }
 
 .info {
-  @apply bg-blue-100 text-blue-800;
+  background: rgba(219, 234, 254, 0.7);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  @apply text-blue-700;
 }
 :global(.dark) .info {
-  @apply bg-blue-900/20 text-blue-400;
+  background: rgba(59, 130, 246, 0.12);
+  border-color: rgba(96, 165, 250, 0.15);
+  @apply text-blue-400;
 }
 
 .neutral {
-  @apply bg-gray-200 text-gray-700;
+  background: rgba(229, 231, 235, 0.7);
+  border: 1px solid rgba(156, 163, 175, 0.3);
+  @apply text-gray-600;
 }
 :global(.dark) .neutral {
-  @apply bg-gray-600 text-gray-300;
+  background: rgba(75, 85, 99, 0.4);
+  border-color: rgba(255, 255, 255, 0.08);
+  @apply text-gray-300;
 }

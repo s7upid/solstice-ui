@@ -9,22 +9,20 @@
 }
 
 .viewport {
-  @apply relative overflow-hidden rounded-md;
+  @apply relative overflow-hidden rounded-xl;
   flex: 1 1 0;
   min-height: 0;
   width: 100%;
 }
 
-/* Single layout: stacked slides, one visible */
 .slide {
   @apply absolute inset-0 w-full opacity-0 pointer-events-none;
-  transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .slideActive {
   @apply opacity-100 pointer-events-auto z-[1];
 }
 
-/* Peek layout: track + visible prev/next */
 .carouselPeek .viewport {
   @apply overflow-x-hidden;
 }
@@ -34,7 +32,7 @@
   gap: 0.75rem;
   height: 100%;
   min-height: 0;
-  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   transform: translateX(
     calc(
       -1 * var(--peek-active, 0) * (var(--peek-width-pct, 55) * 1% + 0.75rem) +
@@ -46,15 +44,18 @@
   flex: 0 0 calc(var(--peek-width-pct, 55) * 1%);
   min-width: 0;
   height: 100%;
-  @apply relative overflow-hidden rounded-lg;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  @apply relative overflow-hidden rounded-xl;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .slidePeekActive {
-  @apply z-[1] shadow-lg;
+  @apply z-[1];
   transform: scale(1.03);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+:global(.dark) .slidePeekActive {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
 }
 
-/* Slide content fills height */
 .slide > *,
 .slidePeek > * {
   height: 100%;
@@ -63,7 +64,6 @@
   box-sizing: border-box;
 }
 
-/* Arrows: full-height zones, icon centered */
 .arrowZone {
   position: absolute;
   top: 0;
@@ -96,12 +96,12 @@
   width: 1.75rem;
   height: 1.75rem;
   transform: translate(-50%, -50%);
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.2));
+  transition: all var(--transition-spring);
   stroke-width: 1.5;
 }
 .arrowZone:hover .arrowIcon {
-  transform: translate(-50%, -50%) scale(1.05);
+  transform: translate(-50%, -50%) scale(1.1);
 }
 .arrowZone:not(.arrowZoneVisible) .arrowIcon {
   @apply opacity-0;
@@ -114,7 +114,6 @@
   @apply opacity-100;
 }
 
-/* Glide: pill circle */
 .arrowZonePill {
   @apply text-white;
 }
@@ -129,52 +128,67 @@
   align-items: center;
   justify-content: center;
   border-radius: 9999px;
-  @apply bg-gray-900/90 shadow-lg;
-  transition: transform 0.2s ease;
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  @apply text-gray-900;
+  transition: all var(--transition-spring);
 }
 .arrowZonePill:hover .arrowPillCircle {
-  transform: translate(-50%, -50%) scale(1.05);
-  @apply bg-gray-900;
+  transform: translate(-50%, -50%) scale(1.08);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
 }
 .arrowZonePill:focus-visible .arrowPillCircle {
-  @apply ring-2 ring-white/50 ring-offset-2 ring-offset-gray-900;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.4), 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 .arrowPillIcon {
   @apply h-5 w-5 stroke-[1.5] shrink-0;
 }
 
-/* Dots */
 .dots {
-  @apply flex shrink-0 justify-center items-center gap-1.5 py-3;
+  @apply flex shrink-0 justify-center items-center gap-2 py-3;
 }
 .dot {
-  @apply w-1.5 h-1.5 rounded-full bg-gray-300/80 hover:bg-gray-400;
-  @apply focus:outline-none focus:ring-2 focus:ring-gray-400/40 focus:ring-offset-2 focus:ring-offset-white;
-  transition: background-color 0.2s;
+  @apply h-2 rounded-full;
+  width: 8px;
+  background: rgba(156, 163, 175, 0.4);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+.dot:hover {
+  background: rgba(156, 163, 175, 0.7);
+}
+.dot:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
 }
 .dotActive {
-  @apply w-6 bg-gray-800;
-  transition: width 0.25s ease, background-color 0.2s ease;
+  width: 24px;
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
 }
 
 :global(.dark) .arrowZone {
   @apply text-gray-200;
 }
 :global(.dark) .arrowIcon {
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.4));
 }
 :global(.dark) .arrowPillCircle {
-  @apply bg-gray-100/90 text-gray-900;
-}
-:global(.dark) .arrowZonePill:hover .arrowPillCircle {
-  @apply bg-gray-100;
-}
-:global(.dark) .arrowZonePill:focus-visible .arrowPillCircle {
-  @apply ring-gray-400/50 ring-offset-gray-900;
+  @apply text-gray-100;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 :global(.dark) .dot {
-  @apply bg-gray-500/70 hover:bg-gray-400/80 focus:ring-offset-gray-900;
+  background: rgba(107, 114, 128, 0.4);
+}
+:global(.dark) .dot:hover {
+  background: rgba(107, 114, 128, 0.7);
 }
 :global(.dark) .dotActive {
-  @apply bg-gray-200;
+  background: linear-gradient(90deg, #60a5fa, #93c5fd);
+  box-shadow: 0 2px 8px rgba(96, 165, 250, 0.3);
 }

@@ -7,91 +7,127 @@
   @apply w-full;
 }
 .tabPanel {
-  @apply mt-4 rounded-lg border border-gray-200 bg-gray-50/80 p-4 min-h-[120px];
+  @apply mt-4 rounded-xl p-4 min-h-[120px] text-gray-800;
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-inset-shadow);
 }
 :global(.dark) .tabPanel {
-  @apply border-gray-700 bg-gray-800/50;
+  @apply text-gray-200;
 }
 .tabList {
-  @apply flex space-x-6;
+  @apply flex space-x-2;
 }
 
 .tab {
-  @apply inline-flex items-center space-x-2 whitespace-nowrap rounded-md text-gray-700;
+  @apply inline-flex items-center space-x-2 whitespace-nowrap rounded-lg text-gray-500 cursor-pointer;
+  transition: all var(--transition-base);
+  border: 1px solid transparent;
 }
 .tab:not(.tabActive):hover {
-  @apply text-gray-900 bg-gray-100;
+  @apply text-gray-800;
+  background: rgba(0, 0, 0, 0.04);
+  border-color: var(--glass-border);
 }
 :global(.dark) .tab {
   @apply text-gray-400;
 }
 :global(.dark) .tab:not(.tabActive):hover {
-  @apply text-gray-100 bg-gray-700;
+  @apply text-gray-100;
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.06);
 }
 .tabActive {
-  @apply bg-blue-100 text-blue-800 font-medium;
+  @apply font-medium text-blue-600;
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow), var(--glass-inset-shadow);
 }
 :global(.dark) .tabActive {
-  @apply bg-blue-600/30 text-blue-300;
+  @apply text-blue-400;
+  background: rgba(59, 130, 246, 0.12);
+  border-color: rgba(96, 165, 250, 0.15);
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.12), var(--glass-inset-shadow);
 }
 
 .sizeSm {
-  @apply px-2 py-1.5 text-sm;
+  @apply px-2.5 py-1.5 text-sm;
 }
 .sizeMd {
-  @apply px-3 py-2;
+  @apply px-3.5 py-2;
 }
 .sizeLg {
   @apply px-4 py-2.5 text-base;
 }
 
 .tabPill {
-  @apply inline-flex items-center space-x-2 whitespace-nowrap rounded-full text-gray-700;
+  @apply inline-flex items-center space-x-2 whitespace-nowrap rounded-full text-gray-500 cursor-pointer;
+  transition: all var(--transition-base);
 }
 .tabPill:not(.tabPillActive):hover {
-  @apply text-gray-900 bg-gray-100;
+  @apply text-gray-800;
+  background: rgba(0, 0, 0, 0.04);
 }
 :global(.dark) .tabPill {
   @apply text-gray-400;
 }
 :global(.dark) .tabPill:not(.tabPillActive):hover {
-  @apply text-gray-100 bg-gray-700;
+  @apply text-gray-100;
+  background: rgba(255, 255, 255, 0.06);
 }
 .tabPillActive {
-  @apply bg-blue-600 text-white font-medium;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  @apply text-white font-medium;
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
 }
 :global(.dark) .tabPillActive {
-  @apply bg-blue-500;
+  background: linear-gradient(135deg, #60a5fa, #3b82f6);
+  box-shadow: 0 4px 14px rgba(96, 165, 250, 0.25);
 }
 
 .tabUnderline {
-  @apply inline-flex items-center space-x-2 whitespace-nowrap pb-2 border-b-2 border-transparent text-gray-700;
+  @apply inline-flex items-center space-x-2 whitespace-nowrap pb-2 border-b-2 border-transparent text-gray-500 cursor-pointer;
+  transition: all var(--transition-base);
 }
 .tabUnderline:not(.tabUnderlineActive):hover {
-  @apply text-gray-900 border-gray-300;
+  @apply text-gray-800;
+  border-bottom-color: rgba(156, 163, 175, 0.4);
 }
 :global(.dark) .tabUnderline {
   @apply text-gray-400;
 }
 :global(.dark) .tabUnderline:not(.tabUnderlineActive):hover {
-  @apply text-gray-100 border-gray-600;
+  @apply text-gray-100;
+  border-bottom-color: rgba(156, 163, 175, 0.3);
 }
 .tabUnderlineActive {
-  @apply border-blue-500 text-blue-800 font-medium;
+  @apply font-medium text-blue-600;
+  border-bottom-color: #3b82f6;
 }
 :global(.dark) .tabUnderlineActive {
-  @apply border-blue-400 text-blue-300;
+  @apply text-blue-400;
+  border-bottom-color: #60a5fa;
 }
 
 .tabDisabled {
-  @apply opacity-50 cursor-not-allowed;
+  @apply opacity-40 cursor-not-allowed;
 }
 .icon {
   @apply w-4 h-4;
 }
 .badge {
-  @apply ml-2 px-2 py-0.5 text-xs font-medium rounded-full bg-gray-200 text-gray-700;
+  @apply ml-2 px-2 py-0.5 text-xs font-semibold rounded-full text-gray-600;
+  background: var(--glass-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--glass-border);
 }
 :global(.dark) .badge {
-  @apply bg-gray-700 text-gray-300;
+  @apply text-gray-300;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.06);
 }

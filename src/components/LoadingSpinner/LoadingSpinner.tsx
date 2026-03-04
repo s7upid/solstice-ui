@@ -1,4 +1,3 @@
-import React from "react";
 import { cn } from "../../utils/cn";
 import styles from "./LoadingSpinner.module.css";
 
@@ -17,24 +16,26 @@ export interface LoadingSpinnerProps {
   threeD?: boolean;
 }
 
-const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
+function LoadingSpinner({
   size = "md",
   className = "",
   text,
   showMessage = true,
   threeD = false,
-}) => (
-  <div
-    className={cn(styles.container, threeD && "solstice-ui-3d", className)}
-    role="status"
-    aria-label={text || "Loading"}
-  >
+}: LoadingSpinnerProps) {
+  return (
     <div
-      className={cn(styles.spinnerBase, SIZE_CLASSES[size])}
-      aria-hidden="true"
-    />
-    {text && showMessage && <p className={styles.text}>{text}</p>}
-  </div>
-);
+      className={cn(styles.container, threeD && "solstice-ui-3d", className)}
+      role="status"
+      aria-label={text || "Loading"}
+    >
+      <div
+        className={cn(styles.spinnerBase, SIZE_CLASSES[size])}
+        aria-hidden="true"
+      />
+      {text && showMessage && <p className={styles.text}>{text}</p>}
+    </div>
+  );
+}
 
 export default LoadingSpinner;

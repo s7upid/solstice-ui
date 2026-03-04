@@ -1,14 +1,21 @@
 @reference "tailwindcss";
 
 .card {
-  @apply w-full bg-white rounded-lg border border-gray-200 p-6 relative flex flex-col mb-6;
+  @apply w-full rounded-2xl p-6 relative flex flex-col mb-6;
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow), var(--glass-inset-shadow);
+  transition: all var(--transition-smooth);
 }
-:global(.dark) .card {
-  @apply bg-gray-700 border-gray-600;
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--glass-hover-shadow), var(--glass-inset-shadow);
 }
 
 .cardStatusBadge {
-  @apply absolute top-2 right-2 z-10;
+  @apply absolute top-3 right-3 z-10;
 }
 
 .header,
@@ -24,16 +31,21 @@
 }
 
 .avatar {
-  @apply w-16 h-16 rounded-full object-cover border-2 border-gray-200;
+  @apply w-16 h-16 rounded-full object-cover;
+  border: 2px solid var(--glass-border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 :global(.dark) .avatar {
-  @apply border-gray-600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
+
 .icon {
-  @apply text-blue-600;
+  @apply text-blue-500;
+  filter: drop-shadow(0 2px 4px rgba(59, 130, 246, 0.25));
 }
 :global(.dark) .icon {
   @apply text-blue-400;
+  filter: drop-shadow(0 2px 6px rgba(96, 165, 250, 0.3));
 }
 .iconSm {
   @apply w-8 h-8;
@@ -49,10 +61,10 @@
   @apply text-lg font-semibold text-gray-900;
 }
 :global(.dark) .title {
-  @apply text-gray-100;
+  @apply text-gray-50;
 }
 .description {
-  @apply text-sm text-gray-600 mt-1;
+  @apply text-sm text-gray-500 mt-1;
 }
 :global(.dark) .description {
   @apply text-gray-400;
@@ -93,7 +105,10 @@
   @apply flex flex-col min-w-0;
 }
 .detailIcon {
-  @apply h-4 w-4 text-gray-500 mt-0.5;
+  @apply h-4 w-4 text-gray-400 mt-0.5;
+}
+:global(.dark) .detailIcon {
+  @apply text-gray-500;
 }
 .detailLabel {
   @apply text-xs text-gray-500 uppercase tracking-wide;
@@ -102,7 +117,7 @@
   @apply text-sm text-gray-900 font-medium truncate;
 }
 :global(.dark) .detailLabel {
-  @apply text-gray-400;
+  @apply text-gray-500;
 }
 :global(.dark) .detailValue {
   @apply text-gray-100;
@@ -112,74 +127,90 @@
   @apply space-y-2 mt-4 flex-1;
 }
 .statItem {
-  @apply flex items-center space-x-2 text-sm text-gray-700;
+  @apply flex items-center space-x-2 text-sm text-gray-600;
 }
 :global(.dark) .statItem {
   @apply text-gray-300;
 }
 .statIcon {
-  @apply h-5 w-5 text-gray-500;
+  @apply h-5 w-5 text-gray-400;
 }
 :global(.dark) .statIcon {
-  @apply text-gray-400;
+  @apply text-gray-500;
 }
 
 .actions {
-  @apply mt-auto pt-4 border-t border-gray-200;
-}
-:global(.dark) .actions {
-  @apply border-gray-600;
+  @apply mt-auto pt-4;
+  border-top: 1px solid var(--glass-border);
 }
 .actionRow {
   @apply flex items-center justify-start gap-2;
 }
 .actionButton {
-  @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium border border-gray-300 bg-white text-gray-700 hover:bg-gray-50;
+  @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium;
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--glass-border);
+  @apply text-gray-700;
+  transition: all var(--transition-base);
+}
+.actionButton:hover {
+  background: rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
 }
 :global(.dark) .actionButton {
-  @apply border-gray-600 bg-gray-800 text-gray-300 hover:bg-gray-700;
+  @apply text-gray-300;
+  background: rgba(255, 255, 255, 0.06);
+}
+:global(.dark) .actionButton:hover {
+  @apply text-gray-100;
+  background: rgba(255, 255, 255, 0.12);
 }
 .actionIcon {
   @apply h-4 w-4;
 }
 
-/* Image layout (when imageSrc is set) */
 .cardWithImage {
-  @apply w-full rounded-xl overflow-hidden shadow-md flex flex-col min-h-[200px] p-0 mb-0 border border-gray-200;
+  @apply w-full rounded-2xl overflow-hidden flex flex-col min-h-[200px] p-0 mb-0;
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow), var(--glass-inset-shadow);
 }
-:global(.dark) .cardWithImage {
-  @apply border-gray-600;
+.cardWithImage:hover {
+  box-shadow: var(--glass-hover-shadow), var(--glass-inset-shadow);
 }
-.cardWithImage .imageContent {
+.imageContent {
   @apply flex flex-1 min-h-0;
 }
-.cardWithImage .imageTextBlock {
+.imageTextBlock {
   @apply flex flex-col justify-center p-6 flex-1 min-w-0;
 }
-.cardWithImage .imageTitle {
+.imageTitle {
   @apply text-xl font-bold text-gray-900 mb-2;
 }
-:global(.dark) .cardWithImage .imageTitle {
+:global(.dark) .imageTitle {
   @apply text-white;
 }
-.cardWithImage .imageDescription {
-  @apply text-sm text-gray-600 leading-relaxed mb-4 flex-1;
+.imageDescription {
+  @apply text-sm text-gray-500 leading-relaxed mb-4 flex-1;
 }
-:global(.dark) .cardWithImage .imageDescription {
+:global(.dark) .imageDescription {
   @apply text-gray-400;
 }
-.cardWithImage .imageActionButton {
+.imageActionButton {
   @apply self-start;
 }
-.cardWithImage .imageWrap {
+.imageWrap {
   @apply w-40 sm:w-48 shrink-0 relative overflow-hidden;
 }
-.cardWithImage .imageImg {
+.imageImg {
   @apply w-full h-full object-cover;
 }
-.cardWithImage .imagePlaceholder {
-  @apply w-full h-full bg-gray-200 flex items-center justify-center text-gray-500 text-sm;
+.imagePlaceholder {
+  @apply w-full h-full flex items-center justify-center text-gray-400 text-sm;
+  background: var(--glass-bg);
 }
-:global(.dark) .cardWithImage .imagePlaceholder {
-  @apply bg-gray-700 text-gray-400;
+:global(.dark) .imagePlaceholder {
+  @apply text-gray-500;
 }

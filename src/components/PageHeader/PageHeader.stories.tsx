@@ -10,7 +10,7 @@ const meta: Meta<typeof PageHeader> = {
   parameters: {
     docs: {
       description: {
-        component: "Page title with optional description and actions (e.g. buttons). Use at the top of a page.",
+        component: "Page title with optional subtitle, description, and actions (e.g. buttons). Use at the top of a page.",
       },
     },
   },

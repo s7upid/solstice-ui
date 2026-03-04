@@ -1,33 +1,37 @@
 @reference "tailwindcss";
 
 .emptyState {
-  @apply w-full flex flex-col items-center justify-center text-center gap-3 p-6 rounded-lg border border-gray-200 bg-white;
-}
-:global(.dark) .emptyState {
-  @apply border-gray-700 bg-gray-800;
+  @apply w-full flex flex-col items-center justify-center text-center gap-4 p-8 rounded-2xl;
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow), var(--glass-inset-shadow);
+  animation: glass-fade-in 400ms ease-out;
 }
 
 .iconWrapper {
-  @apply text-gray-500;
+  @apply text-gray-400;
+  animation: glass-float 3s ease-in-out infinite;
 }
 :global(.dark) .iconWrapper {
-  @apply text-gray-400;
+  @apply text-gray-500;
 }
 
 .title {
-  @apply text-lg font-semibold text-gray-900 m-0;
+  @apply text-lg font-semibold text-gray-800 m-0;
 }
 :global(.dark) .title {
   @apply text-gray-100;
 }
 
 .description {
-  @apply m-0 text-gray-600;
+  @apply m-0 text-gray-500;
 }
 :global(.dark) .description {
   @apply text-gray-400;
 }
 
 .actions {
-  @apply flex flex-wrap items-center justify-center gap-2;
+  @apply flex flex-wrap items-center justify-center gap-2 mt-2;
 }

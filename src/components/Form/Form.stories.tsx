@@ -10,7 +10,7 @@ const meta: Meta<typeof Form> = {
   parameters: {
     docs: {
       description: {
-        component: "Form layout wrapper with onSubmit. Renders a form element; pass title and children (inputs, buttons, etc.).",
+        component: "Form layout wrapper with onSubmit. Renders a styled form element; pass children (inputs, buttons, etc.).",
       },
     },
   },

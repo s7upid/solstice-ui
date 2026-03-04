@@ -22,3 +22,5 @@ npm install || { echo "[ERROR] npm install failed."; exit 1; }
 echo
 echo "Starting Storybook..."
 npm run storybook
+echo
+read -p "Press Enter to close..."

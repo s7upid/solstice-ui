@@ -10,7 +10,7 @@ const items: Item[] = [
 ];
 
 describe("Grid", () => {
-  it("renders items via renderCard", () => {
+  it("renders items via renderCard with correct roles", () => {
     render(
       <Grid<Item>
         items={items}
@@ -19,22 +19,12 @@ describe("Grid", () => {
     );
     expect(screen.getByText("Item one")).toBeInTheDocument();
     expect(screen.getByText("Item two")).toBeInTheDocument();
-  });
-
-  it("renders with role list and listitem", () => {
-    render(
-      <Grid<Item>
-        items={items}
-        renderCard={(item) => <span>{item.name}</span>}
-      />
-    );
     const list = screen.getByRole("list");
     expect(list).toBeInTheDocument();
-    const listItems = screen.getAllByRole("listitem");
-    expect(listItems).toHaveLength(2);
+    expect(screen.getAllByRole("listitem")).toHaveLength(2);
   });
 
-  it("uses keyExtractor when provided", () => {
+  it("renders items when keyExtractor is provided", () => {
     render(
       <Grid<Item>
         items={items}

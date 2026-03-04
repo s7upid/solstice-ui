@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { XCircle, Trash2, Save, Info } from "lucide-react";
 import Dialog from "./Dialog";
 import Button from "../Button/Button";
@@ -28,7 +28,7 @@ const DialogWithButton = ({
   children,
   useFooterActions,
   ...props
-}: Partial<Story["args"]> & { children?: React.ReactNode; useFooterActions?: boolean }) => {
+}: Partial<Story["args"]> & { children?: ReactNode; useFooterActions?: boolean }) => {
   const [open, setOpen] = useState(false);
   return (
     <>

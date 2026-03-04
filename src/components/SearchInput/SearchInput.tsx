@@ -1,7 +1,5 @@
-import React from "react";
 import { Search } from "lucide-react";
-import { cn } from "../../utils/cn";
-import styles from "./SearchInput.module.css";
+import Input from "../Input/Input";
 
 export interface SearchInputProps {
   value: string;
@@ -13,36 +11,28 @@ export interface SearchInputProps {
   threeD?: boolean;
 }
 
-const SearchInput: React.FC<SearchInputProps> = ({
+function SearchInput({
   value,
   onChange,
   placeholder = "Search...",
-  className = "",
+  className,
   disabled = false,
   threeD = false,
-}) => {
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(e.target.value);
-  };
-
+}: SearchInputProps) {
   return (
-    <div className={cn(styles.container, threeD && "solstice-ui-3d", className)}>
-      <div className={styles.wrapper}>
-        <div className={styles.iconContainer}>
-          <Search className={styles.icon} />
-        </div>
-        <input
-          type="search"
-          value={value}
-          onChange={handleInputChange}
-          placeholder={placeholder}
-          className={styles.field}
-          disabled={disabled}
-          aria-label={placeholder}
-        />
-      </div>
-    </div>
+    <Input
+      type="search"
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      placeholder={placeholder}
+      icon={Search}
+      iconPosition="left"
+      disabled={disabled}
+      threeD={threeD}
+      className={className}
+      aria-label={placeholder}
+    />
   );
-};
+}
 
 export default SearchInput;

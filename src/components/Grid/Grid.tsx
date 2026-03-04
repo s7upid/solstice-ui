@@ -1,19 +1,26 @@
-import React from "react";
+import { type ReactNode, type Key } from "react";
 import { cn } from "../../utils/cn";
 import styles from "./Grid.module.css";
 
 export interface GridProps<T> {
   items: T[];
-  renderCard: (item: T) => React.ReactNode;
+  renderCard: (item: T) => ReactNode;
   /** Number of grid columns (1–4). Default 3. */
   columns?: 1 | 2 | 3 | 4;
   /** Key for each item (optional). Defaults to index. */
-  keyExtractor?: (item: T, index: number) => React.Key;
+  keyExtractor?: (item: T, index: number) => Key;
   /** Optional grid container class. */
   gridClassName?: string;
   /** When true, adds a 3D-style shadow (bottom and right). */
   threeD?: boolean;
 }
+
+const GRID_COLS = {
+  1: styles.gridCols1,
+  2: styles.gridCols2,
+  3: styles.gridCols3,
+  4: styles.gridCols4,
+} as const;
 
 function Grid<T>({
   items,
@@ -23,14 +30,7 @@ function Grid<T>({
   gridClassName = "",
   threeD = false,
 }: GridProps<T>) {
-  const gridColsClass =
-    columns === 1
-      ? styles.gridCols1
-      : columns === 2
-        ? styles.gridCols2
-        : columns === 4
-          ? styles.gridCols4
-          : styles.gridCols3;
+  const gridColsClass = GRID_COLS[columns];
 
   return (
     <div

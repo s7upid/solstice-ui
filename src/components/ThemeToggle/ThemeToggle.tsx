@@ -1,4 +1,3 @@
-import React from "react";
 import { Sun, Moon } from "lucide-react";
 import { useThemeContextOptional } from "../../context/ThemeContext";
 import { cn } from "../../utils/cn";
@@ -13,12 +12,12 @@ export interface ThemeToggleProps {
   className?: string;
 }
 
-const ThemeToggle: React.FC<ThemeToggleProps> = ({
+function ThemeToggle({
   theme: themeProp,
   onToggle: onToggleProp,
   threeD = false,
   className,
-}) => {
+}: ThemeToggleProps) {
   const ctx = useThemeContextOptional();
   const theme = themeProp ?? ctx?.theme ?? "light";
   const toggleTheme = onToggleProp ?? ctx?.toggleTheme ?? (() => {});
@@ -41,6 +40,6 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({
       )}
     </button>
   );
-};
+}
 
 export default ThemeToggle;

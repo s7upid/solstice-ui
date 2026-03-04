@@ -13,3 +13,5 @@ echo "=========================================="
 echo
 
 npm run test:e2e
+echo
+read -p "Press Enter to close..."

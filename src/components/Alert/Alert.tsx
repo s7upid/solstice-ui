@@ -1,4 +1,4 @@
-import React from "react";
+import { type ReactNode } from "react";
 import { AlertCircle, CheckCircle, Info, X, AlertTriangle } from "lucide-react";
 import { cn } from "../../utils/cn";
 import styles from "./Alert.module.css";
@@ -8,7 +8,7 @@ export type AlertVariant = "info" | "success" | "warning" | "error";
 export interface AlertProps {
   variant?: AlertVariant;
   title?: string;
-  children: React.ReactNode;
+  children: ReactNode;
   dismissible?: boolean;
   onDismiss?: () => void;
   /** When true, adds a 3D-style shadow (bottom and right). */
@@ -23,7 +23,7 @@ const ICONS = {
   error: AlertCircle,
 } as const;
 
-const Alert: React.FC<AlertProps> = ({
+function Alert({
   variant = "info",
   title,
   children,
@@ -31,7 +31,7 @@ const Alert: React.FC<AlertProps> = ({
   onDismiss,
   threeD = false,
   className,
-}) => {
+}: AlertProps) {
   const Icon = ICONS[variant];
 
   return (
@@ -61,6 +61,6 @@ const Alert: React.FC<AlertProps> = ({
       )}
     </div>
   );
-};
+}
 
 export default Alert;

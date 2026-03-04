@@ -1,9 +1,22 @@
-import React, { useState, memo } from "react";
+import {
+  useState,
+  useEffect,
+  useId,
+  useRef,
+  memo,
+  type ReactNode,
+  type Ref,
+  type MutableRefObject,
+  type ChangeEvent,
+  type KeyboardEvent as ReactKeyboardEvent,
+  type MouseEvent as ReactMouseEvent,
+  type ButtonHTMLAttributes,
+} from "react";
 import { LucideIcon } from "lucide-react";
 import { cn } from "../../utils/cn";
 import styles from "./Toggle.module.css";
 
-/** State for switch variant: off, indeterminate (middle), or on */
+/** State for switch/checkbox variants: off, indeterminate (middle), or on */
 export type ToggleState = "off" | "indeterminate" | "on";
 
 const STATE_ORDER: ToggleState[] = ["off", "on", "indeterminate"];
@@ -18,8 +31,8 @@ function getNextState(current: ToggleState, triState: boolean): ToggleState {
 
 /** Shared props for all toggles */
 interface ToggleBaseProps {
-  /** "button" = pressable button with label/icon; "switch" = track+thumb with optional tri-state */
-  variant?: "button" | "switch";
+  /** "button" = pressable button; "switch" = track+thumb; "checkbox" = checkbox input */
+  variant?: "button" | "switch" | "checkbox";
   /** When true, adds a 3D-style shadow (bottom and right). */
   threeD?: boolean;
   className?: string;
@@ -29,7 +42,7 @@ interface ToggleBaseProps {
 /** Button-style toggle: pressed/unpressed with optional label and icon */
 export interface ToggleButtonModeProps
   extends ToggleBaseProps,
-    Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "onToggle"> {
+    Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onToggle"> {
   variant?: "button";
   pressed?: boolean;
   onToggle?: (pressed: boolean) => void;
@@ -42,7 +55,7 @@ export interface ToggleButtonModeProps
   size?: "sm" | "md" | "lg";
   /** Visual style when variant="button" */
   buttonVariant?: "primary" | "secondary" | "outline" | "ghost";
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 /** Switch-style toggle: track + thumb, off/on or off/indeterminate/on */
@@ -56,7 +69,26 @@ export interface ToggleSwitchModeProps extends ToggleBaseProps {
   "aria-label"?: string;
 }
 
-export type ToggleProps = ToggleButtonModeProps | ToggleSwitchModeProps;
+/** Checkbox-style toggle: styled checkbox input, off/on or off/on/indeterminate */
+export interface ToggleCheckboxModeProps extends ToggleBaseProps {
+  variant: "checkbox";
+  state?: ToggleState;
+  onStateChange?: (state: ToggleState) => void;
+  /** When false, only two states: off ↔ on. Default true for 3 states. */
+  triState?: boolean;
+  label?: string;
+  error?: string;
+  /** Optional description below the label */
+  description?: string;
+  id?: string;
+  "aria-label"?: string;
+  ref?: Ref<HTMLInputElement>;
+}
+
+export type ToggleProps =
+  | ToggleButtonModeProps
+  | ToggleSwitchModeProps
+  | ToggleCheckboxModeProps;
 
 const SIZE_CLASSES = {
   sm: styles.sizeSm,
@@ -77,18 +109,13 @@ const ICON_SIZE_CLASSES = {
   lg: styles.iconLg,
 } as const;
 
-function isSwitchProps(props: ToggleProps): props is ToggleSwitchModeProps {
-  return props.variant === "switch";
+function Toggle(props: ToggleProps) {
+  if (props.variant === "switch") return <ToggleSwitch {...props} />;
+  if (props.variant === "checkbox") return <ToggleCheckbox {...props} />;
+  return <ToggleButton {...(props as ToggleButtonModeProps)} />;
 }
 
-const Toggle: React.FC<ToggleProps> = (props) => {
-  if (isSwitchProps(props)) {
-    return <ToggleSwitch {...props} />;
-  }
-  return <ToggleButton {...(props as ToggleButtonModeProps)} />;
-};
-
-const ToggleSwitch: React.FC<ToggleSwitchModeProps> = ({
+function ToggleSwitch({
   state = "off",
   onStateChange,
   triState = true,
@@ -97,14 +124,11 @@ const ToggleSwitch: React.FC<ToggleSwitchModeProps> = ({
   threeD = false,
   className,
   "aria-label": ariaLabel = "Toggle state",
-}) => {
+}: ToggleSwitchModeProps) {
   const handleClick = () => {
     if (disabled) return;
     onStateChange?.(getNextState(state, triState));
   };
-
-  const position =
-    state === "off" ? "off" : state === "on" ? "on" : "indeterminate";
 
   return (
     <div className={cn(styles.switchWrapper, threeD && "solstice-ui-3d", className)}>
@@ -117,18 +141,18 @@ const ToggleSwitch: React.FC<ToggleSwitchModeProps> = ({
         onClick={handleClick}
         className={cn(
           styles.track,
-          position === "off" && styles.trackOff,
-          position === "indeterminate" && styles.trackIndeterminate,
-          position === "on" && styles.trackOn,
+          state === "off" && styles.trackOff,
+          state === "indeterminate" && styles.trackIndeterminate,
+          state === "on" && styles.trackOn,
           disabled && styles.trackDisabled
         )}
       >
         <span
           className={cn(
             styles.thumb,
-            position === "off" && styles.thumbOff,
-            position === "indeterminate" && styles.thumbIndeterminate,
-            position === "on" && styles.thumbOn
+            state === "off" && styles.thumbOff,
+            state === "indeterminate" && styles.thumbIndeterminate,
+            state === "on" && styles.thumbOn
           )}
         />
       </button>
@@ -141,7 +165,7 @@ const ToggleSwitch: React.FC<ToggleSwitchModeProps> = ({
               <span
                 className={cn(
                   styles.switchLabel,
-                  position === "off" && styles.switchLabelActive
+                  state === "off" && styles.switchLabelActive
                 )}
               >
                 {labels.off}
@@ -151,7 +175,7 @@ const ToggleSwitch: React.FC<ToggleSwitchModeProps> = ({
               <span
                 className={cn(
                   styles.switchLabel,
-                  position === "indeterminate" && styles.switchLabelActive
+                  state === "indeterminate" && styles.switchLabelActive
                 )}
               >
                 {labels.indeterminate}
@@ -161,7 +185,7 @@ const ToggleSwitch: React.FC<ToggleSwitchModeProps> = ({
               <span
                 className={cn(
                   styles.switchLabel,
-                  position === "on" && styles.switchLabelActive
+                  state === "on" && styles.switchLabelActive
                 )}
               >
                 {labels.on}
@@ -171,9 +195,104 @@ const ToggleSwitch: React.FC<ToggleSwitchModeProps> = ({
         )}
     </div>
   );
-};
+}
 
-const ToggleButton: React.FC<ToggleButtonModeProps> = ({
+function ToggleCheckbox({
+  state = "off",
+  onStateChange,
+  triState = true,
+  label,
+  error,
+  description,
+  disabled = false,
+  threeD = false,
+  className,
+  id,
+  ref,
+  "aria-label": ariaLabel,
+}: ToggleCheckboxModeProps) {
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const setRefs = (el: HTMLInputElement | null) => {
+    inputRef.current = el;
+    if (typeof ref === "function") ref(el);
+    else if (ref) (ref as MutableRefObject<HTMLInputElement | null>).current = el;
+  };
+
+  const isIndeterminate = state === "indeterminate";
+  const isChecked = state === "on";
+
+  useEffect(() => {
+    const el = inputRef.current;
+    if (el) el.indeterminate = isIndeterminate;
+  }, [isIndeterminate]);
+
+  const generatedId = useId();
+  const inputId = id || `checkbox-${generatedId.replace(/:/g, "")}`;
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    onStateChange?.(getNextState(state, triState));
+  };
+
+  const handleKeyDown = (e: ReactKeyboardEvent<HTMLInputElement>) => {
+    if (e.key === " ") {
+      e.preventDefault();
+      onStateChange?.(getNextState(state, triState));
+    }
+  };
+
+  return (
+    <div className={cn(styles.cbContainer, threeD && "solstice-ui-3d", className)}>
+      <div className={styles.cbWrapper}>
+        <input
+          ref={setRefs}
+          id={inputId}
+          type="checkbox"
+          checked={isChecked}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          disabled={disabled}
+          aria-checked={isIndeterminate ? "mixed" : isChecked}
+          aria-label={ariaLabel}
+          aria-invalid={!!error}
+          aria-describedby={
+            error
+              ? `${inputId}-error`
+              : description
+                ? `${inputId}-desc`
+                : undefined
+          }
+          className={cn(
+            styles.cbInput,
+            isIndeterminate && styles.cbIndeterminate,
+            error && styles.cbInputError
+          )}
+        />
+        <span className={styles.cbBox} aria-hidden>
+          {isChecked && !isIndeterminate && <span className={styles.cbCheck} />}
+          {isIndeterminate && <span className={styles.cbDash} />}
+        </span>
+      </div>
+      {(label || description) && (
+        <label htmlFor={inputId} className={styles.cbLabelBlock}>
+          {label && <span className={styles.cbLabel}>{label}</span>}
+          {description && (
+            <span id={`${inputId}-desc`} className={styles.cbDescription}>
+              {description}
+            </span>
+          )}
+        </label>
+      )}
+      {error && (
+        <p id={`${inputId}-error`} className={styles.cbError} role="alert">
+          {error}
+        </p>
+      )}
+    </div>
+  );
+}
+
+function ToggleButton({
   pressed: controlledPressed,
   onToggle,
   defaultPressed = false,
@@ -189,12 +308,12 @@ const ToggleButton: React.FC<ToggleButtonModeProps> = ({
   children,
   className,
   ...rest
-}) => {
+}: ToggleButtonModeProps) {
   const [uncontrolledPressed, setUncontrolledPressed] = useState(defaultPressed);
   const isControlled = controlledPressed !== undefined;
   const pressed = isControlled ? controlledPressed : uncontrolledPressed;
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (e: ReactMouseEvent<HTMLButtonElement>) => {
     if (rest.onClick) rest.onClick(e);
     if (e.defaultPrevented) return;
     const next = !pressed;
@@ -234,6 +353,6 @@ const ToggleButton: React.FC<ToggleButtonModeProps> = ({
       )}
     </button>
   );
-};
+}
 
 export default memo(Toggle);

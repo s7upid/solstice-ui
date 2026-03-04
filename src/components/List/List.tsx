@@ -1,13 +1,14 @@
-import React from "react";
+import { type ReactNode, type Key } from "react";
 import { cn } from "../../utils/cn";
+import styles from "./List.module.css";
 
 type BaseListItem = { id?: number | string };
 
 export interface ListProps<T extends BaseListItem> {
   items: T[];
-  renderItem: (item: T) => React.ReactNode;
+  renderItem: (item: T) => ReactNode;
   listClassName?: string;
-  keyExtractor?: (item: T, index: number) => React.Key;
+  keyExtractor?: (item: T, index: number) => Key;
   /** When true, adds a 3D-style shadow (bottom and right). */
   threeD?: boolean;
 }
@@ -20,7 +21,7 @@ function List<T extends BaseListItem>({
   threeD = false,
 }: ListProps<T>) {
   return (
-    <div className={cn("w-full space-y-1", threeD && "solstice-ui-3d", listClassName)}>
+    <div className={cn(styles.list, threeD && "solstice-ui-3d", listClassName)}>
       {items.map((item, index) => (
         <div
           key={

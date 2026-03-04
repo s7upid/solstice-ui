@@ -55,6 +55,7 @@ echo [5/6] Extracting coverage results...
 call node test-coverage\extract-results.js
 if errorlevel 1 (
     echo [ERROR] extract-results.js failed. Ensure coverage/ exists from test:coverage.
+    echo.
     pause
     exit /b 1
 )
@@ -64,6 +65,7 @@ echo [6/6] Updating README badges...
 call node test-coverage\update-readme-badges.js
 if errorlevel 1 (
     echo [ERROR] update-readme-badges.js failed.
+    echo.
     pause
     exit /b 1
 )

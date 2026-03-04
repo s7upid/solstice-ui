@@ -1,139 +1,218 @@
 @reference "tailwindcss";
 
-/* ----- Button variant ----- */
 .buttonBase {
-  @apply w-full inline-flex items-center justify-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white disabled:opacity-50 disabled:cursor-not-allowed;
+  @apply w-full inline-flex items-center justify-center font-semibold rounded-xl
+    disabled:opacity-50 disabled:cursor-not-allowed;
+  transition: all var(--transition-spring);
+  position: relative;
+  overflow: hidden;
 }
-:global(.dark) .buttonBase {
-  @apply focus:ring-offset-gray-900;
+.buttonBase:not(:disabled):hover {
+  transform: scale(1.025) translateY(-1px);
+}
+.buttonBase:not(:disabled):active {
+  transform: scale(0.975);
+  transition-duration: 100ms;
+}
+.buttonBase:focus-visible {
+  outline: none;
 }
 
 .sizeSm {
-  @apply px-3 py-1.5 text-sm gap-1.5;
+  @apply px-3 py-1.5 text-sm gap-1.5 rounded-lg;
 }
 .sizeMd {
-  @apply px-4 py-2 text-sm gap-2;
+  @apply px-4 py-2.5 text-sm gap-2;
 }
 .sizeLg {
   @apply px-6 py-3 text-base gap-2;
 }
 
 .primary {
-  @apply bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-gray-500;
+  background: rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--glass-border);
+  @apply text-gray-700;
+  box-shadow: var(--glass-shadow);
+}
+.primary:not(:disabled):hover {
+  background: rgba(0, 0, 0, 0.07);
+  box-shadow: var(--glass-hover-shadow);
 }
 .primary.pressed {
-  @apply bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500;
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  @apply text-white;
+  border-color: transparent;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.primary:focus-visible {
+  box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.3), var(--glass-shadow);
 }
 
 .secondary {
-  @apply bg-gray-100 text-gray-700 hover:bg-gray-200 focus:ring-gray-500;
+  background: rgba(0, 0, 0, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--glass-border);
+  @apply text-gray-600;
+  box-shadow: var(--glass-inset-shadow);
+}
+.secondary:not(:disabled):hover {
+  background: rgba(0, 0, 0, 0.06);
 }
 .secondary.pressed {
-  @apply bg-gray-700 text-white hover:bg-gray-600 focus:ring-gray-500;
+  background: rgba(0, 0, 0, 0.08);
+  @apply text-gray-900;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.secondary:focus-visible {
+  box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.2);
 }
 
 .outline {
-  @apply border-2 border-gray-300 bg-transparent text-gray-700 hover:bg-gray-100 focus:ring-gray-500;
+  @apply bg-transparent text-gray-700;
+  border: 1.5px solid rgba(0, 0, 0, 0.12);
+  transition: all var(--transition-base);
+}
+.outline:not(:disabled):hover {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.18);
 }
 .outline.pressed {
-  @apply border-blue-600 bg-blue-50 text-blue-700 hover:bg-blue-100 focus:ring-blue-500;
+  border-color: rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.06);
+  @apply text-gray-900;
+}
+.outline:focus-visible {
+  box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.2);
 }
 
 .ghost {
-  @apply bg-transparent text-gray-600 hover:bg-gray-100 focus:ring-gray-500;
+  @apply bg-transparent text-gray-600;
+  transition: all var(--transition-base);
+}
+.ghost:not(:disabled):hover {
+  background: rgba(0, 0, 0, 0.04);
 }
 .ghost.pressed {
-  @apply bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-500;
+  background: rgba(0, 0, 0, 0.07);
+  @apply text-gray-900;
+}
+.ghost:focus-visible {
+  box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.15);
 }
 
-.iconLeft {
-  @apply shrink-0;
-}
-.iconRight {
-  @apply shrink-0;
-}
-.iconSm {
-  @apply w-4 h-4;
-}
-.iconMd {
-  @apply w-5 h-5;
-}
-.iconLg {
-  @apply w-6 h-6;
-}
-.buttonLabel {
-  @apply truncate;
-}
+.iconLeft { @apply shrink-0; }
+.iconRight { @apply shrink-0; }
+.iconSm { @apply w-4 h-4; }
+.iconMd { @apply w-5 h-5; }
+.iconLg { @apply w-6 h-6; }
+.buttonLabel { @apply truncate; }
 
 :global(.dark) .primary {
-  @apply bg-gray-600 text-gray-200 hover:bg-gray-500;
+  @apply text-gray-200;
+  background: rgba(255, 255, 255, 0.06);
+}
+:global(.dark) .primary:not(:disabled):hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 :global(.dark) .primary.pressed {
-  @apply bg-blue-600 text-white hover:bg-blue-700;
+  background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+  color: #0f172a;
+  border-color: transparent;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(226, 232, 240, 0.15);
 }
 :global(.dark) .secondary {
-  @apply bg-gray-700 text-gray-200 hover:bg-gray-600;
+  @apply text-gray-300;
+  background: rgba(255, 255, 255, 0.04);
+}
+:global(.dark) .secondary:not(:disabled):hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 :global(.dark) .secondary.pressed {
-  @apply bg-gray-600 text-white hover:bg-gray-500;
+  background: rgba(255, 255, 255, 0.12);
+  @apply text-gray-100;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 :global(.dark) .outline {
-  @apply border-gray-600 text-gray-300 hover:bg-gray-700;
+  @apply text-gray-300;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+:global(.dark) .outline:not(:disabled):hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.18);
 }
 :global(.dark) .outline.pressed {
-  @apply border-blue-500 bg-blue-900/30 text-blue-300;
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+  @apply text-gray-100;
 }
 :global(.dark) .ghost {
-  @apply text-gray-400 hover:bg-gray-700;
+  @apply text-gray-400;
+}
+:global(.dark) .ghost:not(:disabled):hover {
+  @apply text-gray-100;
+  background: rgba(255, 255, 255, 0.06);
 }
 :global(.dark) .ghost.pressed {
-  @apply bg-gray-600 text-white;
+  background: rgba(255, 255, 255, 0.1);
+  @apply text-white;
 }
 
-/* ----- Switch variant ----- */
 .switchWrapper {
   @apply w-full inline-flex flex-col gap-2;
 }
 
 .track {
-  @apply relative w-12 h-6 rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-white cursor-pointer;
+  @apply relative w-12 h-7 rounded-full cursor-pointer;
+  transition: all var(--transition-base);
+  box-shadow: var(--glass-inset-shadow);
 }
-:global(.dark) .track {
-  @apply focus:ring-offset-gray-900;
+.track:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.3);
 }
 .trackOff {
-  @apply bg-gray-200;
+  background: rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--glass-border);
 }
 :global(.dark) .trackOff {
-  @apply bg-gray-600;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.06);
 }
 .trackIndeterminate {
-  @apply bg-amber-500/80;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  border: 1px solid transparent;
 }
 :global(.dark) .trackIndeterminate {
-  @apply bg-amber-500/70;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
 }
 .trackOn {
-  @apply bg-blue-600;
+  background: linear-gradient(135deg, #1e293b, #334155);
+  border: 1px solid transparent;
 }
 :global(.dark) .trackOn {
-  @apply bg-blue-500;
+  background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
 }
 .trackDisabled {
   @apply opacity-50 cursor-not-allowed;
 }
 
 .thumb {
-  @apply absolute top-1 w-4 h-4 rounded-full bg-white shadow transition-all duration-200;
+  @apply absolute top-[3px] w-[22px] h-[22px] rounded-full bg-white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all var(--transition-spring);
 }
 .thumbOff {
-  @apply left-1;
+  left: 3px;
 }
 .thumbIndeterminate {
-  @apply left-1/2 -translate-x-1/2;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .thumbOn {
-  @apply left-7;
+  left: calc(100% - 25px);
 }
 
 .switchLabels {
@@ -143,11 +222,93 @@
   @apply text-gray-400;
 }
 .switchLabel {
-  @apply transition-colors;
+  transition: color var(--transition-base);
 }
 .switchLabelActive {
   @apply text-gray-900 font-medium;
 }
 :global(.dark) .switchLabelActive {
   @apply text-white;
+}
+
+.cbContainer {
+  @apply w-full flex flex-col gap-1;
+}
+.cbWrapper {
+  @apply relative inline-flex items-center gap-3 w-fit;
+}
+.cbInput {
+  @apply absolute left-0 top-0 w-5 h-5 m-0 opacity-0 cursor-pointer z-10;
+}
+.cbInput:disabled {
+  @apply cursor-not-allowed;
+}
+.cbInput:focus {
+  @apply outline-none;
+}
+.cbInput:focus-visible + .cbBox {
+  box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.3);
+}
+.cbInputError + .cbBox {
+  border-color: rgba(239, 68, 68, 0.5);
+}
+.cbBox {
+  @apply shrink-0 w-5 h-5 rounded-md flex items-center justify-center pointer-events-none;
+  background: rgba(0, 0, 0, 0.04);
+  border: 1.5px solid var(--glass-border);
+  box-shadow: var(--glass-inset-shadow);
+  transition: all var(--transition-base);
+}
+:global(.dark) .cbBox {
+  background: rgba(255, 255, 255, 0.06);
+}
+.cbInput:checked + .cbBox:not(.cbIndeterminate),
+.cbIndeterminate + .cbBox {
+  background: linear-gradient(135deg, #1e293b, #334155);
+  border-color: transparent;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+:global(.dark) .cbInput:checked + .cbBox:not(.cbIndeterminate),
+:global(.dark) .cbIndeterminate + .cbBox {
+  background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+  box-shadow: 0 2px 6px rgba(226, 232, 240, 0.15);
+}
+.cbInput:disabled + .cbBox {
+  @apply cursor-not-allowed opacity-60;
+}
+.cbCheck {
+  @apply w-2.5 h-3.5 border-r-2 border-b-2 border-white transform rotate-45 -mt-0.5;
+}
+:global(.dark) .cbCheck {
+  @apply border-slate-800;
+}
+.cbDash {
+  @apply w-2.5 h-0.5 bg-white rounded-sm;
+}
+:global(.dark) .cbDash {
+  @apply bg-slate-800;
+}
+.cbLabelBlock {
+  @apply flex flex-col gap-0.5 cursor-pointer;
+}
+.cbInput:disabled ~ .cbLabelBlock {
+  @apply cursor-not-allowed opacity-70;
+}
+.cbLabel {
+  @apply text-sm font-medium text-gray-700 select-none;
+}
+:global(.dark) .cbLabel {
+  @apply text-gray-200;
+}
+.cbDescription {
+  @apply text-xs text-gray-500;
+}
+:global(.dark) .cbDescription {
+  @apply text-gray-400;
+}
+.cbError {
+  @apply text-sm text-red-500;
+}
+:global(.dark) .cbError {
+  @apply text-red-400;
 }

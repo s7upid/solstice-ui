@@ -27,3 +27,5 @@ if errorlevel 1 (
 echo.
 echo Starting Storybook...
 call npx storybook dev -p 6006
+echo.
+pause

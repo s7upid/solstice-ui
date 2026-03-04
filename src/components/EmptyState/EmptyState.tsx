@@ -1,4 +1,3 @@
-import React from "react";
 import { LucideIcon } from "lucide-react";
 import { cn } from "../../utils/cn";
 import styles from "./EmptyState.module.css";
@@ -20,7 +19,7 @@ export interface EmptyStateProps {
   className?: string;
 }
 
-const EmptyState: React.FC<EmptyStateProps> = ({
+function EmptyState({
   title,
   description,
   icon: Icon,
@@ -28,7 +27,7 @@ const EmptyState: React.FC<EmptyStateProps> = ({
   secondaryAction,
   threeD = false,
   className,
-}) => {
+}: EmptyStateProps) {
   return (
     <div className={cn(styles.emptyState, threeD && "solstice-ui-3d", className)}>
       {Icon && (
@@ -54,6 +53,6 @@ const EmptyState: React.FC<EmptyStateProps> = ({
       </div>
     </div>
   );
-};
+}
 
 export default EmptyState;

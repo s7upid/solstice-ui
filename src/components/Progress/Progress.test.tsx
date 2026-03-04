@@ -39,9 +39,16 @@ describe("Progress", () => {
     expect(screen.queryByText("75%")).not.toBeInTheDocument();
   });
 
-  it("clamps percentage", () => {
-    render(<Progress value={150} max={100} />);
+  it("clamps percentage above max", () => {
+    render(<Progress value={150} max={100} showLabel />);
     expect(screen.getByRole("progressbar")).toBeInTheDocument();
+    expect(screen.getByText("100%")).toBeInTheDocument();
+  });
+
+  it("clamps percentage below zero", () => {
+    render(<Progress value={-10} max={100} showLabel />);
+    expect(screen.getByRole("progressbar")).toBeInTheDocument();
+    expect(screen.getByText("0%")).toBeInTheDocument();
   });
 
   it("applies className", () => {

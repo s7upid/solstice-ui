@@ -1,0 +1,5 @@
+@reference "tailwindcss";
+
+.list {
+  @apply w-full space-y-1;
+}

@@ -8,6 +8,10 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 cd "$ROOT_DIR"
 
+# Keep window open on exit when run by double-click (e.g. from Finder)
+finish() { read -p "Press Enter to close..."; }
+trap finish EXIT
+
 echo
 echo "=========================================="
 echo "Solstice UI - Test coverage and badges"
@@ -44,3 +48,4 @@ echo "=========================================="
 echo "Done. README.md badges updated."
 echo "Commit README.md and optionally coverage-report.json."
 echo "=========================================="
+echo

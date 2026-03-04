@@ -1,10 +1,10 @@
-import React, { useState, useCallback, useEffect, useMemo } from "react";
+import { Children, useState, useCallback, useEffect, useMemo, type ReactNode } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "../../utils/cn";
 import styles from "./Carousel.module.css";
 
 export interface CarouselProps {
-  children: React.ReactNode;
+  children: ReactNode;
   activeIndex?: number;
   onActiveIndexChange?: (index: number) => void;
   showArrows?: boolean;
@@ -22,7 +22,7 @@ export interface CarouselProps {
   className?: string;
 }
 
-const Carousel: React.FC<CarouselProps> = ({
+function Carousel({
   children,
   activeIndex: controlledIndex,
   onActiveIndexChange,
@@ -36,9 +36,9 @@ const Carousel: React.FC<CarouselProps> = ({
   layout = "single",
   peekSlideWidth = 0.55,
   className,
-}) => {
+}: CarouselProps) {
   const slides = useMemo(
-    () => React.Children.toArray(children).filter(Boolean),
+    () => Children.toArray(children).filter(Boolean),
     [children]
   );
 
@@ -188,6 +188,6 @@ const Carousel: React.FC<CarouselProps> = ({
       )}
     </div>
   );
-};
+}
 
 export default Carousel;

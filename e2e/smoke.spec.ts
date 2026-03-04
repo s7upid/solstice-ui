@@ -7,7 +7,7 @@ const SMOKE_STORIES: { id: string; name: string }[] = [
   { id: "components-alert--info", name: "Alert" },
   { id: "components-badge--default", name: "Badge" },
   { id: "components-card--simple", name: "Card" },
-  { id: "components-checkbox--unchecked", name: "Checkbox" },
+  { id: "components-toggle--checkbox-unchecked", name: "Toggle (checkbox)" },
   { id: "components-date-time-picker--date-time", name: "DateTimePicker" },
   { id: "components-empty-state--default", name: "EmptyState" },
   { id: "components-form--default", name: "Form" },

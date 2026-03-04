@@ -1,4 +1,4 @@
-import React, { useState, memo } from "react";
+import { useState, memo, type ReactNode } from "react";
 import { LucideIcon, Compass } from "lucide-react";
 import { cn } from "../../utils/cn";
 import styles from "./Card.module.css";
@@ -49,7 +49,7 @@ export interface CardProps {
   /** When true, adds a 3D-style shadow (bottom and right). */
   threeD?: boolean;
   className?: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 const CardHeader = ({
@@ -152,7 +152,7 @@ const CardActions = ({ actions = [] }: Pick<CardProps, "actions">) => {
   );
 };
 
-const Card: React.FC<CardProps> = ({
+function Card({
   title,
   description,
   icon,
@@ -173,14 +173,14 @@ const Card: React.FC<CardProps> = ({
   threeD = false,
   className,
   children,
-}) => {
+}: CardProps) {
   const [imageFailed, setImageFailed] = useState(false);
-  const layoutClass =
-    layout === "vertical"
-      ? styles.verticalHeader
-      : layout === "horizontal"
-        ? styles.horizontalHeader
-        : styles.header;
+  const LAYOUT_CLASSES = {
+    default: styles.header,
+    vertical: styles.verticalHeader,
+    horizontal: styles.horizontalHeader,
+  } as const;
+  const layoutClass = LAYOUT_CLASSES[layout];
   const isImageLayout = Boolean(imageSrc);
 
   if (isImageLayout) {
@@ -253,6 +253,6 @@ const Card: React.FC<CardProps> = ({
       <CardActions actions={actions} />
     </div>
   );
-};
+}
 
 export default memo(Card);

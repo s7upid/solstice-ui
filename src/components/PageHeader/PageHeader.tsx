@@ -1,4 +1,4 @@
-import React from "react";
+import { type ReactNode } from "react";
 import { LucideIcon } from "lucide-react";
 import { cn } from "../../utils/cn";
 import styles from "./PageHeader.module.css";
@@ -8,27 +8,27 @@ export interface PageHeaderProps {
   description?: string;
   subtitle?: string;
   icon?: LucideIcon;
-  actions?: React.ReactNode;
+  actions?: ReactNode;
   /** When true, adds a 3D-style shadow (bottom and right). */
   threeD?: boolean;
   className?: string;
 }
 
-const PageHeader: React.FC<PageHeaderProps> = ({
+function PageHeader({
   title,
   description,
   subtitle,
-  icon,
+  icon: Icon,
   actions,
   threeD = false,
   className = "",
-}) => {
+}: PageHeaderProps) {
   return (
     <div className={cn(styles.container, threeD && "solstice-ui-3d", className)}>
       <div className={styles.content}>
-        {icon && (
+        {Icon && (
           <div className={styles.icon}>
-            {React.createElement(icon, { className: "w-6 h-6" })}
+            <Icon className={styles.iconSvg} />
           </div>
         )}
         <div>
@@ -42,6 +42,6 @@ const PageHeader: React.FC<PageHeaderProps> = ({
       {actions && <div className={styles.actions}>{actions}</div>}
     </div>
   );
-};
+}
 
 export default PageHeader;

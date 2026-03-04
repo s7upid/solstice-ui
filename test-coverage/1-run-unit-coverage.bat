@@ -21,6 +21,7 @@ echo Running Vitest with coverage...
 call npm run test:coverage
 if errorlevel 1 (
     echo [WARNING] Some tests failed or coverage failed
+    echo.
 )
 
 echo.
@@ -28,4 +29,6 @@ echo ==========================================
 echo Run: node test-coverage\extract-results.js
 echo Then: node test-coverage\update-readme-badges.js
 echo ==========================================
+echo.
+pause
 exit /b 0

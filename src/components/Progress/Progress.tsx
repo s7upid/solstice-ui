@@ -1,4 +1,3 @@
-import React from "react";
 import { cn } from "../../utils/cn";
 import styles from "./Progress.module.css";
 
@@ -13,7 +12,13 @@ export interface ProgressProps {
   className?: string;
 }
 
-const Progress: React.FC<ProgressProps> = ({
+const SIZE_CLASSES = {
+  sm: styles.sizeSm,
+  md: styles.sizeMd,
+  lg: styles.sizeLg,
+} as const;
+
+function Progress({
   value,
   max = 100,
   variant = "default",
@@ -21,17 +26,14 @@ const Progress: React.FC<ProgressProps> = ({
   showLabel = false,
   threeD = false,
   className,
-}) => {
+}: ProgressProps) {
   const percentage = Math.min(100, Math.max(0, (value / max) * 100));
   const showBar = percentage > 0;
 
   return (
     <div className={cn(styles.wrapper, threeD && "solstice-ui-3d", className)}>
       <div
-        className={cn(
-          styles.track,
-          styles[`size${size.charAt(0).toUpperCase() + size.slice(1)}`]
-        )}
+        className={cn(styles.track, SIZE_CLASSES[size])}
       >
         <div
           className={cn(styles.bar, styles[variant])}
@@ -50,6 +52,6 @@ const Progress: React.FC<ProgressProps> = ({
       )}
     </div>
   );
-};
+}
 
 export default Progress;

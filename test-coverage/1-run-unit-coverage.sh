@@ -22,3 +22,5 @@ echo "=========================================="
 echo "Next: node test-coverage/extract-results.js"
 echo "      node test-coverage/update-readme-badges.js"
 echo "=========================================="
+echo
+read -p "Press Enter to close..."

@@ -1,26 +1,27 @@
 @reference "tailwindcss";
 
 .container {
-  @apply w-full flex items-center justify-between py-4 border-b border-gray-200 mb-6 flex-wrap gap-4;
-}
-:global(.dark) .container {
-  @apply border-gray-700;
+  @apply w-full flex items-center justify-between py-4 mb-6 flex-wrap gap-4;
+  border-bottom: 1px solid var(--glass-border);
 }
 
 .content {
   @apply flex items-center gap-3;
 }
 .icon {
-  @apply w-5 h-5 text-gray-600;
+  @apply w-5 h-5 text-gray-500;
+}
+.iconSvg {
+  @apply w-6 h-6;
 }
 :global(.dark) .icon {
-  @apply text-gray-300;
+  @apply text-gray-400;
 }
 .title {
   @apply text-2xl font-bold text-gray-900;
 }
 :global(.dark) .title {
-  @apply text-gray-100;
+  @apply text-gray-50;
 }
 .subtitle {
   @apply text-sm text-gray-500;
@@ -29,10 +30,10 @@
   @apply text-gray-400;
 }
 .description {
-  @apply text-sm text-gray-600;
+  @apply text-sm text-gray-500;
 }
 :global(.dark) .description {
-  @apply text-gray-300;
+  @apply text-gray-400;
 }
 .actions {
   @apply flex items-center gap-2;

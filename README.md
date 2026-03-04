@@ -1,8 +1,8 @@
 # Solstice UI
 
-[![Docs](https://img.shields.io/badge/docs-Storybook-ff4785?style=flat-square&logo=storybook)](https://s7upid.github.io/solstice-ui/) [![CI](https://github.com/s7upid/solstice-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/s7upid/solstice-ui/actions/workflows/ci.yml) [![Unit tests](https://img.shields.io/badge/unit%20tests-97%25-brightgreen?style=flat-square&logo=vitest)](https://github.com/s7upid/solstice-ui/actions) [![E2E](https://img.shields.io/badge/e2e-100%25-brightgreen?style=flat-square&logo=playwright)](https://github.com/s7upid/solstice-ui/actions) [![npm](https://img.shields.io/badge/npm-unpublished-lightgrey?style=flat-square)](https://www.npmjs.com/package/solstice-ui) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Docs](https://img.shields.io/badge/docs-Storybook-ff4785?style=flat-square&logo=storybook)](https://s7upid.github.io/solstice-ui/) [![CI](https://github.com/s7upid/solstice-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/s7upid/solstice-ui/actions/workflows/ci.yml) [![Unit tests](https://img.shields.io/badge/unit%20tests-91%25-brightgreen?style=flat-square&logo=vitest)](https://github.com/s7upid/solstice-ui/actions) [![E2E](https://img.shields.io/badge/e2e-100%25-brightgreen?style=flat-square&logo=playwright)](https://github.com/s7upid/solstice-ui/actions) [![npm](https://img.shields.io/badge/npm-unpublished-lightgrey?style=flat-square)](https://www.npmjs.com/package/solstice-ui) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Solstice UI** — React component library for **dark and light mode**, built with TypeScript, Tailwind CSS, and CSS Modules. Accessible, themable, and ready for any app or design system.
+**Solstice UI** — React component library for **dark and light mode**, built with TypeScript, Tailwind CSS, and CSS Modules. Glassmorphism-style surfaces and consistent hover/focus in both themes. Accessible, themable, and ready for any app or design system.
 
 **📖 [Live documentation (Storybook)](https://s7upid.github.io/solstice-ui/)** — browse components and examples online.
 
@@ -17,7 +17,7 @@ yarn add solstice-ui
 pnpm add solstice-ui
 ```
 
-**Peer dependencies:** React 18+, React DOM, and **lucide-react** (for icons). Install with:
+**Peer dependencies:** React 19+, React DOM, and **lucide-react** (for icons). Install with:
 
 ```bash
 npm install solstice-ui react react-dom lucide-react
@@ -70,13 +70,15 @@ Tailwind CSS v4 (or v3 with `darkMode: 'class'`) is required for dark mode styli
 
 | Category     | Components                                                                 |
 |-------------|-----------------------------------------------------------------------------|
-| **Core**    | Button, Input, Card, Badge, Dropdown, Form, Alert, Progress, Checkbox     |
-| **Layout**  | PageHeader, Grid, GridPage, ListPage, List, TabNavigation, StackedCardsDeck |
+| **Core**    | Button, Input, Card, Badge, Dropdown, Form, Alert, Progress, Toggle       |
+| **Layout**  | PageHeader, Grid, DataPage, List, TabNavigation, StackedCardsDeck           |
 | **Feedback**| LoadingSpinner, EmptyState, Toast, ErrorBoundary                           |
 | **Overlays**| ModalPortal, Dialog                                                        |
 | **Actions** | DangerZone, Pagination, SearchInput, Toggle                               |
-| **Forms**   | Input, Checkbox, DateTimePicker, Form                                      |
-| **Theme**   | ThemeToggle, ThemeProvider, useThemeContext                                |
+| **Forms**   | Input, Toggle (checkbox), DateTimePicker, Form                             |
+| **Theme**   | ThemeToggle, ThemeProvider, useThemeContext                               |
+
+**Toggle** has three variants: `button`, `switch`, and `checkbox` (use `<Toggle variant="checkbox" />` for form checkboxes). **DataPage** is the unified layout for grid or list pages (`layout="grid"` or `layout="list"`).
 
 All components support dark mode when the root element has the `.dark` class. Browse **[Storybook](https://s7upid.github.io/solstice-ui/)** for live examples and props.
 

@@ -1,16 +1,16 @@
-import React from "react";
+import type { ReactNode } from "react";
 import { createPortal } from "react-dom";
 
 export interface ModalPortalProps {
-  children: React.ReactNode;
+  children: ReactNode;
   container?: HTMLElement;
 }
 
-const ModalPortal: React.FC<ModalPortalProps> = ({
+function ModalPortal({
   children,
   container = document.body,
-}) => {
+}: ModalPortalProps) {
   return createPortal(children, container);
-};
+}
 
 export default ModalPortal;

@@ -38,9 +38,9 @@
     "clean": "rimraf coverage dist storybook-static playwright-report test-results coverage-report.json"
   },
   "peerDependencies": {
-    "lucide-react": "^0.460.0 || ^0.575.0",
-    "react": "^18.0.0 || ^19.0.0",
-    "react-dom": "^18.0.0 || ^19.0.0"
+    "lucide-react": "^0.575.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -52,7 +52,6 @@
   ],
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "ajv": "^8.12.0",
     "@playwright/test": "^1.58.2",
     "cross-env": "^7.0.3",
     "@storybook/addon-docs": "^10.2.12",
@@ -108,7 +107,7 @@
     "url": "https://github.com/s7upid/solstice-ui/issues"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "publishConfig": {
     "access": "public"

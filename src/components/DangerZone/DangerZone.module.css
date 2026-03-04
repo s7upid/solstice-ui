@@ -1,10 +1,19 @@
 @reference "tailwindcss";
 
 .zone {
-  @apply w-full bg-red-50 border border-red-200 rounded-lg p-4;
+  @apply w-full rounded-xl p-4;
+  background: rgba(254, 242, 242, 0.6);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-left: 4px solid #ef4444;
+  box-shadow: var(--glass-inset-shadow);
+  transition: all var(--transition-base);
 }
 :global(.dark) .zone {
-  @apply bg-red-900/20 border-red-800;
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(248, 113, 113, 0.15);
+  border-left-color: #f87171;
 }
 
 .content {
@@ -12,15 +21,15 @@
 }
 
 .title {
-  @apply text-sm font-medium text-red-800;
+  @apply text-sm font-medium text-red-700;
 }
 :global(.dark) .title {
-  @apply text-red-200;
+  @apply text-red-300;
 }
 
 .text {
-  @apply text-sm text-red-600;
+  @apply text-sm text-red-500;
 }
 :global(.dark) .text {
-  @apply text-red-300;
+  @apply text-red-400;
 }

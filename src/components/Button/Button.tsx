@@ -1,9 +1,9 @@
-import React from "react";
+import { type ButtonHTMLAttributes, type ReactNode, type Ref } from "react";
 import { LucideIcon } from "lucide-react";
 import { cn } from "../../utils/cn";
 import styles from "./Button.module.css";
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary" | "danger" | "ghost" | "success" | "outline";
   size?: "sm" | "md" | "lg";
   icon?: LucideIcon;
@@ -11,7 +11,8 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   loading?: boolean;
   /** When true, adds a 3D-style shadow (bottom and right). */
   threeD?: boolean;
-  children?: React.ReactNode;
+  children?: ReactNode;
+  ref?: Ref<HTMLButtonElement>;
 }
 
 const VARIANT_CLASSES = {
@@ -35,7 +36,7 @@ const ICON_SIZE_CLASSES = {
   lg: styles.iconLg,
 } as const;
 
-const Button: React.FC<ButtonProps> = ({
+function Button({
   variant = "primary",
   size = "md",
   icon: Icon,
@@ -45,31 +46,26 @@ const Button: React.FC<ButtonProps> = ({
   children,
   className = "",
   disabled,
+  ref,
   ...props
-}) => {
+}: ButtonProps) {
   const iconSizeClass = ICON_SIZE_CLASSES[size];
+  const showLeftIcon = !loading && Icon && (iconPosition === "left" || !children);
+  const showRightIcon = !loading && Icon && iconPosition === "right" && children;
 
   return (
     <button
+      ref={ref}
       className={cn(styles.base, VARIANT_CLASSES[variant], SIZE_CLASSES[size], threeD && "solstice-ui-3d", className)}
       disabled={disabled || loading}
       {...props}
     >
-      {loading ? (
-        <div className={cn(styles.loadingSpinner, iconSizeClass)} />
-      ) : Icon && iconPosition === "left" ? (
-        <Icon className={cn(iconSizeClass, styles.iconLeft)} />
-      ) : Icon && !children ? (
-        <Icon className={iconSizeClass} />
-      ) : null}
-
+      {loading && <div className={cn(styles.loadingSpinner, iconSizeClass)} />}
+      {showLeftIcon && <Icon className={cn(iconSizeClass, children && styles.iconLeft)} />}
       {children}
-
-      {Icon && iconPosition === "right" && !loading && (
-        <Icon className={cn(iconSizeClass, styles.iconRight)} />
-      )}
+      {showRightIcon && <Icon className={cn(iconSizeClass, styles.iconRight)} />}
     </button>
   );
-};
+}
 
 export default Button;

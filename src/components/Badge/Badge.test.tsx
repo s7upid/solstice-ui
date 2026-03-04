@@ -22,7 +22,16 @@ describe("Badge", () => {
 
   it("applies pill style by default", () => {
     const { container } = render(<Badge>Pill</Badge>);
-    expect(container.firstChild).toBeInTheDocument();
+    const el = container.firstChild as HTMLElement;
+    const hasPillClass = Array.from(el.classList).some((c) => c.includes("pill"));
+    expect(hasPillClass).toBe(true);
+  });
+
+  it("does not apply pill class when pill is false", () => {
+    const { container } = render(<Badge pill={false}>No pill</Badge>);
+    const el = container.firstChild as HTMLElement;
+    const hasPillClass = Array.from(el.classList).some((c) => c.includes("pill"));
+    expect(hasPillClass).toBe(false);
   });
 
   it("applies className", () => {
@@ -30,8 +39,4 @@ describe("Badge", () => {
     expect(container.querySelector(".extra")).toBeInTheDocument();
   });
 
-  it("renders with pill false", () => {
-    render(<Badge pill={false}>Not pill</Badge>);
-    expect(screen.getByText("Not pill")).toBeInTheDocument();
-  });
 });

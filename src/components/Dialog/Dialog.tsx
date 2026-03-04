@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect, useId, type ReactNode, type MouseEvent } from "react";
 import { LucideIcon, X } from "lucide-react";
 import { cn } from "../../utils/cn";
 import ModalPortal from "../ModalPortal/ModalPortal";
@@ -17,9 +17,9 @@ export interface DialogProps {
   isOpen: boolean;
   onClose: () => void;
   title?: string;
-  children: React.ReactNode;
+  children: ReactNode;
   /** Custom footer content. When provided, used instead of footerActions. */
-  footer?: React.ReactNode;
+  footer?: ReactNode;
   /** Optional actions rendered as buttons with optional icons (left of label). */
   footerActions?: DialogFooterAction[];
   className?: string;
@@ -33,7 +33,7 @@ export interface DialogProps {
   threeD?: boolean;
 }
 
-const Dialog: React.FC<DialogProps> = ({
+function Dialog({
   isOpen,
   onClose,
   title,
@@ -45,28 +45,25 @@ const Dialog: React.FC<DialogProps> = ({
   closeOnBackdropClick = true,
   closeOnEscape = true,
   threeD = false,
-}) => {
-  useEffect(() => {
-    if (!isOpen || !closeOnEscape) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, onClose, closeOnEscape]);
+}: DialogProps) {
+  const titleId = useId();
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    }
+    if (!isOpen) return;
+    document.body.style.overflow = "hidden";
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (closeOnEscape && e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleKeyDown);
     return () => {
+      document.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "";
     };
-  }, [isOpen]);
+  }, [isOpen, onClose, closeOnEscape]);
 
   if (!isOpen) return null;
 
-  const handleBackdropClick = (e: React.MouseEvent) => {
+  const handleBackdropClick = (e: MouseEvent) => {
     if (closeOnBackdropClick && e.target === e.currentTarget) onClose();
   };
 
@@ -77,12 +74,12 @@ const Dialog: React.FC<DialogProps> = ({
         onClick={handleBackdropClick}
         role="dialog"
         aria-modal="true"
-        aria-labelledby={title ? "dialog-title" : undefined}
+        aria-labelledby={title ? titleId : undefined}
       >
         <div className={cn(styles.dialog, styles[`size_${size}`], threeD && "solstice-ui-3d", className)}>
           <div className={styles.header}>
             {title ? (
-              <h2 id="dialog-title" className={styles.title}>
+              <h2 id={titleId} className={styles.title}>
                 {title}
               </h2>
             ) : (
@@ -119,6 +116,6 @@ const Dialog: React.FC<DialogProps> = ({
       </div>
     </ModalPortal>
   );
-};
+}
 
 export default Dialog;

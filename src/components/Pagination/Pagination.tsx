@@ -1,4 +1,4 @@
-import React, { useState, memo } from "react";
+import { useState, useId, memo } from "react";
 import { ChevronLeft, ChevronRight, ChevronUp } from "lucide-react";
 import { cn } from "../../utils/cn";
 import styles from "./Pagination.module.css";
@@ -15,7 +15,7 @@ export interface PaginationProps {
   threeD?: boolean;
 }
 
-const Pagination: React.FC<PaginationProps> = ({
+function Pagination({
   currentPage,
   totalPages,
   onPageChange,
@@ -24,7 +24,9 @@ const Pagination: React.FC<PaginationProps> = ({
   onPageSizeChange,
   pageSizeOptions = [10, 25, 50, 100],
   threeD = false,
-}) => {
+}: PaginationProps) {
+  const pageSizeId = useId();
+
   const clampPage = (value: number) => {
     if (Number.isNaN(value)) return currentPage;
     return Math.min(Math.max(1, Math.trunc(value)), totalPages);
@@ -58,7 +60,7 @@ const Pagination: React.FC<PaginationProps> = ({
             onClick={() => setOpen((v) => !v)}
           >
             {currentPage}
-            <ChevronUp size={16} className="ml-1 opacity-70" />
+            <ChevronUp size={16} className={styles.chevron} />
           </button>
           {open && (
             <div role="listbox" className={styles.dropdown} tabIndex={-1}>
@@ -121,11 +123,11 @@ const Pagination: React.FC<PaginationProps> = ({
         </button>
         {onPageSizeChange && (
           <div className={styles.segment}>
-            <label htmlFor="page-size" className={styles.label}>
+            <label htmlFor={pageSizeId} className={styles.label}>
               Items per page
             </label>
             <select
-              id="page-size"
+              id={pageSizeId}
               value={pageSize}
               onChange={(e) => onPageSizeChange(Number(e.target.value))}
               className={styles.select}
@@ -141,6 +143,6 @@ const Pagination: React.FC<PaginationProps> = ({
       </div>
     </nav>
   );
-};
+}
 
 export default memo(Pagination);

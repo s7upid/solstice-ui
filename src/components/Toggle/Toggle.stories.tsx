@@ -12,12 +12,12 @@ const meta: Meta<typeof Toggle> = {
     docs: {
       description: {
         component:
-          "Unified toggle: **button** variant (pressed/unpressed with label/icon) or **switch** variant (track+thumb, optional tri-state off/indeterminate/on). Use `variant=\"button\"` with label, icon, buttonVariant, size; use `variant=\"switch\"` with state, onStateChange, triState, labels.",
+          "Unified toggle: **button** variant (pressed/unpressed with label/icon), **switch** variant (track+thumb, optional tri-state), or **checkbox** variant (styled checkbox input with label/error/description). Use `variant=\"button\"` with label, icon, buttonVariant, size; use `variant=\"switch\"` with state, onStateChange, triState, labels; use `variant=\"checkbox\"` with state, onStateChange, label, error.",
       },
     },
   },
   argTypes: {
-    variant: { control: "select", options: ["button", "switch"] },
+    variant: { control: "select", options: ["button", "switch", "checkbox"] },
     buttonVariant: { control: "select", options: ["primary", "secondary", "outline", "ghost"] },
     size: { control: "select", options: ["sm", "md", "lg"] },
     iconPosition: { control: "select", options: ["left", "right"] },
@@ -30,7 +30,6 @@ export default meta;
 
 type Story = StoryObj<typeof Toggle>;
 
-/* ----- Button variant stories ----- */
 export const ButtonWithLabel: Story = {
   args: {
     label: "Explore",
@@ -85,8 +84,6 @@ export const ButtonSizes: Story = {
   ),
 };
 
-/* ----- Switch variant stories ----- */
-/** Click the switch to cycle: off → on → indeterminate → off. Layout stays fixed. */
 export const SwitchInteractive: Story = {
   render: function SwitchInteractive() {
     const [state, setState] = useState<ToggleState>("off");
@@ -173,5 +170,67 @@ export const SwitchDisabled: Story = {
     state: "on",
     disabled: true,
     "aria-label": "Toggle",
+  },
+};
+
+export const CheckboxUnchecked: Story = {
+  args: {
+    variant: "checkbox",
+    state: "off",
+    label: "Option",
+  },
+};
+
+export const CheckboxChecked: Story = {
+  args: {
+    variant: "checkbox",
+    state: "on",
+    label: "Option",
+  },
+};
+
+export const CheckboxIndeterminate: Story = {
+  args: {
+    variant: "checkbox",
+    state: "indeterminate",
+    label: "Some items selected",
+  },
+};
+
+export const CheckboxWithDescription: Story = {
+  args: {
+    variant: "checkbox",
+    state: "off",
+    label: "Enable notifications",
+    description: "Receive email when someone comments.",
+  },
+};
+
+export const CheckboxWithError: Story = {
+  args: {
+    variant: "checkbox",
+    state: "off",
+    label: "Accept terms",
+    error: "You must accept the terms to continue.",
+  },
+};
+
+export const CheckboxInteractive: Story = {
+  render: function CheckboxInteractive() {
+    const [state, setState] = useState<ToggleState>("off");
+    return (
+      <div className="space-y-2">
+        <Toggle
+          variant="checkbox"
+          state={state}
+          onStateChange={setState}
+          triState
+          label="Click to cycle: off → on → indeterminate → off"
+        />
+        <p className="text-sm text-gray-500">
+          Current state: <strong>{state}</strong>
+        </p>
+      </div>
+    );
   },
 };

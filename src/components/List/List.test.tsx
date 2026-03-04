@@ -15,7 +15,7 @@ describe("List", () => {
     expect(screen.getByText("B")).toBeInTheDocument();
   });
 
-  it("uses keyExtractor when provided", () => {
+  it("renders items when keyExtractor is provided", () => {
     const items = [{ id: "x" }, { id: "y" }];
     const keyExtractor = (item: { id: string }) => item.id;
     render(
@@ -29,7 +29,7 @@ describe("List", () => {
     expect(screen.getByText("y")).toBeInTheDocument();
   });
 
-  it("uses index as key when keyExtractor not provided and item has no id", () => {
+  it("renders items without keyExtractor when items have no id", () => {
     const items: { id?: number | string; name: string }[] = [
       { name: "a" },
       { name: "b" },
