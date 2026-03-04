@@ -38,7 +38,7 @@
     "clean": "rimraf coverage dist storybook-static playwright-report test-results coverage-report.json"
   },
   "peerDependencies": {
-    "lucide-react": "^0.575.0",
+    "lucide-react": "^0.577.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
@@ -53,7 +53,6 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.58.2",
-    "cross-env": "^7.0.3",
     "@storybook/addon-docs": "^10.2.12",
     "@storybook/react": "^10.2.12",
     "@storybook/react-vite": "^10.2.12",
@@ -66,11 +65,13 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.4",
     "@vitest/coverage-v8": "^4.0.18",
+    "ajv": "^8.18.0",
+    "cross-env": "^7.0.3",
     "eslint": "^10.0.2",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-storybook": "^10.2.12",
     "jsdom": "^28.1.0",
-    "lucide-react": "^0.575.0",
+    "lucide-react": "^0.577.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "rimraf": "^6.1.3",
