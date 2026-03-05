@@ -78,7 +78,7 @@ Tailwind CSS v4 (or v3 with `darkMode: 'class'`) is required for dark mode styli
 | **Forms**   | Input, Toggle (checkbox), DateTimePicker, Form                             |
 | **Theme**   | ThemeToggle, ThemeProvider, useThemeContext                               |
 
-**Toggle** has three variants: `button`, `switch`, and `checkbox` (use `<Toggle variant="checkbox" />` for form checkboxes). **DataPage** is the unified layout for grid or list pages (`layout="grid"` or `layout="list"`).
+**Toggle** has three variants: `button`, `switch`, and `checkbox` (use `<Toggle variant="checkbox" />` for form checkboxes). **DataPage** is the unified layout for grid or list pages (`layout="grid"` or `layout="list"`). **Card** supports an optional **onClick** so the whole card is clickable (e.g. open details); use **actions** for separate buttons (Edit, Archive).
 
 All components support dark mode when the root element has the `.dark` class. Browse **[Storybook](https://s7upid.github.io/solstice-ui/)** for live examples and props.
 

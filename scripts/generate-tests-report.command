@@ -2,6 +2,7 @@
 # ============================================
 # Generate test coverage and update README badges
 # Runs: lint -> test:coverage -> test:e2e -> extract-results -> update-readme-badges
+# Lint runs first; on failure the script exits and tests are not run.
 # Double-click on macOS or run: ./scripts/generate-tests-report.command
 # ============================================
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -22,6 +23,7 @@ echo
 
 echo "[1/6] Running lint..."
 npm run lint || { echo "[ERROR] Lint failed. Fix lint errors and run again."; exit 1; }
+# Lint passed; continue with tests and badge update.
 echo
 
 echo "[2/6] Running unit tests with coverage..."

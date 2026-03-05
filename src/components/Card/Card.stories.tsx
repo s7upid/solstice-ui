@@ -9,7 +9,7 @@ const meta: Meta<typeof Card> = {
   parameters: {
     docs: {
       description: {
-        component: "Content card: title, description, optional icon/avatar, status badge, details, stats, actions. Set **imageSrc** for image layout (text left, image right, optional action button). Layout variants: default, vertical, horizontal.",
+        component: "Content card: title, description, optional icon/avatar, status badge, details, stats, actions. Use **onClick** to make the whole card clickable (e.g. open details); action buttons still fire only when clicked. Set **imageSrc** for image layout (text left, image right, optional action button). Layout variants: default, vertical, horizontal.",
       },
     },
   },
@@ -62,6 +62,20 @@ export const WithActions: Story = {
     actions: [
       { label: "Edit", onClick: () => {}, variant: "primary" },
       { label: "Cancel", onClick: () => {}, variant: "secondary" },
+    ],
+  },
+};
+
+export const Clickable: Story = {
+  args: {
+    title: "Project Alpha",
+    description: "Click anywhere on the card to open details. Action buttons (Edit, Archive) do not trigger the card click.",
+    status: "Active",
+    statusVariant: "success",
+    onClick: () => alert("Card clicked — open details view"),
+    actions: [
+      { label: "Edit", onClick: () => alert("Edit clicked") },
+      { label: "Archive", onClick: () => alert("Archive clicked") },
     ],
   },
 };

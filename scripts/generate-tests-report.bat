@@ -2,6 +2,7 @@
 REM ============================================
 REM Generate test coverage and update README badges
 REM Runs: lint -> test:coverage -> test:e2e -> extract-results -> update-readme-badges
+REM Lint runs first; on failure the script exits and tests are not run.
 REM ============================================
 set SCRIPT_DIR=%~dp0
 set ROOT_DIR=%SCRIPT_DIR%..
@@ -25,6 +26,7 @@ if errorlevel 1 (
     pause
     exit /b 1
 )
+REM Lint passed; continue with tests and badge update.
 echo.
 
 echo [2/6] Running unit tests with coverage...

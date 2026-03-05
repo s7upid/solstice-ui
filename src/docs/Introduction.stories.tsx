@@ -17,7 +17,7 @@ const ComponentOverview = () => (
     <ul>
       <li><strong>Button</strong> — Primary, secondary, danger, ghost, success, outline; sizes and icons</li>
       <li><strong>Input</strong> — Text field with label, error, optional left/right icon (e.g. Lucide), and <code>endAdornment</code> (e.g. button at the end)</li>
-      <li><strong>Card</strong> — Content card with header, details, stats, actions; set <code>imageSrc</code> for image layout with action</li>
+      <li><strong>Card</strong> — Content card with header, details, stats, actions; optional <code>onClick</code> to make the whole card clickable (e.g. open details); set <code>imageSrc</code> for image layout with action</li>
       <li><strong>Badge</strong> — Status and label badges</li>
       <li><strong>Dropdown</strong> — Select-style dropdown</li>
       <li><strong>Form</strong> — Form layout and validation</li>

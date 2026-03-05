@@ -11,6 +11,16 @@
   transform: translateY(-4px);
   box-shadow: var(--glass-hover-shadow), var(--glass-inset-shadow);
 }
+.clickable {
+  cursor: pointer;
+}
+.clickable:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring-neutral), var(--glass-shadow), var(--glass-inset-shadow);
+}
+.cardWithImage.clickable:focus-visible {
+  box-shadow: var(--focus-ring-neutral), var(--glass-hover-shadow), var(--glass-inset-shadow);
+}
 
 .cardStatusBadge {
   @apply absolute top-3 right-3 z-10;

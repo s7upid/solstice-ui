@@ -154,4 +154,63 @@ describe("Card", () => {
     const img = document.querySelector('img[src="https://example.com/img.jpg"]');
     expect(img).toBeInTheDocument();
   });
+
+  describe("onClick (clickable card)", () => {
+    it("when onClick is provided, card has role button and is focusable", () => {
+      render(<Card title="Clickable" onClick={() => {}} />);
+      const card = screen.getByRole("heading", { name: /clickable/i }).closest("[role='button']");
+      expect(card).toBeInTheDocument();
+      expect(card).toHaveAttribute("tabindex", "0");
+    });
+
+    it("when onClick is provided, clicking the card calls the handler", async () => {
+      const onCardClick = vi.fn();
+      render(<Card title="Clickable" description="Desc" onClick={onCardClick} />);
+      const card = screen.getByRole("heading", { name: /clickable/i }).closest("[role='button']");
+      await userEvent.click(card!);
+      expect(onCardClick).toHaveBeenCalledTimes(1);
+    });
+
+    it("when onClick is provided, Enter key triggers the handler", async () => {
+      const onCardClick = vi.fn();
+      render(<Card title="Clickable" onClick={onCardClick} />);
+      const card = screen.getByRole("heading", { name: /clickable/i }).closest("[role='button']") as HTMLElement | null;
+      card?.focus();
+      await userEvent.keyboard("{Enter}");
+      expect(onCardClick).toHaveBeenCalledTimes(1);
+    });
+
+    it("when onClick is provided, Space key triggers the handler", async () => {
+      const onCardClick = vi.fn();
+      render(<Card title="Clickable" onClick={onCardClick} />);
+      const card = screen.getByRole("heading", { name: /clickable/i }).closest("[role='button']") as HTMLElement | null;
+      card?.focus();
+      await userEvent.keyboard(" ");
+      expect(onCardClick).toHaveBeenCalledTimes(1);
+    });
+
+    it("when onClick is provided, clicking an action button does not call card onClick", async () => {
+      const onCardClick = vi.fn();
+      const onEditClick = vi.fn();
+      render(
+        <Card
+          title="Clickable"
+          onClick={onCardClick}
+          actions={[{ label: "Edit", onClick: onEditClick }]}
+        />
+      );
+      const actionButtons = screen.getAllByRole("button").filter((el) => el.tagName === "BUTTON");
+      const editButton = actionButtons.find((el) => el.textContent === "Edit");
+      await userEvent.click(editButton!);
+      expect(onEditClick).toHaveBeenCalledTimes(1);
+      expect(onCardClick).not.toHaveBeenCalled();
+    });
+
+    it("when onClick is not provided, card root has no role button", () => {
+      const { container } = render(<Card title="Not clickable" />);
+      const cardRoot = container.firstChild;
+      expect(cardRoot).not.toHaveAttribute("role", "button");
+      expect(cardRoot).not.toHaveAttribute("tabindex");
+    });
+  });
 });

@@ -1,4 +1,5 @@
-import { useState, memo, type ReactNode } from "react";
+import { useState, memo, useCallback, type ReactNode } from "react";
+import type { MouseEvent, KeyboardEvent } from "react";
 import { LucideIcon, Compass } from "lucide-react";
 import { cn } from "../../utils/cn";
 import styles from "./Card.module.css";
@@ -48,6 +49,8 @@ export interface CardProps {
   iconSize?: IconSize;
   /** When true, adds a 3D-style shadow (bottom and right). */
   threeD?: boolean;
+  /** Optional click handler for the whole card (e.g. open details). Makes the card keyboard-focusable and clickable. */
+  onClick?: (event: MouseEvent<HTMLDivElement>) => void;
   className?: string;
   children?: ReactNode;
 }
@@ -128,10 +131,13 @@ const CardStats = ({ stats = [] }: Pick<CardProps, "stats">) => {
   );
 };
 
-const CardActions = ({ actions = [] }: Pick<CardProps, "actions">) => {
+const CardActions = ({
+  actions = [],
+  stopPropagation,
+}: Pick<CardProps, "actions"> & { stopPropagation?: boolean }) => {
   if (actions.length === 0) return null;
   return (
-    <div className={styles.actions}>
+    <div className={styles.actions} onClick={stopPropagation ? (e) => e.stopPropagation() : undefined}>
       <div className={styles.actionRow}>
         {actions.map((action, index) => {
           const ActionIcon = action.icon;
@@ -139,7 +145,10 @@ const CardActions = ({ actions = [] }: Pick<CardProps, "actions">) => {
             <button
               key={index}
               type="button"
-              onClick={action.onClick}
+              onClick={(e) => {
+                if (stopPropagation) e.stopPropagation();
+                action.onClick();
+              }}
               className={styles.actionButton}
             >
               {ActionIcon && <ActionIcon className={styles.actionIcon} />}
@@ -171,10 +180,42 @@ function Card({
   detailsPerRow,
   iconSize,
   threeD = false,
+  onClick,
   className,
   children,
 }: CardProps) {
   const [imageFailed, setImageFailed] = useState(false);
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent<HTMLDivElement>) => {
+      if (onClick && (e.key === "Enter" || e.key === " ")) {
+        e.preventDefault();
+        (e.currentTarget as HTMLDivElement).click();
+      }
+    },
+    [onClick]
+  );
+  const cardProps = onClick
+    ? {
+        role: "button" as const,
+        tabIndex: 0,
+        onClick,
+        onKeyDown: handleKeyDown,
+        className: cn(styles.card, styles.clickable, threeD && "solstice-ui-3d", className),
+      }
+    : {
+        className: cn(styles.card, threeD && "solstice-ui-3d", className),
+      };
+  const imageCardProps = onClick
+    ? {
+        role: "button" as const,
+        tabIndex: 0,
+        onClick,
+        onKeyDown: handleKeyDown,
+        className: cn(styles.card, styles.cardWithImage, styles.clickable, threeD && "solstice-ui-3d", className),
+      }
+    : {
+        className: cn(styles.card, styles.cardWithImage, threeD && "solstice-ui-3d", className),
+      };
   const LAYOUT_CLASSES = {
     default: styles.header,
     vertical: styles.verticalHeader,
@@ -185,7 +226,7 @@ function Card({
 
   if (isImageLayout) {
     return (
-      <div className={cn(styles.card, styles.cardWithImage, threeD && "solstice-ui-3d", className)}>
+      <div {...imageCardProps}>
         {status && (
           <div className={styles.cardStatusBadge}>
             <Badge variant={statusVariant}>{status}</Badge>
@@ -202,7 +243,10 @@ function Card({
                 variant="secondary"
                 size="md"
                 icon={ActionIcon}
-                onClick={onAction}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onAction();
+                }}
                 className={styles.imageActionButton}
               >
                 {actionLabel}
@@ -229,7 +273,7 @@ function Card({
   }
 
   return (
-    <div className={cn(styles.card, threeD && "solstice-ui-3d", className)}>
+    <div {...cardProps}>
       {status && (
         <div className={styles.cardStatusBadge}>
           <Badge variant={statusVariant}>{status}</Badge>
@@ -252,7 +296,7 @@ function Card({
 
       <CardDetails details={details} detailsPerRow={detailsPerRow} />
       <CardStats stats={stats} />
-      <CardActions actions={actions} />
+      <CardActions actions={actions} stopPropagation={Boolean(onClick)} />
     </div>
   );
 }
