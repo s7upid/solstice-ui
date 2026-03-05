@@ -1,7 +1,7 @@
 @echo off
 REM ============================================
 REM Generate test coverage and update README badges
-REM Runs: lint -> test:coverage -> test:e2e -> extract-results -> update-readme-badges -> build -> pack
+REM Runs: lint -> test:coverage -> test:e2e -> extract-results -> update-readme-badges
 REM ============================================
 set SCRIPT_DIR=%~dp0
 set ROOT_DIR=%SCRIPT_DIR%..
@@ -72,26 +72,9 @@ if errorlevel 1 (
 
 echo.
 
-echo [7/7] Building and packing distributable...
-call npm run build
-if errorlevel 1 (
-    echo [ERROR] Build failed.
-    pause
-    exit /b 1
-)
-call npm run pack
-if errorlevel 1 (
-    echo [ERROR] npm pack failed.
-    pause
-    exit /b 1
-)
-echo [SUCCESS] Package tgz created.
-echo.
-
 echo ==========================================
 echo Done. README.md badges updated.
-echo Package: solstice-ui-1.0.0.tgz ready.
-echo Commit README.md, coverage-report.json, and solstice-ui-1.0.0.tgz.
+echo Commit README.md and coverage-report.json.
 echo ==========================================
 echo.
 pause

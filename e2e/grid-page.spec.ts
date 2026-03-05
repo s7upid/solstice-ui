@@ -10,12 +10,12 @@ test.describe("DataPage (grid)", () => {
   });
 
   test("GridEmpty story shows empty state", async ({ page }) => {
-    const root = await gotoStory(page, "components-datapage--grid-empty");
+    const root = await gotoStory(page, "components-datapage--empty");
     await expect(root.getByText("No projects yet")).toBeVisible();
   });
 
   test("GridLoading story shows spinner (no grid list)", async ({ page }) => {
-    const root = await gotoStory(page, "components-datapage--grid-loading");
+    const root = await gotoStory(page, "components-datapage--loading");
     await expect(root.getByRole("heading", { name: /projects/i })).toBeVisible();
     await expect(root.locator('[role="list"]')).not.toBeVisible();
   });

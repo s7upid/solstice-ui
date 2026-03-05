@@ -10,13 +10,13 @@ test.describe("DataPage (list)", () => {
   });
 
   test("ListEmpty story shows empty state", async ({ page }) => {
-    const root = await gotoStory(page, "components-datapage--list-empty");
-    await expect(root.getByText("No items")).toBeVisible();
+    const root = await gotoStory(page, "components-datapage--empty");
+    await expect(root.getByText("No projects yet")).toBeVisible();
   });
 
   test("ListLoading story shows spinner (no list content)", async ({ page }) => {
-    const root = await gotoStory(page, "components-datapage--list-loading");
-    await expect(root.getByRole("heading", { name: /items/i })).toBeVisible();
+    const root = await gotoStory(page, "components-datapage--loading");
+    await expect(root.getByRole("heading", { name: /projects/i })).toBeVisible();
     await expect(root.getByText("Project Alpha")).not.toBeVisible();
   });
 });

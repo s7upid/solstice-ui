@@ -124,7 +124,7 @@ All components support dark mode when the root element has the `.dark` class. Br
 | `npm run pack`          | Remove existing tgz for current version, then `npm pack` (used by createPackage) |
 | `npm run createPackage` | Clean, build, then create package tgz (`solstice-ui-<version>.tgz`) |
 
-**Convenience scripts:** `scripts/start-storybook.bat` (Windows) / `scripts/start-storybook.command` (macOS) start Storybook. `scripts/create-package.bat` (Windows) / `scripts/create-package.command` (macOS) create the package tgz (double-click to run: clean, build, pack). `scripts/generate-tests-report.bat` and `scripts/generate-tests-report.command` run test coverage and update README badges. See [scripts/README.md](scripts/README.md).
+**Convenience scripts:** `scripts/start-storybook.bat` (Windows) / `scripts/start-storybook.command` (macOS) start Storybook. `scripts/create-package.bat` (Windows) / `scripts/create-package.command` (macOS) create the package tgz (double-click to run: clean, build, pack). `scripts/generate-tests-report.bat` and `scripts/generate-tests-report.command` run test coverage and update README badges (no package build). See [scripts/README.md](scripts/README.md).
 
 ---
 

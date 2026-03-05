@@ -38,7 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **TabNavigation** — Panel content has improved contrast (stronger background, darker text in light mode). Tab and pill hover states visible in light and dark mode.
 - **Toast (Storybook)** — Default story shows sample toasts (no add buttons); layout fullscreen and decorator min-height for visibility; stories renamed (e.g. SuccessOnly → Success).
 - **Build / pack:** `build` and `dev` use `npx cross-env` so they work when run via double-click or from contexts where `node_modules/.bin` is not on PATH. `clean` and `pack` use `npx rimraf` and a node one-liner (delete tgz by version from package.json) so they run reliably on Windows; `pack` no longer uses a glob (fixes "Illegal characters in path" on Windows). `test:e2e:sequential` uses `npx cross-env`.
-- **Test report scripts:** `generate-tests-report.bat` and `generate-tests-report.command` now run Playwright e2e with **max workers** (`E2E_USE_MAX_WORKERS=1`) for faster report generation. Final step uses `npm run build` then `npm run pack`.
+- **Test report scripts:** `generate-tests-report.bat` and `generate-tests-report.command` run lint, unit tests with coverage, e2e tests (Playwright with `E2E_USE_MAX_WORKERS=1`), then extract results and update README badges. They do not build or pack the package; use `create-package` scripts for that.
 - **Playwright config:** Worker count: when `E2E_USE_MAX_WORKERS=1` use all CPUs; when using static Storybook (`E2E_USE_STATIC=1`) use 1 worker to avoid timeouts; otherwise CI uses all CPUs, local uses 2. Static Storybook e2e uses `waitUntil: "networkidle"` for story load.
 
 ### Fixed

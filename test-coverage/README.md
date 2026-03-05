@@ -38,11 +38,11 @@ node test-coverage/update-readme-badges.js
 4. **Update README:**  
    `node test-coverage/update-readme-badges.js`
 
-5. Commit the updated `README.md` and optionally `coverage-report.json`.
+5. Commit the updated `README.md` and optionally `coverage-report.json`. (The generate-tests-report scripts do not build or pack the package; use `scripts/create-package.*` for that.)
 
 ## Badges (unit % and e2e %)
 
-The **generate-tests-report** scripts run unit tests with coverage and e2e tests (Playwright), then write `coverage-report.json` with:
+The **generate-tests-report** scripts run lint, unit tests with coverage, and e2e tests (Playwright), then write `coverage-report.json` with:
 
 - **unit**: Vitest line coverage percentage (from `coverage/coverage-summary.json`).
 - **e2e**: Playwright test pass percentage (from `test-coverage/e2e-results.json`, written when `E2E_JSON_REPORT=1`).

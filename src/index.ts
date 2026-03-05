@@ -1,3 +1,5 @@
+import "./index.css";
+
 export { cn } from "./utils/cn";
 
 export { default as Button } from "./components/Button/Button";
