@@ -69,31 +69,6 @@ const slideContent = (num: number, color: string) => (
   </div>
 );
 
-const luxurySlides = [
-  { num: 1, bg: "linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)", title: "Editorial" },
-  { num: 2, bg: "linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%)", title: "Collection" },
-  { num: 3, bg: "linear-gradient(135deg, #3d3d3d 0%, #2a2a2a 100%)", title: "Showcase" },
-];
-
-const luxurySlideContent = (slide: (typeof luxurySlides)[0]) => (
-  <div
-    key={slide.num}
-    style={{
-      padding: 56,
-      background: slide.bg,
-      borderRadius: 12,
-      minHeight: 200,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-    }}
-  >
-    <h3 style={{ margin: 0, fontSize: 22, fontWeight: 300, letterSpacing: "0.2em", color: "rgba(255,255,255,0.95)", textTransform: "uppercase" }}>
-      {slide.title}
-    </h3>
-  </div>
-);
-
 export const Default: Story = {
   args: {
     children: [
@@ -105,40 +80,31 @@ export const Default: Story = {
   },
 };
 
-export const Luxury: Story = {
-  args: {
-    children: luxurySlides.map((s) => luxurySlideContent(s)),
-    ariaLabel: "Editorial carousel",
-  },
-};
-
-export const NoArrows: Story = {
-  args: {
-    children: [
-      slideContent(1, "#2563eb"),
-      slideContent(2, "#059669"),
-    ],
-    showArrows: false,
-    ariaLabel: "Carousel",
-  },
-};
-
-export const NoDots: Story = {
-  args: {
-    children: [
-      slideContent(1, "#2563eb"),
-      slideContent(2, "#059669"),
-    ],
-    showDots: false,
-    ariaLabel: "Carousel",
-  },
-};
-
-export const VisibleArrows: Story = {
-  args: {
-    children: [slideContent(1, "#2563eb"), slideContent(2, "#059669"), slideContent(3, "#7c3aed")],
-    arrowVariant: "visible",
-  },
+export const ArrowVariants: Story = {
+  render: () => (
+    <div className="space-y-8">
+      <div>
+        <p className="text-sm text-gray-500 mb-2">Visible arrows</p>
+        <div className="h-[220px]">
+          <Carousel arrowVariant="visible" ariaLabel="Visible arrows">
+            {slideContent(1, "#2563eb")}
+            {slideContent(2, "#059669")}
+            {slideContent(3, "#7c3aed")}
+          </Carousel>
+        </div>
+      </div>
+      <div>
+        <p className="text-sm text-gray-500 mb-2">Glide arrows</p>
+        <div className="h-[220px]">
+          <Carousel arrowVariant="glide" ariaLabel="Glide arrows">
+            {slideContent(1, "#2563eb")}
+            {slideContent(2, "#059669")}
+            {slideContent(3, "#7c3aed")}
+          </Carousel>
+        </div>
+      </div>
+    </div>
+  ),
 };
 
 export const Peek: Story = {
@@ -152,13 +118,6 @@ export const Peek: Story = {
     ],
     layout: "peek",
     peekSlideWidth: 0.55,
-    arrowVariant: "glide",
-  },
-};
-
-export const Glide: Story = {
-  args: {
-    children: [slideContent(1, "#2563eb"), slideContent(2, "#059669"), slideContent(3, "#7c3aed")],
     arrowVariant: "glide",
   },
 };
@@ -195,19 +154,5 @@ export const Controlled: Story = {
         </p>
       </div>
     );
-  },
-};
-
-export const SingleSlide: Story = {
-  args: {
-    children: [slideContent(1, "#2563eb")],
-    ariaLabel: "Single slide",
-  },
-};
-
-export const ThreeD: Story = {
-  args: {
-    children: [slideContent(1, "#2563eb"), slideContent(2, "#059669"), slideContent(3, "#7c3aed")],
-    threeD: true,
   },
 };

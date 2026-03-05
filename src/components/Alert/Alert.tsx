@@ -1,11 +1,11 @@
-import { type ReactNode } from "react";
+import { type ReactNode, type HTMLAttributes } from "react";
 import { AlertCircle, CheckCircle, Info, X, AlertTriangle } from "lucide-react";
 import { cn } from "../../utils/cn";
 import styles from "./Alert.module.css";
 
 export type AlertVariant = "info" | "success" | "warning" | "error";
 
-export interface AlertProps {
+export interface AlertProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
   variant?: AlertVariant;
   title?: string;
   children: ReactNode;
@@ -31,6 +31,7 @@ function Alert({
   onDismiss,
   threeD = false,
   className,
+  ...rest
 }: AlertProps) {
   const Icon = ICONS[variant];
 
@@ -43,6 +44,7 @@ function Alert({
         className
       )}
       role="alert"
+      {...rest}
     >
       <Icon className={styles.icon} aria-hidden />
       <div className={styles.body}>

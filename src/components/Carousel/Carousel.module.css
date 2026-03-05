@@ -50,10 +50,7 @@
 .slidePeekActive {
   @apply z-[1];
   transform: scale(1.03);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-}
-:global(.dark) .slidePeekActive {
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  box-shadow: var(--shadow-dropdown);
 }
 
 .slide > *,
@@ -168,7 +165,7 @@
 }
 .dotActive {
   width: 24px;
-  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-light));
   box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
 }
 
@@ -189,6 +186,5 @@
   background: rgba(107, 114, 128, 0.7);
 }
 :global(.dark) .dotActive {
-  background: linear-gradient(90deg, #60a5fa, #93c5fd);
   box-shadow: 0 2px 8px rgba(96, 165, 250, 0.3);
 }

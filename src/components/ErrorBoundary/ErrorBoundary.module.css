@@ -6,15 +6,10 @@
 
 .card {
   @apply max-w-4xl w-full rounded-2xl p-8 mx-auto;
-  background: var(--glass-bg-strong);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: var(--surface-bg);
   border: 1px solid var(--glass-border);
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.1), var(--glass-inset-shadow);
+  box-shadow: var(--shadow-elevated), var(--glass-inset-shadow);
   animation: glass-fade-in 400ms ease-out;
-}
-:global(.dark) .card {
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4), var(--glass-inset-shadow);
 }
 
 .iconBg {

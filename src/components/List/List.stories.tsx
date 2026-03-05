@@ -48,15 +48,6 @@ export const Default: Story = {
   ),
 };
 
-export const SimpleText: Story = {
-  render: () => (
-    <List
-      items={["Alpha", "Beta", "Gamma"].map((name, i) => ({ id: String(i), name }))}
-      renderItem={(item: Item) => <span>{item.name}</span>}
-    />
-  ),
-};
-
 export const WithCards: Story = {
   render: () => (
     <List

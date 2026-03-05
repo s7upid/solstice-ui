@@ -11,6 +11,7 @@ export interface TabItem {
   disabled?: boolean;
   badge?: string | number;
   isVisible?: boolean;
+  testId?: string;
 }
 
 export interface TabNavigationProps {
@@ -25,6 +26,7 @@ export interface TabNavigationProps {
   variant?: "default" | "pills" | "underline";
   /** When true, adds a 3D-style shadow (bottom and right). */
   threeD?: boolean;
+  testId?: string;
 }
 
 const SIZE_CLASSES = {
@@ -49,6 +51,7 @@ function TabNavigation({
   size = "md",
   variant = "default",
   threeD = false,
+  testId,
 }: TabNavigationProps) {
   const visibleTabs = tabs.filter((tab) => {
     if (tab.isVisible !== undefined) return tab.isVisible;
@@ -72,6 +75,7 @@ function TabNavigation({
               aria-selected={isActive}
               onClick={() => !tab.disabled && onTabChange(tab.id)}
               disabled={tab.disabled}
+              data-testid={tab.testId}
               className={cn(
                 variantStyle.base,
                 sizeClass,
@@ -94,7 +98,7 @@ function TabNavigation({
   if (visibleTabs.length <= 1 && !contentByTabId) return null;
 
   return (
-    <div className={cn(styles.container, threeD && "solstice-ui-3d", className)}>
+    <div className={cn(styles.container, threeD && "solstice-ui-3d", className)} data-testid={testId}>
       {tabList}
       {contentByTabId && (
         <div className={styles.tabPanel} role="tabpanel">

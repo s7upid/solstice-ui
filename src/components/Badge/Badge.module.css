@@ -19,51 +19,47 @@
 }
 :global(.dark) .default {
   background: rgba(55, 65, 81, 0.5);
-  border-color: rgba(255, 255, 255, 0.08);
+  border-color: var(--glass-border);
   @apply text-gray-300;
 }
 
 .success {
   background: rgba(220, 252, 231, 0.7);
-  border: 1px solid rgba(34, 197, 94, 0.25);
+  border: 1px solid var(--border-success-tint);
   @apply text-green-700;
 }
 :global(.dark) .success {
   background: rgba(34, 197, 94, 0.12);
-  border-color: rgba(74, 222, 128, 0.15);
   @apply text-green-400;
 }
 
 .warning {
   background: rgba(254, 249, 195, 0.7);
-  border: 1px solid rgba(234, 179, 8, 0.25);
+  border: 1px solid var(--border-warning-tint);
   @apply text-yellow-700;
 }
 :global(.dark) .warning {
   background: rgba(234, 179, 8, 0.12);
-  border-color: rgba(250, 204, 21, 0.15);
   @apply text-yellow-400;
 }
 
 .error {
   background: rgba(254, 226, 226, 0.7);
-  border: 1px solid rgba(239, 68, 68, 0.25);
+  border: 1px solid var(--border-error-tint);
   @apply text-red-700;
 }
 :global(.dark) .error {
   background: rgba(239, 68, 68, 0.12);
-  border-color: rgba(248, 113, 113, 0.15);
   @apply text-red-400;
 }
 
 .info {
   background: rgba(219, 234, 254, 0.7);
-  border: 1px solid rgba(59, 130, 246, 0.25);
+  border: 1px solid var(--border-info-tint);
   @apply text-blue-700;
 }
 :global(.dark) .info {
   background: rgba(59, 130, 246, 0.12);
-  border-color: rgba(96, 165, 250, 0.15);
   @apply text-blue-400;
 }
 
@@ -74,6 +70,6 @@
 }
 :global(.dark) .neutral {
   background: rgba(75, 85, 99, 0.4);
-  border-color: rgba(255, 255, 255, 0.08);
+  border-color: var(--glass-border);
   @apply text-gray-300;
 }

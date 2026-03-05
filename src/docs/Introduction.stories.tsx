@@ -16,7 +16,7 @@ const ComponentOverview = () => (
     <h3>Core</h3>
     <ul>
       <li><strong>Button</strong> — Primary, secondary, danger, ghost, success, outline; sizes and icons</li>
-      <li><strong>Input</strong> — Text field with label, error, optional icon</li>
+      <li><strong>Input</strong> — Text field with label, error, optional left/right icon (e.g. Lucide), and <code>endAdornment</code> (e.g. button at the end)</li>
       <li><strong>Card</strong> — Content card with header, details, stats, actions; set <code>imageSrc</code> for image layout with action</li>
       <li><strong>Badge</strong> — Status and label badges</li>
       <li><strong>Dropdown</strong> — Select-style dropdown</li>
@@ -44,7 +44,6 @@ const ComponentOverview = () => (
 
     <h3>Overlays</h3>
     <ul>
-      <li><strong>ModalPortal</strong> — Portal for modals</li>
       <li><strong>Dialog</strong> — Modal with title, content, optional footer or footer actions (with icons)</li>
     </ul>
 
@@ -77,6 +76,9 @@ import { ThemeProvider, Button, Input } from "solstice-ui";
 </ThemeProvider>`}
     </pre>
     <p>Use Tailwind <code>darkMode: 'class'</code> and toggle the <code>.dark</code> class on the root when in dark mode.</p>
+
+    <h2>Theming</h2>
+    <p>Surfaces, accents, status colors, focus rings, shadows, and transitions are controlled by CSS custom properties in the library stylesheet. To retheme, override those variables (e.g. in your app after importing <code>solstice-ui/styles</code>); see the source <code>index.css</code> for the full set of tokens.</p>
   </div>
 );
 

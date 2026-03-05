@@ -2,22 +2,18 @@
 
 .toggle {
   @apply w-10 h-10 rounded-xl flex items-center justify-center text-gray-600 cursor-pointer;
-  background: rgba(0, 0, 0, 0.04);
+  background: var(--interactive-bg);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-inset-shadow);
   transition: all var(--transition-spring);
 }
 .toggle:hover {
-  background: rgba(0, 0, 0, 0.08);
+  background: var(--interactive-bg-hover);
   box-shadow: var(--glass-shadow);
   transform: scale(1.05);
 }
 :global(.dark) .toggle {
   @apply text-gray-300;
-  background: rgba(255, 255, 255, 0.06);
-}
-:global(.dark) .toggle:hover {
-  background: rgba(255, 255, 255, 0.12);
 }
 .toggle:active {
   transform: scale(0.95);
@@ -25,7 +21,7 @@
 }
 .toggle:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.3);
+  box-shadow: var(--focus-ring-neutral);
 }
 
 .icon {

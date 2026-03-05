@@ -1,6 +1,7 @@
 import {
   useId,
   cloneElement,
+  createElement,
   isValidElement,
   type ReactNode,
   type ReactElement,
@@ -17,6 +18,8 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: string;
   icon?: LucideIcon | ReactNode;
   iconPosition?: "left" | "right";
+  /** Optional slot rendered at the end of the input row (e.g. password visibility toggle). */
+  endAdornment?: ReactNode;
   required?: boolean;
   /** When true, adds a 3D-style shadow (bottom and right). */
   threeD?: boolean;
@@ -28,6 +31,7 @@ function Input({
   error,
   icon,
   iconPosition = "left",
+  endAdornment,
   required = false,
   threeD = false,
   className,
@@ -43,6 +47,7 @@ function Input({
     error && styles.fieldError,
     icon &&
       (iconPosition === "left" ? styles.withIconLeft : styles.withIconRight),
+    endAdornment && styles.withEndAdornment,
     className
   );
 
@@ -53,9 +58,10 @@ function Input({
         className: cn(styles.icon, (icon as ReactElement<{ className?: string }>).props.className),
       });
     }
-    if (typeof icon === "function") {
-      const IconComponent = icon as ComponentType<{ className?: string }>;
-      return <IconComponent className={styles.icon} />;
+    // Lucide icons and other components (including ForwardRef) may be functions or objects
+    const IconComponent = icon as ComponentType<{ className?: string }>;
+    if (typeof IconComponent === "function" || (typeof IconComponent === "object" && IconComponent !== null)) {
+      return createElement(IconComponent, { className: styles.icon });
     }
     return <span className={styles.icon}>?</span>;
   })();
@@ -81,6 +87,9 @@ function Input({
         />
         {icon && iconPosition === "right" && (
           <div className={styles.iconRightContainer}>{iconEl}</div>
+        )}
+        {endAdornment && (
+          <div className={styles.endAdornmentContainer}>{endAdornment}</div>
         )}
       </div>
       {error && (

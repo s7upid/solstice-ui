@@ -1,3 +1,4 @@
+import { type HTMLAttributes } from "react";
 import { LucideIcon } from "lucide-react";
 import { cn } from "../../utils/cn";
 import styles from "./EmptyState.module.css";
@@ -8,7 +9,7 @@ export interface EmptyStateAction {
   onClick: () => void;
 }
 
-export interface EmptyStateProps {
+export interface EmptyStateProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
   title: string;
   description?: string;
   icon?: LucideIcon;
@@ -27,9 +28,10 @@ function EmptyState({
   secondaryAction,
   threeD = false,
   className,
+  ...rest
 }: EmptyStateProps) {
   return (
-    <div className={cn(styles.emptyState, threeD && "solstice-ui-3d", className)}>
+    <div className={cn(styles.emptyState, threeD && "solstice-ui-3d", className)} {...rest}>
       {Icon && (
         <div className={styles.iconWrapper} aria-hidden="true">
           <Icon size={36} />

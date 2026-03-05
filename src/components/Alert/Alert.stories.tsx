@@ -25,36 +25,15 @@ export default meta;
 
 type Story = StoryObj<typeof Alert>;
 
-export const Info: Story = {
-  args: {
-    variant: "info",
-    title: "Info",
-    children: "This is an informational message.",
-  },
-};
-
-export const Success: Story = {
-  args: {
-    variant: "success",
-    title: "Success",
-    children: "Your changes have been saved.",
-  },
-};
-
-export const Warning: Story = {
-  args: {
-    variant: "warning",
-    title: "Warning",
-    children: "Please review before continuing.",
-  },
-};
-
-export const Error: Story = {
-  args: {
-    variant: "error",
-    title: "Error",
-    children: "Something went wrong. Please try again.",
-  },
+export const AllVariants: Story = {
+  render: () => (
+    <div className="space-y-4 max-w-md">
+      <Alert variant="info" title="Info">Informational message.</Alert>
+      <Alert variant="success" title="Success">Action completed.</Alert>
+      <Alert variant="warning" title="Warning">Please review.</Alert>
+      <Alert variant="error" title="Error">Something went wrong.</Alert>
+    </div>
+  ),
 };
 
 export const NoTitle: Story = {
@@ -72,15 +51,4 @@ export const Dismissible: Story = {
     dismissible: true,
     onDismiss: () => {},
   },
-};
-
-export const AllVariants: Story = {
-  render: () => (
-    <div className="space-y-4 max-w-md">
-      <Alert variant="info" title="Info" children="Informational message." />
-      <Alert variant="success" title="Success" children="Action completed." />
-      <Alert variant="warning" title="Warning" children="Please review." />
-      <Alert variant="error" title="Error" children="Something went wrong." />
-    </div>
-  ),
 };

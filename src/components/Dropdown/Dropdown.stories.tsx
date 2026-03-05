@@ -58,3 +58,12 @@ export const WithHelperText: Story = {
     helperText: "Select your region for shipping.",
   },
 };
+
+export const Disabled: Story = {
+  args: {
+    label: "Country",
+    options,
+    disabled: true,
+    placeholderOption: "Select...",
+  },
+};

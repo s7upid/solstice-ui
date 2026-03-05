@@ -18,14 +18,14 @@
     "dist"
   ],
   "scripts": {
-    "build": "cross-env VITE_LIB_BUILD=1 vite build",
-    "dev": "cross-env VITE_LIB_BUILD=1 vite build --watch",
+    "build": "npx cross-env VITE_LIB_BUILD=1 vite build",
+    "dev": "npx cross-env VITE_LIB_BUILD=1 vite build --watch",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "test:ci": "vitest run --coverage",
     "test:e2e": "playwright test",
-    "test:e2e:sequential": "cross-env E2E_SEQUENTIAL=1 playwright test",
+    "test:e2e:sequential": "npx cross-env E2E_SEQUENTIAL=1 playwright test",
     "test:e2e:all": "node scripts/run-e2e-all-browsers.mjs",
     "test:e2e:ui": "playwright test --ui",
     "lint": "eslint .",
@@ -35,7 +35,9 @@
     "build-storybook": "storybook build",
     "coverage:report": "node test-coverage/extract-results.js",
     "coverage:badges": "node test-coverage/update-readme-badges.js",
-    "clean": "rimraf coverage dist storybook-static playwright-report test-results coverage-report.json"
+    "clean": "npx rimraf coverage dist storybook-static playwright-report test-results coverage-report.json",
+    "pack": "node -e \"const fs=require('fs');const p=require('./package.json');const f=p.name+'-'+p.version+'.tgz';if(fs.existsSync(f))fs.unlinkSync(f);\" && npm pack",
+    "createPackage": "npm run clean && npm run build && npm run pack"
   },
   "peerDependencies": {
     "lucide-react": "^0.577.0",
@@ -65,7 +67,6 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.4",
     "@vitest/coverage-v8": "^4.0.18",
-    "ajv": "^8.18.0",
     "cross-env": "^7.0.3",
     "eslint": "^10.0.2",
     "eslint-plugin-react-hooks": "^7.0.1",

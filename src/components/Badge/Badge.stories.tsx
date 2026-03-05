@@ -25,30 +25,6 @@ export default meta;
 
 type Story = StoryObj<typeof Badge>;
 
-export const Default: Story = {
-  args: { children: "Badge", variant: "default" },
-};
-
-export const Success: Story = {
-  args: { children: "Active", variant: "success" },
-};
-
-export const Warning: Story = {
-  args: { children: "Pending", variant: "warning" },
-};
-
-export const Error: Story = {
-  args: { children: "Failed", variant: "error" },
-};
-
-export const Info: Story = {
-  args: { children: "Info", variant: "info" },
-};
-
-export const NotPill: Story = {
-  args: { children: "Rectangle badge", variant: "default", pill: false },
-};
-
 export const AllVariants: Story = {
   render: () => (
     <div className="flex flex-wrap gap-2">
@@ -60,4 +36,8 @@ export const AllVariants: Story = {
       <Badge variant="neutral">Neutral</Badge>
     </div>
   ),
+};
+
+export const NotPill: Story = {
+  args: { children: "Rectangle badge", variant: "default", pill: false },
 };

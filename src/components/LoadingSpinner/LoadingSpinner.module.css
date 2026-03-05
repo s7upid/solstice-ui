@@ -15,20 +15,12 @@
     from 0deg,
     transparent 0%,
     transparent 30%,
-    #3b82f6 100%
+    var(--color-accent) 100%
   );
   mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2.5px));
   -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2.5px));
   animation: glass-spin 0.8s linear infinite;
   position: relative;
-}
-:global(.dark) .spinnerBase {
-  background: conic-gradient(
-    from 0deg,
-    transparent 0%,
-    transparent 30%,
-    #60a5fa 100%
-  );
 }
 .sizeSm {
   @apply h-5 w-5;

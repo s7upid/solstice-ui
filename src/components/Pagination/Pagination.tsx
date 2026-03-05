@@ -11,6 +11,7 @@ export interface PaginationProps {
   pageSize?: number;
   onPageSizeChange?: (size: number) => void;
   pageSizeOptions?: number[];
+  totalItems?: number;
   /** When true, adds a 3D-style shadow (bottom and right). */
   threeD?: boolean;
 }
@@ -23,6 +24,7 @@ function Pagination({
   pageSize = 10,
   onPageSizeChange,
   pageSizeOptions = [10, 25, 50, 100],
+  totalItems,
   threeD = false,
 }: PaginationProps) {
   const pageSizeId = useId();
@@ -91,7 +93,9 @@ function Pagination({
           )}
         </div>
         <div className={styles.segment}>
-          <span className={styles.labelInline}>of {totalPages} pages</span>
+          <span className={styles.labelInline}>
+            of {totalPages} pages{totalItems != null && ` (${totalItems} items)`}
+          </span>
         </div>
         <button
           type="button"

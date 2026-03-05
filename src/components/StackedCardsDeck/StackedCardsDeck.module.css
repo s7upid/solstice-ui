@@ -41,11 +41,7 @@
   width: 100%;
   overflow: hidden;
   border-radius: inherit;
-  background: rgb(255, 255, 255);
+  background: var(--surface-bg-secondary);
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
-}
-
-:global(.dark) .card {
-  background: rgb(25, 25, 40);
 }

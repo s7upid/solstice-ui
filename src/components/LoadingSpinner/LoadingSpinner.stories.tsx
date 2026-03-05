@@ -41,9 +41,3 @@ export const Sizes: Story = {
     </div>
   ),
 };
-
-export const NoMessage: Story = {
-  args: {
-    showMessage: false,
-  },
-};

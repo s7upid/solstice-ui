@@ -30,19 +30,16 @@ export default meta;
 
 type Story = StoryObj<typeof Toggle>;
 
-export const ButtonWithLabel: Story = {
-  args: {
-    label: "Explore",
-    defaultPressed: false,
-  },
-};
-
-export const ButtonPressed: Story = {
-  args: {
-    label: "On",
-    labelPressed: "Off",
-    defaultPressed: true,
-  },
+export const ButtonAllVariants: Story = {
+  render: () => (
+    <div className="flex flex-wrap gap-4 items-center">
+      <Toggle variant="button" buttonVariant="primary" label="Primary" defaultPressed={false} />
+      <Toggle variant="button" buttonVariant="primary" label="Primary" defaultPressed />
+      <Toggle variant="button" buttonVariant="secondary" label="Secondary" defaultPressed={false} />
+      <Toggle variant="button" buttonVariant="outline" label="Outline" defaultPressed={false} />
+      <Toggle variant="button" buttonVariant="ghost" label="Ghost" defaultPressed={false} />
+    </div>
+  ),
 };
 
 export const ButtonWithIcon: Story = {
@@ -62,18 +59,6 @@ export const ButtonIconOnly: Story = {
   },
 };
 
-export const ButtonAllVariants: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-4 items-center">
-      <Toggle variant="button" buttonVariant="primary" label="Primary" defaultPressed={false} />
-      <Toggle variant="button" buttonVariant="primary" label="Primary" defaultPressed />
-      <Toggle variant="button" buttonVariant="secondary" label="Secondary" defaultPressed={false} />
-      <Toggle variant="button" buttonVariant="outline" label="Outline" defaultPressed={false} />
-      <Toggle variant="button" buttonVariant="ghost" label="Ghost" defaultPressed={false} />
-    </div>
-  ),
-};
-
 export const ButtonSizes: Story = {
   render: () => (
     <div className="flex flex-wrap gap-4 items-center">
@@ -89,9 +74,6 @@ export const SwitchInteractive: Story = {
     const [state, setState] = useState<ToggleState>("off");
     return (
       <div className="space-y-4">
-        <p className="text-sm text-gray-600 dark:text-gray-400">
-          Click the switch to cycle through the three states.
-        </p>
         <Toggle
           variant="switch"
           state={state}
@@ -114,38 +96,6 @@ export const SwitchInteractive: Story = {
   },
 };
 
-export const SwitchDefault: Story = {
-  args: {
-    variant: "switch",
-    state: "off",
-    "aria-label": "Toggle",
-  },
-};
-
-export const SwitchOff: Story = {
-  args: {
-    variant: "switch",
-    state: "off",
-    "aria-label": "Toggle",
-  },
-};
-
-export const SwitchIndeterminate: Story = {
-  args: {
-    variant: "switch",
-    state: "indeterminate",
-    "aria-label": "Toggle",
-  },
-};
-
-export const SwitchOn: Story = {
-  args: {
-    variant: "switch",
-    state: "on",
-    "aria-label": "Toggle",
-  },
-};
-
 export const SwitchWithLabels: Story = {
   args: {
     variant: "switch",
@@ -155,63 +105,12 @@ export const SwitchWithLabels: Story = {
   },
 };
 
-export const SwitchTwoState: Story = {
-  args: {
-    variant: "switch",
-    state: "off",
-    triState: false,
-    "aria-label": "Toggle",
-  },
-};
-
 export const SwitchDisabled: Story = {
   args: {
     variant: "switch",
     state: "on",
     disabled: true,
     "aria-label": "Toggle",
-  },
-};
-
-export const CheckboxUnchecked: Story = {
-  args: {
-    variant: "checkbox",
-    state: "off",
-    label: "Option",
-  },
-};
-
-export const CheckboxChecked: Story = {
-  args: {
-    variant: "checkbox",
-    state: "on",
-    label: "Option",
-  },
-};
-
-export const CheckboxIndeterminate: Story = {
-  args: {
-    variant: "checkbox",
-    state: "indeterminate",
-    label: "Some items selected",
-  },
-};
-
-export const CheckboxWithDescription: Story = {
-  args: {
-    variant: "checkbox",
-    state: "off",
-    label: "Enable notifications",
-    description: "Receive email when someone comments.",
-  },
-};
-
-export const CheckboxWithError: Story = {
-  args: {
-    variant: "checkbox",
-    state: "off",
-    label: "Accept terms",
-    error: "You must accept the terms to continue.",
   },
 };
 
@@ -232,5 +131,23 @@ export const CheckboxInteractive: Story = {
         </p>
       </div>
     );
+  },
+};
+
+export const CheckboxWithDescription: Story = {
+  args: {
+    variant: "checkbox",
+    state: "off",
+    label: "Enable notifications",
+    description: "Receive email when someone comments.",
+  },
+};
+
+export const CheckboxWithError: Story = {
+  args: {
+    variant: "checkbox",
+    state: "off",
+    label: "Accept terms",
+    error: "You must accept the terms to continue.",
   },
 };

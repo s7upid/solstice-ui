@@ -1,25 +1,145 @@
 @import "tailwindcss";
 
 :root {
-  --glass-bg: rgba(255, 255, 255, 0.65);
-  --glass-bg-strong: rgba(255, 255, 255, 0.82);
+  /* Translucent glass (form fields, small UI elements) */
+  --glass-bg: rgba(235, 238, 248, 0.55);
+  --glass-bg-strong: rgba(240, 242, 250, 0.75);
   --glass-border: rgba(0, 0, 0, 0.08);
   --glass-blur: 12px;
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-  --glass-hover-shadow: 0 14px 42px rgba(0, 0, 0, 0.13);
-  --glass-inset-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  --glass-shadow: 0 4px 16px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+  --glass-hover-shadow: 0 12px 28px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.06);
+  --glass-inset-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+
+  /* Solid opaque surfaces (cards, dialogs, panels, dropdowns) */
+  --surface-bg: rgb(255, 255, 255);
+  --surface-bg-secondary: rgb(245, 245, 248);
+
+  /* Solid tinted surfaces (alerts, toasts, danger zones) */
+  --surface-info: rgb(239, 246, 255);
+  --surface-success: rgb(240, 253, 244);
+  --surface-warning: rgb(254, 252, 232);
+  --surface-error: rgb(254, 242, 242);
+
+  /* Brand / accent color */
+  --color-accent: #3b82f6;
+  --color-accent-hover: #2563eb;
+  --color-accent-light: #60a5fa;
+
+  /* Status colors */
+  --color-success: #22c55e;
+  --color-success-hover: #16a34a;
+  --color-success-light: #4ade80;
+  --color-error: #ef4444;
+  --color-error-hover: #dc2626;
+  --color-error-light: #f87171;
+  --color-warning: #eab308;
+  --color-warning-light: #facc15;
+
+  /* Form field focus */
+  --field-focus-border: rgba(59, 130, 246, 0.5);
+  --field-focus-ring: 0 0 0 3px rgba(59, 130, 246, 0.15), 0 4px 12px rgba(59, 130, 246, 0.1);
+  --field-error-border: rgba(239, 68, 68, 0.5);
+  --field-error-ring: 0 0 0 3px rgba(239, 68, 68, 0.15), 0 4px 12px rgba(239, 68, 68, 0.1);
+
+  /* Neutral focus ring for non-form interactive elements */
+  --focus-ring-neutral: 0 0 0 3px rgba(100, 116, 139, 0.3);
+  --focus-ring-neutral-subtle: 0 0 0 3px rgba(100, 116, 139, 0.2);
+
+  /* Interactive element tints */
+  --interactive-bg: rgba(0, 0, 0, 0.04);
+  --interactive-bg-hover: rgba(0, 0, 0, 0.08);
+
+  /* Neutral borders for outlined interactive elements */
+  --interactive-border: rgba(0, 0, 0, 0.12);
+  --interactive-border-hover: rgba(0, 0, 0, 0.18);
+
+  /* On-state colors (toggles, switches, checkboxes) */
+  --color-on: #1e293b;
+  --color-on-dark: #0f172a;
+  --color-on-light: #334155;
+
+  /* Indeterminate state */
+  --color-indeterminate: #f59e0b;
+  --color-indeterminate-hover: #d97706;
+
+  /* Status-tinted borders */
+  --border-info-tint: rgba(59, 130, 246, 0.2);
+  --border-success-tint: rgba(34, 197, 94, 0.2);
+  --border-warning-tint: rgba(234, 179, 8, 0.2);
+  --border-error-tint: rgba(239, 68, 68, 0.2);
+
+  /* Elevated shadows */
+  --shadow-elevated: 0 24px 80px rgba(0, 0, 0, 0.12);
+  --shadow-dropdown: 0 12px 40px rgba(0, 0, 0, 0.12);
+
+  /* Dialog backdrop */
+  --backdrop-bg: rgba(0, 0, 0, 0.4);
+
+  /* Transitions */
   --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-spring: 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
   --transition-smooth: 350ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .dark {
-  --glass-bg: rgba(30, 30, 45, 0.55);
-  --glass-bg-strong: rgba(25, 25, 40, 0.78);
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-bg-strong: rgba(255, 255, 255, 0.07);
   --glass-border: rgba(255, 255, 255, 0.08);
   --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
   --glass-hover-shadow: 0 14px 42px rgba(0, 0, 0, 0.45);
-  --glass-inset-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+  --glass-inset-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+  --surface-bg: rgb(30, 30, 40);
+  --surface-bg-secondary: rgb(25, 25, 34);
+
+  --surface-info: rgb(20, 28, 45);
+  --surface-success: rgb(22, 40, 30);
+  --surface-warning: rgb(42, 36, 18);
+  --surface-error: rgb(45, 22, 22);
+
+  --color-accent: #60a5fa;
+  --color-accent-hover: #3b82f6;
+  --color-accent-light: #93c5fd;
+
+  --color-success: #4ade80;
+  --color-success-hover: #22c55e;
+  --color-success-light: #86efac;
+  --color-error: #f87171;
+  --color-error-hover: #ef4444;
+  --color-error-light: #fca5a5;
+  --color-warning: #facc15;
+  --color-warning-light: #fde047;
+
+  --field-focus-border: rgba(96, 165, 250, 0.5);
+  --field-focus-ring: 0 0 0 3px rgba(96, 165, 250, 0.12), 0 4px 12px rgba(96, 165, 250, 0.08);
+  --field-error-border: rgba(248, 113, 113, 0.5);
+  --field-error-ring: 0 0 0 3px rgba(248, 113, 113, 0.12), 0 4px 12px rgba(248, 113, 113, 0.08);
+
+  --focus-ring-neutral: 0 0 0 3px rgba(100, 116, 139, 0.3);
+  --focus-ring-neutral-subtle: 0 0 0 3px rgba(100, 116, 139, 0.2);
+
+  --interactive-bg: rgba(255, 255, 255, 0.06);
+  --interactive-bg-hover: rgba(255, 255, 255, 0.12);
+
+  --interactive-border: rgba(255, 255, 255, 0.12);
+  --interactive-border-hover: rgba(255, 255, 255, 0.18);
+
+  --color-on: #e2e8f0;
+  --color-on-dark: #cbd5e1;
+  --color-on-light: #cbd5e1;
+
+  --color-indeterminate: #fbbf24;
+  --color-indeterminate-hover: #f59e0b;
+
+  --border-info-tint: rgba(96, 165, 250, 0.15);
+  --border-success-tint: rgba(74, 222, 128, 0.15);
+  --border-warning-tint: rgba(250, 204, 21, 0.15);
+  --border-error-tint: rgba(248, 113, 113, 0.15);
+
+  --shadow-elevated: 0 24px 80px rgba(0, 0, 0, 0.45);
+  --shadow-dropdown: 0 12px 40px rgba(0, 0, 0, 0.4);
+
+  --backdrop-bg: rgba(0, 0, 0, 0.6);
 }
 
 body {

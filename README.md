@@ -73,7 +73,7 @@ Tailwind CSS v4 (or v3 with `darkMode: 'class'`) is required for dark mode styli
 | **Core**    | Button, Input, Card, Badge, Dropdown, Form, Alert, Progress, Toggle       |
 | **Layout**  | PageHeader, Grid, DataPage, List, TabNavigation, StackedCardsDeck           |
 | **Feedback**| LoadingSpinner, EmptyState, Toast, ErrorBoundary                           |
-| **Overlays**| ModalPortal, Dialog                                                        |
+| **Overlays**| Dialog                                                                    |
 | **Actions** | DangerZone, Pagination, SearchInput, Toggle                               |
 | **Forms**   | Input, Toggle (checkbox), DateTimePicker, Form                             |
 | **Theme**   | ThemeToggle, ThemeProvider, useThemeContext                               |
@@ -81,6 +81,8 @@ Tailwind CSS v4 (or v3 with `darkMode: 'class'`) is required for dark mode styli
 **Toggle** has three variants: `button`, `switch`, and `checkbox` (use `<Toggle variant="checkbox" />` for form checkboxes). **DataPage** is the unified layout for grid or list pages (`layout="grid"` or `layout="list"`).
 
 All components support dark mode when the root element has the `.dark` class. Browse **[Storybook](https://s7upid.github.io/solstice-ui/)** for live examples and props.
+
+**Theming:** Visual design (surfaces, accents, status colors, focus rings, shadows, transitions) is driven by CSS custom properties in the library’s main stylesheet. To retheme the library, override or replace those variables (e.g. in your app after importing `solstice-ui/styles`); see the source `index.css` for the full set of tokens.
 
 ---
 
@@ -118,9 +120,11 @@ All components support dark mode when the root element has the `.dark` class. Br
 | `npm run build-storybook` | Build static Storybook       |
 | `npm run coverage:report` | Extract coverage to report   |
 | `npm run coverage:badges` | Update README badges         |
-| `npm run clean`         | Remove coverage, dist, etc.    |
+| `npm run clean`         | Remove coverage, dist, storybook-static, etc. |
+| `npm run pack`          | Remove existing tgz for current version, then `npm pack` (used by createPackage) |
+| `npm run createPackage` | Clean, build, then create package tgz (`solstice-ui-<version>.tgz`) |
 
-**Convenience scripts:** `scripts/start-storybook.bat` (Windows) / `scripts/start-storybook.command` (macOS) start Storybook. `scripts/generate-tests-report.bat` (Windows) and `scripts/generate-tests-report.command` (macOS) run test coverage and update README badges. See [scripts/README.md](scripts/README.md).
+**Convenience scripts:** `scripts/start-storybook.bat` (Windows) / `scripts/start-storybook.command` (macOS) start Storybook. `scripts/create-package.bat` (Windows) / `scripts/create-package.command` (macOS) create the package tgz (double-click to run: clean, build, pack). `scripts/generate-tests-report.bat` and `scripts/generate-tests-report.command` run test coverage and update README badges. See [scripts/README.md](scripts/README.md).
 
 ---
 

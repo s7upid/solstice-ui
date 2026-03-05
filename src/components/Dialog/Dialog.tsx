@@ -1,7 +1,7 @@
 import { useEffect, useId, type ReactNode, type MouseEvent } from "react";
+import { createPortal } from "react-dom";
 import { LucideIcon, X } from "lucide-react";
 import { cn } from "../../utils/cn";
-import ModalPortal from "../ModalPortal/ModalPortal";
 import Button from "../Button/Button";
 import styles from "./Dialog.module.css";
 
@@ -67,54 +67,53 @@ function Dialog({
     if (closeOnBackdropClick && e.target === e.currentTarget) onClose();
   };
 
-  return (
-    <ModalPortal>
-      <div
-        className={styles.backdrop}
-        onClick={handleBackdropClick}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={title ? titleId : undefined}
-      >
-        <div className={cn(styles.dialog, styles[`size_${size}`], threeD && "solstice-ui-3d", className)}>
-          <div className={styles.header}>
-            {title ? (
-              <h2 id={titleId} className={styles.title}>
-                {title}
-              </h2>
-            ) : (
-              <span className={styles.titleSpacer} />
-            )}
-            <button
-              type="button"
-              onClick={onClose}
-              className={styles.close}
-              aria-label="Close"
-            >
-              <X className={styles.closeIcon} />
-            </button>
-          </div>
-          <div className={styles.content}>{children}</div>
-          {(footer != null || (footerActions != null && footerActions.length > 0)) && (
-            <div className={styles.footer}>
-              {footer ??
-                footerActions?.map((action, i) => (
-                  <Button
-                    key={i}
-                    variant={action.variant ?? "primary"}
-                    onClick={action.onClick}
-                    icon={action.icon}
-                    loading={action.loading}
-                    threeD={threeD}
-                  >
-                    {action.label}
-                  </Button>
-                ))}
-            </div>
+  return createPortal(
+    <div
+      className={styles.backdrop}
+      onClick={handleBackdropClick}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby={title ? titleId : undefined}
+    >
+      <div className={cn(styles.dialog, styles[`size_${size}`], threeD && "solstice-ui-3d", className)}>
+        <div className={styles.header}>
+          {title ? (
+            <h2 id={titleId} className={styles.title}>
+              {title}
+            </h2>
+          ) : (
+            <span className={styles.titleSpacer} />
           )}
+          <button
+            type="button"
+            onClick={onClose}
+            className={styles.close}
+            aria-label="Close"
+          >
+            <X className={styles.closeIcon} />
+          </button>
         </div>
+        <div className={styles.content}>{children}</div>
+        {(footer != null || (footerActions != null && footerActions.length > 0)) && (
+          <div className={styles.footer}>
+            {footer ??
+              footerActions?.map((action, i) => (
+                <Button
+                  key={i}
+                  variant={action.variant ?? "primary"}
+                  onClick={action.onClick}
+                  icon={action.icon}
+                  loading={action.loading}
+                  threeD={threeD}
+                >
+                  {action.label}
+                </Button>
+              ))}
+          </div>
+        )}
       </div>
-    </ModalPortal>
+    </div>,
+    document.body,
   );
 }
 

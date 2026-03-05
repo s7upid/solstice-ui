@@ -34,58 +34,58 @@
 }
 
 .primary {
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-hover) 100%);
   @apply text-white;
   box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35), var(--glass-inset-shadow);
 }
 .primary:not(:disabled):hover {
-  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+  background: linear-gradient(135deg, var(--color-accent-light) 0%, var(--color-accent) 100%);
   box-shadow: 0 6px 20px rgba(59, 130, 246, 0.45);
 }
 .primary:focus-visible {
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.4), 0 4px 14px rgba(59, 130, 246, 0.3);
+  box-shadow: var(--focus-ring-neutral), 0 4px 14px rgba(59, 130, 246, 0.3);
 }
 
 .secondary {
-  background: rgba(0, 0, 0, 0.04);
+  background: var(--surface-bg-secondary);
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
   @apply text-gray-800;
-  border: 1px solid var(--glass-border);
+  border: 1px solid var(--interactive-border);
   box-shadow: var(--glass-shadow), var(--glass-inset-shadow);
 }
 .secondary:not(:disabled):hover {
-  background: rgba(0, 0, 0, 0.08);
+  background: var(--interactive-bg-hover);
   box-shadow: var(--glass-hover-shadow), var(--glass-inset-shadow);
 }
 .secondary:focus-visible {
-  box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.3), var(--glass-shadow);
+  box-shadow: var(--focus-ring-neutral), var(--glass-shadow);
 }
 
 .danger {
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  background: linear-gradient(135deg, var(--color-error) 0%, var(--color-error-hover) 100%);
   @apply text-white;
   box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35), var(--glass-inset-shadow);
 }
 .danger:not(:disabled):hover {
-  background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+  background: linear-gradient(135deg, var(--color-error-light) 0%, var(--color-error) 100%);
   box-shadow: 0 6px 20px rgba(239, 68, 68, 0.45);
 }
 .danger:focus-visible {
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.4), 0 4px 14px rgba(239, 68, 68, 0.3);
+  box-shadow: var(--focus-ring-neutral), 0 4px 14px rgba(239, 68, 68, 0.3);
 }
 
 .success {
-  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  background: linear-gradient(135deg, var(--color-success) 0%, var(--color-success-hover) 100%);
   @apply text-white;
   box-shadow: 0 4px 14px rgba(34, 197, 94, 0.35), var(--glass-inset-shadow);
 }
 .success:not(:disabled):hover {
-  background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+  background: linear-gradient(135deg, var(--color-success-light) 0%, var(--color-success) 100%);
   box-shadow: 0 6px 20px rgba(34, 197, 94, 0.45);
 }
 .success:focus-visible {
-  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.4), 0 4px 14px rgba(34, 197, 94, 0.3);
+  box-shadow: var(--focus-ring-neutral), 0 4px 14px rgba(34, 197, 94, 0.3);
 }
 
 .ghost {
@@ -93,24 +93,24 @@
   transition: all var(--transition-base);
 }
 .ghost:not(:disabled):hover {
-  background: rgba(0, 0, 0, 0.05);
+  background: var(--interactive-bg);
   @apply text-gray-900;
 }
 .ghost:focus-visible {
-  box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.2);
+  box-shadow: var(--focus-ring-neutral-subtle);
 }
 
 .outline {
   @apply bg-transparent text-gray-700;
-  border: 1.5px solid rgba(0, 0, 0, 0.12);
+  border: 1.5px solid var(--interactive-border);
   transition: all var(--transition-base);
 }
 .outline:not(:disabled):hover {
-  background: rgba(0, 0, 0, 0.04);
-  border-color: rgba(0, 0, 0, 0.18);
+  background: var(--interactive-bg);
+  border-color: var(--interactive-border-hover);
 }
 .outline:focus-visible {
-  box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.2);
+  box-shadow: var(--focus-ring-neutral-subtle);
   border-color: transparent;
 }
 
@@ -138,32 +138,13 @@
 
 :global(.dark) .secondary {
   @apply text-gray-100;
-  background: rgba(255, 255, 255, 0.06);
-  border-color: var(--glass-border);
-}
-:global(.dark) .secondary:not(:disabled):hover {
-  background: rgba(255, 255, 255, 0.12);
 }
 :global(.dark) .ghost {
   @apply text-gray-300;
 }
 :global(.dark) .ghost:not(:disabled):hover {
   @apply text-gray-100;
-  background: rgba(255, 255, 255, 0.06);
-}
-:global(.dark) .success {
-  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-  @apply text-white;
-}
-:global(.dark) .danger {
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-  @apply text-white;
 }
 :global(.dark) .outline {
   @apply text-gray-200;
-  border-color: rgba(255, 255, 255, 0.12);
-}
-:global(.dark) .outline:not(:disabled):hover {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.18);
 }

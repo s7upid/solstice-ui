@@ -28,10 +28,3 @@ export const Light: Story = {
 export const Dark: Story = {
   args: { theme: "dark" },
 };
-
-export const WithCallback: Story = {
-  args: {
-    theme: "light",
-    onToggle: () => alert("Toggle clicked"),
-  },
-};

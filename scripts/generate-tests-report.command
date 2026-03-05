@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ============================================
 # Generate test coverage and update README badges
-# Runs: lint -> test:coverage -> test:e2e -> extract-results -> update-readme-badges -> build+pack
+# Runs: lint -> test:coverage -> test:e2e -> extract-results -> update-readme-badges -> build -> pack
 # Double-click on macOS or run: ./scripts/generate-tests-report.command
 # ============================================
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -47,9 +47,8 @@ echo
 
 echo "[7/7] Building and packing distributable..."
 npm run build || { echo "[ERROR] Build failed."; exit 1; }
-rm -f solstice-ui-1.0.0.tgz
-npm pack || { echo "[ERROR] npm pack failed."; exit 1; }
-echo "[SUCCESS] solstice-ui-1.0.0.tgz created."
+npm run pack || { echo "[ERROR] npm pack failed."; exit 1; }
+echo "[SUCCESS] Package tgz created."
 echo
 
 echo "=========================================="

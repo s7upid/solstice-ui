@@ -37,17 +37,9 @@ export default meta;
 
 type Story = StoryObj<typeof Toast>;
 
-export const Default: Story = {
+export const AllTypes: Story = {
   args: {
     toasts: sampleToasts,
-    onRemove: () => {},
-    autoDismiss: false,
-  },
-};
-
-export const SingleToast: Story = {
-  args: {
-    toasts: [sampleToasts[0]],
     onRemove: () => {},
     autoDismiss: false,
   },
@@ -64,22 +56,6 @@ export const Success: Story = {
 export const Error: Story = {
   args: {
     toasts: [sampleToasts[1]],
-    onRemove: () => {},
-    autoDismiss: false,
-  },
-};
-
-export const Info: Story = {
-  args: {
-    toasts: [sampleToasts[2]],
-    onRemove: () => {},
-    autoDismiss: false,
-  },
-};
-
-export const Warning: Story = {
-  args: {
-    toasts: [sampleToasts[3]],
     onRemove: () => {},
     autoDismiss: false,
   },

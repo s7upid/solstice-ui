@@ -41,16 +41,18 @@ Thank you for considering contributing to Solstice UI.
 
 ## Scripts
 
-| Script              | Description                    |
-|---------------------|--------------------------------|
-| `npm run build`     | Build library (dist/)          |
-| `npm run dev`      | Build in watch mode            |
-| `npm run test`     | Run unit tests (Vitest)        |
-| `npm run test:e2e` | Run E2E tests (Playwright)     |
-| `npm run lint`     | Lint with ESLint               |
-| `npm run typecheck`| TypeScript check               |
-| `npm run storybook`| Start Storybook dev server     |
-| `npm run build-storybook` | Build static Storybook  |
+| Script                 | Description                              |
+|------------------------|------------------------------------------|
+| `npm run build`        | Build library (dist/)                    |
+| `npm run dev`          | Build in watch mode                      |
+| `npm run test`         | Run unit tests (Vitest)                  |
+| `npm run test:e2e`     | Run E2E tests (Playwright)               |
+| `npm run lint`         | Lint with ESLint                         |
+| `npm run typecheck`    | TypeScript check                         |
+| `npm run storybook`    | Start Storybook dev server               |
+| `npm run build-storybook` | Build static Storybook                |
+| `npm run clean`        | Remove coverage, dist, storybook-static, etc. |
+| `npm run createPackage`| Clean, build, then create package tgz (solstice-ui-&lt;version&gt;.tgz) |
 
 ## Adding a new component
 
@@ -78,10 +80,20 @@ Thank you for considering contributing to Solstice UI.
 
 ## Releasing (maintainers)
 
-Releases are published to npm via GitHub Actions when a **GitHub Release** is published.
+Releases are fully automated via CI. When a version tag is pushed, CI runs all checks (lint, typecheck, tests, build, e2e) and — only if everything passes — creates a GitHub Release with the `.tgz` package and an auto-generated changelog. The release then triggers npm publish.
 
-1. Update version in `package.json` and add an entry to `CHANGELOG.md`.
-2. Commit, push, and create a new Release on GitHub (tag e.g. `v1.1.0`).
-3. The **Release** workflow will publish the package to npm.
+1. Add an entry to `CHANGELOG.md` under `[Unreleased]` (optional but recommended).
+2. Commit and push your changes to `main`.
+3. Create and push a version tag:
+
+   ```bash
+   git tag v1.2.0
+   git push origin v1.2.0
+   ```
+
+4. CI runs the full pipeline. If all checks pass, a GitHub Release is created automatically with the changelog and `.tgz` attached.
+5. The GitHub Release triggers the **Release** workflow, which publishes to npm.
+
+The version in the release package is derived from the tag — no need to manually update `package.json`.
 
 Storybook is deployed to GitHub Pages on push to `main` via `.github/workflows/docs.yml`.

@@ -1,4 +1,4 @@
-import { useId, type SelectHTMLAttributes, type ChangeEventHandler, type Ref } from "react";
+import { useId, type SelectHTMLAttributes, type ChangeEventHandler, type Ref, type ReactNode } from "react";
 import styles from "./Dropdown.module.css";
 import { cn } from "../../utils/cn";
 
@@ -17,6 +17,8 @@ export interface DropdownProps
   error?: string;
   helperText?: string;
   placeholderOption?: string;
+  /** Optional slot rendered below the select (e.g. a loading spinner). */
+  loadingSlot?: ReactNode;
   /** When true, adds a 3D-style shadow (bottom and right). */
   threeD?: boolean;
   ref?: Ref<HTMLSelectElement>;
@@ -31,6 +33,7 @@ function Dropdown({
   helperText,
   className,
   placeholderOption,
+  loadingSlot,
   threeD = false,
   onChange,
   id,
@@ -66,6 +69,7 @@ function Dropdown({
           </option>
         ))}
       </select>
+      {loadingSlot}
       {error && <p className={styles.error}>{error}</p>}
       {helperText && !error && (
         <p className={styles.helper}>{helperText}</p>

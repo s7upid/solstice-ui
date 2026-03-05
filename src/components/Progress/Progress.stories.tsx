@@ -35,33 +35,7 @@ export default meta;
 type Story = StoryObj<typeof Progress>;
 
 export const Default: Story = {
-  args: { value: 45, max: 100 },
-};
-
-export const WithLabel: Story = {
-  args: { value: 70, max: 100, showLabel: true },
-};
-
-export const Success: Story = {
-  args: { value: 100, variant: "success", showLabel: true },
-};
-
-export const Warning: Story = {
-  args: { value: 60, variant: "warning", showLabel: true },
-};
-
-export const Error: Story = {
-  args: { value: 25, variant: "error", showLabel: true },
-};
-
-export const Sizes: Story = {
-  render: () => (
-    <div className="space-y-4 w-64">
-      <Progress value={50} size="sm" showLabel />
-      <Progress value={50} size="md" showLabel />
-      <Progress value={50} size="lg" showLabel />
-    </div>
-  ),
+  args: { value: 45, max: 100, showLabel: true },
 };
 
 export const AllVariants: Story = {
@@ -71,6 +45,16 @@ export const AllVariants: Story = {
       <Progress value={80} variant="success" showLabel />
       <Progress value={60} variant="warning" showLabel />
       <Progress value={20} variant="error" showLabel />
+    </div>
+  ),
+};
+
+export const Sizes: Story = {
+  render: () => (
+    <div className="space-y-4 w-64">
+      <Progress value={50} size="sm" showLabel />
+      <Progress value={50} size="md" showLabel />
+      <Progress value={50} size="lg" showLabel />
     </div>
   ),
 };

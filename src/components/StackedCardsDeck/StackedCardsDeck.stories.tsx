@@ -83,20 +83,6 @@ export const Default: Story = {
   },
 };
 
-export const CompactSpacing: Story = {
-  args: {
-    items: sampleItems,
-    spacing: 90,
-    cardHeight: 260,
-  },
-};
-
-export const TwoCards: Story = {
-  args: {
-    items: sampleItems.slice(0, 2),
-  },
-};
-
 export const TextOnly: Story = {
   args: {
     items: [

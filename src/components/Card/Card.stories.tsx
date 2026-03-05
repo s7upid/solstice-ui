@@ -54,15 +54,6 @@ export const WithIcon: Story = {
   },
 };
 
-export const WithStatus: Story = {
-  args: {
-    title: "Deployment",
-    description: "Last deployed 2 hours ago.",
-    status: "Active",
-    statusVariant: "success",
-  },
-};
-
 export const WithActions: Story = {
   args: {
     title: "User profile",
@@ -75,56 +66,14 @@ export const WithActions: Story = {
   },
 };
 
-export const Vertical: Story = {
-  args: {
-    title: "Vertical layout",
-    description: "Layout is set to vertical.",
-    layout: "vertical",
-  },
-};
-
-export const Horizontal: Story = {
-  args: {
-    title: "Horizontal layout",
-    description: "Layout is set to horizontal.",
-    layout: "horizontal",
-  },
-};
-
-export const StatusDefault: Story = {
-  args: {
-    title: "Draft",
-    description: "Status variant: default.",
-    status: "Draft",
-    statusVariant: "default",
-  },
-};
-
-export const StatusWarning: Story = {
-  args: {
-    title: "Pending review",
-    description: "Status variant: warning.",
-    status: "Pending",
-    statusVariant: "warning",
-  },
-};
-
-export const StatusError: Story = {
-  args: {
-    title: "Build failed",
-    description: "Status variant: error.",
-    status: "Failed",
-    statusVariant: "error",
-  },
-};
-
-export const StatusInfo: Story = {
-  args: {
-    title: "In progress",
-    description: "Status variant: info.",
-    status: "Info",
-    statusVariant: "info",
-  },
+export const Layouts: Story = {
+  render: () => (
+    <div className="space-y-4 max-w-2xl">
+      <Card title="Default layout" description="Standard card layout." />
+      <Card title="Vertical layout" description="Stacked vertically." layout="vertical" />
+      <Card title="Horizontal layout" description="Side by side." layout="horizontal" />
+    </div>
+  ),
 };
 
 export const AllStatusVariants: Story = {

@@ -27,7 +27,7 @@ interface Action {
 }
 
 export interface CardProps {
-  title: string;
+  title?: string;
   description?: string;
   icon?: LucideIcon;
   avatar?: string;
@@ -236,15 +236,17 @@ function Card({
         </div>
       )}
 
-      <div className={layoutClass}>
-        <CardHeader
-          title={title}
-          description={description}
-          avatar={avatar}
-          icon={icon}
-          iconSize={iconSize}
-        />
-      </div>
+      {(title || description || avatar || icon) && (
+        <div className={layoutClass}>
+          <CardHeader
+            title={title}
+            description={description}
+            avatar={avatar}
+            icon={icon}
+            iconSize={iconSize}
+          />
+        </div>
+      )}
 
       {children}
 

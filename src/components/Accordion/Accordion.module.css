@@ -2,9 +2,7 @@
 
 .accordion {
   @apply flex flex-col w-full min-w-0 max-w-full rounded-2xl overflow-hidden;
-  background: var(--glass-bg-strong);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
+  background: var(--surface-bg);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow), var(--glass-inset-shadow);
 }
@@ -44,10 +42,7 @@
 }
 
 .trigger:hover:not(:disabled) {
-  background: rgba(0, 0, 0, 0.04);
-}
-:global(.dark) .trigger:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--interactive-bg);
 }
 
 .trigger:disabled {

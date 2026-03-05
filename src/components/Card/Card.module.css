@@ -2,9 +2,7 @@
 
 .card {
   @apply w-full rounded-2xl p-6 relative flex flex-col mb-6;
-  background: var(--glass-bg-strong);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
+  background: var(--surface-bg);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow), var(--glass-inset-shadow);
   transition: all var(--transition-smooth);
@@ -16,6 +14,13 @@
 
 .cardStatusBadge {
   @apply absolute top-3 right-3 z-10;
+}
+
+.cardStatusBadge ~ .header,
+.cardStatusBadge ~ .horizontalHeader,
+.cardStatusBadge ~ .verticalHeader,
+.cardStatusBadge ~ .imageContent {
+  @apply pr-16;
 }
 
 .header,
@@ -148,22 +153,20 @@
 }
 .actionButton {
   @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium;
-  background: rgba(0, 0, 0, 0.04);
+  background: var(--interactive-bg);
   border: 1px solid var(--glass-border);
   @apply text-gray-700;
   transition: all var(--transition-base);
 }
 .actionButton:hover {
-  background: rgba(0, 0, 0, 0.08);
+  background: var(--interactive-bg-hover);
   transform: translateY(-1px);
 }
 :global(.dark) .actionButton {
   @apply text-gray-300;
-  background: rgba(255, 255, 255, 0.06);
 }
 :global(.dark) .actionButton:hover {
   @apply text-gray-100;
-  background: rgba(255, 255, 255, 0.12);
 }
 .actionIcon {
   @apply h-4 w-4;
@@ -171,9 +174,7 @@
 
 .cardWithImage {
   @apply w-full rounded-2xl overflow-hidden flex flex-col min-h-[200px] p-0 mb-0;
-  background: var(--glass-bg-strong);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
+  background: var(--surface-bg);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow), var(--glass-inset-shadow);
 }

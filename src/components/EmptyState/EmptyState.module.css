@@ -2,9 +2,7 @@
 
 .emptyState {
   @apply w-full flex flex-col items-center justify-center text-center gap-4 p-8 rounded-2xl;
-  background: var(--glass-bg-strong);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
+  background: var(--surface-bg);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow), var(--glass-inset-shadow);
   animation: glass-fade-in 400ms ease-out;

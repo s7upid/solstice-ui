@@ -67,7 +67,7 @@ export const ListLayout: Story = {
   ),
 };
 
-export const GridEmpty: Story = {
+export const Empty: Story = {
   render: () => (
     <DataPage<Project>
       layout="grid"
@@ -80,7 +80,7 @@ export const GridEmpty: Story = {
   ),
 };
 
-export const GridLoading: Story = {
+export const Loading: Story = {
   render: () => (
     <DataPage<Project>
       layout="grid"
@@ -88,33 +88,6 @@ export const GridLoading: Story = {
       items={projects}
       loading
       renderCard={(item) => <Card title={item.title} description={item.description} />}
-    />
-  ),
-};
-
-export const ListEmpty: Story = {
-  render: () => (
-    <DataPage<Project>
-      layout="list"
-      title="Items"
-      items={[]}
-      emptyTitle="No items"
-      emptyDescription="Add items to get started."
-      renderItem={() => null}
-    />
-  ),
-};
-
-export const ListLoading: Story = {
-  render: () => (
-    <DataPage<Project>
-      layout="list"
-      title="Items"
-      items={projects}
-      loading
-      renderItem={(item) => (
-        <Card title={item.title} description={item.description} layout="horizontal" />
-      )}
     />
   ),
 };

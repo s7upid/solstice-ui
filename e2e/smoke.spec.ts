@@ -14,7 +14,7 @@ const SMOKE_STORIES: { id: string; name: string }[] = [
   { id: "components-input--default", name: "Input" },
   { id: "components-list--default", name: "List" },
   { id: "components-loading-spinner--default", name: "LoadingSpinner" },
-  { id: "components-modal-portal--default", name: "ModalPortal" },
+  { id: "components-dialog--default", name: "Dialog" },
   { id: "components-page-header--default", name: "PageHeader" },
   { id: "components-progress--default", name: "Progress" },
   { id: "components-search-input--default", name: "SearchInput" },
