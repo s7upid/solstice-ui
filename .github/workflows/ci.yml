@@ -149,7 +149,7 @@ jobs:
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Set package version from tag
-        run: npm version "${{ steps.pkg.outputs.version }}" --no-git-tag-version
+        run: npm version "${{ steps.pkg.outputs.version }}" --no-git-tag-version --allow-same-version
 
       - name: Build
         run: npm run build
